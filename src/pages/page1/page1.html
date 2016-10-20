@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle class="toggleMenu">
+      <ion-icon name="md-more" class="pull-left"></ion-icon>
+    </button>
+    <ion-title>dride</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="home">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let user of users">
+    <img src="assets/images/demo.jpg"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{ user.name }}
+        </ion-card-title>
+      <p>
+        The most popular industrial group ever, and largely
+        responsible for bringing the music to a mass audience.
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
