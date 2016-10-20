@@ -30,6 +30,7 @@ ion-card {
     background-image: url("../assets/images/header.svg");
     background-size: 156%;
     background-position-x: center;
+    height: 113px;
 }
 .toolbar-title{
 	color: #fff;
@@ -61,4 +62,10 @@ ion-menu .toolbar-background{
     font-size: 25px;
     margin-top: -29px;
     color: #fff;
+}
+.has-refresher > .scroll-content{
+    border-top: 0;
+}
+.scroll-content{
+    margin-top: 66px !important;
 }
