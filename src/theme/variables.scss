@@ -53,6 +53,13 @@ $colors: (
 
 $font-family-base: "Comfortaa", cursive !default;
 
+ion-app.md , ion-app.wp, ion-app.ios{
+	font-family: "Comfortaa", cursive !important;
+}
+ 
+
+
+
 // App Theme
 // --------------------------------------------------
 // Ionic apps can have different themes applied, which can
