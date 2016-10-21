@@ -2,12 +2,22 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
+import {VideoService} from '../../providers/video-service';
+
+
 @Component({
   selector: 'page-page1',
-  templateUrl: 'page1.html'
+  templateUrl: 'page1.html',
+  providers: [ VideoService ]
 })
+
+
 export class Page1 {
 
+
+  public data: any;
+  public host: string = "http://192.168.42.1"; 
+  public videos: any;
 
   public users = [
     { name: 'Jilles', age: 21 },
@@ -31,9 +41,18 @@ export class Page1 {
     }, 500);
   }
 
+ 
 
-  constructor(public navCtrl: NavController) {
-    
-  }
+  constructor(public navCtrl: NavController, public videoService: VideoService) {
+
+      this.videoService.load()
+      .then(data => {
+        this.videos = data
+        console.log(this.videos)
+      }); 
+
+
+
+   }
 
 }
