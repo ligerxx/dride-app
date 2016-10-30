@@ -17,7 +17,7 @@
 
         <div class="videoObject">
             <div class="title">
-               {{video * 1000 | date: 'dd.MM.yyyy'}} | Near Tel Aviv
+               {{toDate(video)}} | Near Tel Aviv
                <ion-icon ios="ios-map" md="ios-map" class="pull-right"></ion-icon>
             </div>
             <video id="v{{i}}" preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">

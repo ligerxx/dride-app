@@ -4,8 +4,6 @@ import { NavController } from 'ionic-angular';
 
 import {VideoService} from '../../providers/video-service';
 
-import {Pipe, PipeTransform} from '@angular/core';
-
 
 @Component({
   selector: 'page-page1',
@@ -51,6 +49,15 @@ export class Page1 {
 
   }
 
+  toDate(timeStamp) {
+    if (!timeStamp)
+      return '';
+
+    var d = new Date(timeStamp * 1000);
+
+    return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+
+  }
  
 
   constructor(public navCtrl: NavController, public videoService: VideoService) {
