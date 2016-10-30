@@ -52,15 +52,15 @@ export class Page1 {
   play(vidoeId) {
 
     this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
-    this.playing[vidoeId]['playing'] = true;   
+    this.playing[vidoeId] = true;   
     this.vid.play();  
   }
   pause(vidoeId) {
 
     this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
-    this.playing[vidoeId]['playing'] = false;
+    this.playing[vidoeId] = false;
     this.vid.pause();
-    
+
   }
 
  
