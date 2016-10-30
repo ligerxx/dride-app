@@ -24,8 +24,9 @@ page-page1 {
 	    float: left;
 	    padding-left: 12px;
 	    font-size: 17px;
-    	margin-top: 57px;
+		margin-top: 121px;
 	    color: #fff;
+	    width: 100%;
 	}
 	.title{
 	    background: linear-gradient(to bottom, #000000 0%, transparent 100%);
@@ -35,5 +36,18 @@ page-page1 {
 	    color: #fff;
 	    padding: 6px;
 	    margin-top: -50px;
+	}
+	.scroll{
+		width: 90%;
+	    height: 5px;
+	    float: right;
+	    margin-top: 11px;
+	    margin-right: 8px;
+	    border-top: 4px solid #fdfdfd;
+	}
+	.scrollFill{
+		background-color: #F06060;
+	    height: 4px;
+	    margin-top: -4px;
 	}
 }

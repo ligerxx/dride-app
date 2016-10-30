@@ -20,6 +20,13 @@ export class Page1 {
   public host: string = "http://192.168.42.1"; 
   public videos: any;
 
+  public vid: HTMLVideoElement;
+  public playing: boolean[] = [];
+  public progressBar: boolean[] = [];
+  public progress: any = 50;
+
+
+
   public users = [
     { name: 'Jilles', age: 21 },
     { name: 'Todd', age: 24 },
@@ -32,7 +39,7 @@ export class Page1 {
     { name: 'Li23423sa', age: 18 },
     { name: 'Li34234sa', age: 18 }
   ];
-
+  
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
@@ -40,6 +47,20 @@ export class Page1 {
       console.log('Async operation has ended');
       refresher.complete();
     }, 500);
+  } 
+
+  play(vidoeId) {
+
+    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
+    this.playing[vidoeId]['playing'] = true;   
+    this.vid.play();  
+  }
+  pause(vidoeId) {
+
+    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
+    this.playing[vidoeId]['playing'] = false;
+    this.vid.pause();
+    
   }
 
  
