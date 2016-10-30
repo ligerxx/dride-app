@@ -21,8 +21,11 @@
   src: url('../assets/fonts/Comfortaa-Light.ttf');
 }
 
-ion-card {
-    min-height: 350px;
+.pull-right{
+    float: right;
+}
+.pull-left{
+    float: left;
 }
 .toolbar-background{
     border: 0;

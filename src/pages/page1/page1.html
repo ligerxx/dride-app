@@ -1,30 +1,44 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle class="toggleMenu">
-      <ion-icon name="md-more" class="pull-left"></ion-icon>
-    </button>
-    <ion-title>dride</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle class="toggleMenu">
+            <ion-icon name="md-more" class="pull-left"></ion-icon>
+        </button>
+        <ion-title>dride</ion-title>
+    </ion-navbar>
 </ion-header>
-
 <ion-content class="home">
-
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <ion-card *ngFor="let video of videos">
-    <img src="{{host}}/modules/video/thumb/{{video}}.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-
-        </ion-card-title>
-      <p>
-        The most popular industrial group ever, and largely
-        responsible for bringing the music to a mass audience.
-      </p>
-    </ion-card-content>
-  </ion-card>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-card *ngFor="let video of users">
 
 
+
+
+        <div class="videoObject">
+            <div class="title">
+               15.5.17 | Near Tel Aviv
+               <ion-icon ios="ios-map" md="ios-map" class="pull-right"></ion-icon>
+            </div>
+            <video preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="/assets/images/demo.jpg">
+                <source src="{{host}}/modules/video/clip/70.mp4" type="video/mp4" />
+            </video>
+            <div class="controls">
+              <ion-icon ios="ios-play" md="ios-play"></ion-icon>
+              <div class="clear"></div>
+              <div class="scrollbar">
+                  <ion-icon ios="ios-pause" md="ios-pause"></ion-icon>
+              </div>
+
+            </div>
+        </div>
+
+
+        <ion-card-content>
+            <button ion-button clear icon-left class="pull-left actionButtons">
+                <ion-icon name="share-alt"></ion-icon>Share</button>
+            <button ion-button clear icon-left class="pull-right actionButtons">
+                <ion-icon name="trash"></ion-icon>Delete</button>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

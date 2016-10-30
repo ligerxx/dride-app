@@ -16,6 +16,7 @@ export class Page1 {
 
 
   public data: any;
+  //public host: string = "http://192.168.2.2"; 
   public host: string = "http://192.168.42.1"; 
   public videos: any;
 
@@ -45,7 +46,7 @@ export class Page1 {
 
   constructor(public navCtrl: NavController, public videoService: VideoService) {
 
-      this.videoService.load()
+      this.videoService.load(this.host)
       .then(data => {
         this.videos = data
         console.log(this.videos)
