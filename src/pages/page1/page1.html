@@ -10,18 +10,18 @@
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-    <ion-card *ngFor="let video of users; let i = index;">
+    <ion-card *ngFor="let video of videos; let i = index;">
 
 
 
 
         <div class="videoObject">
             <div class="title">
-               15.5.17 | Near Tel Aviv
+               {{video * 1000 | date: 'dd.MM.yyyy'}} | Near Tel Aviv
                <ion-icon ios="ios-map" md="ios-map" class="pull-right"></ion-icon>
             </div>
-            <video id="v{{i}}" preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="/assets/images/demo.jpg">
-                <source src="{{host}}/modules/video/clip/70.mp4" type="video/mp4" />
+            <video id="v{{i}}" preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+                <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
             </video>
             <div class="controls">
               <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon>
