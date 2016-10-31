@@ -6,7 +6,7 @@
         <ion-title>dride</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content class="home">
+<ion-content class="home" >
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
@@ -15,12 +15,13 @@
 
 
 
-        <div class="videoObject">
+        <div class="videoObject" > 
             <div class="title">
                {{toDate(video)}} | Near Tel Aviv
                <ion-icon ios="ios-map" md="ios-map" class="pull-right"></ion-icon>
             </div>
-            <video id="v{{i}}" preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+<!--               <img [src]="host + '/modules/video/thumb/' +video +'.jpg'" /> -->
+            <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline="webkit-playsinline" class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
                 <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
             </video>
             <div class="controls">
@@ -29,7 +30,7 @@
               <div class="scrollbar" [hidden]="playing && !playing[i]">
                   <ion-icon  ios="ios-pause" md="ios-pause" (click)="pause(i)" class="pull-left"></ion-icon>
                   <div class="scroll" >
-                    <div class="scrollFill" [style.width]="(progress/100)*100 + '%'"></div>
+                    <div class="scrollFill" [style.width]="(currentTime/100)*100 + '%'"></div>
                   </div>
                   
               </div>

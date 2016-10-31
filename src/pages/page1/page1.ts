@@ -10,8 +10,8 @@ import {VideoService} from '../../providers/video-service';
   templateUrl: 'page1.html',
   providers: [ VideoService ]
 })
-
-
+ 
+ 
 export class Page1 {
 
 
@@ -24,6 +24,7 @@ export class Page1 {
   public playing: boolean[] = [];
   public progressBar: boolean[] = [];
   public progress: any = 50;
+  public currentTime: any = 0;
 
   
   doRefresh(refresher) {
@@ -40,6 +41,13 @@ export class Page1 {
     this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
     this.playing[vidoeId] = true;   
     this.vid.play();  
+
+
+    setInterval(() => {
+      this.currentTime = this.vid.currentTime;
+    }, 500);
+
+
   }
   pause(vidoeId) {
 
@@ -55,7 +63,7 @@ export class Page1 {
 
     var d = new Date(timeStamp * 1000);
 
-    return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear();
+    return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
 
   }
  
@@ -72,3 +80,4 @@ export class Page1 {
    }
 
 }
+
