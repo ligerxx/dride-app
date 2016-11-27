@@ -10,28 +10,23 @@ import {VideoService} from '../../providers/video-service';
   templateUrl: 'page1.html',
   providers: [ VideoService ]
 })
-
-
+ 
+ 
 export class Page1 {
 
 
   public data: any;
-  public host: string = "http://192.168.42.1"; 
+  //public host: string = "http://192.168.2.2"; 
+  public host: string = "http://192.168.42.1:9000"; 
   public videos: any;
 
-  public users = [
-    { name: 'Jilles', age: 21 },
-    { name: 'Todd', age: 24 },
-    { name: 'as', age: 18 },
-    { name: 'Lidasdassa', age: 18 },
-    { name: 'Lidasdassa', age: 18 },
-    { name: 'Lidasdsadsa', age: 18 },
-    { name: 'Liasdassa', age: 18 },
-    { name: 'Lidasdassa', age: 18 },
-    { name: 'Li23423sa', age: 18 },
-    { name: 'Li34234sa', age: 18 }
-  ];
+  public vid: HTMLVideoElement;
+  public playing: boolean[] = [];
+  public progressBar: boolean[] = [];
+  public progress: any = 50;
+  public currentTime: any = 0;
 
+  
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
@@ -39,16 +34,45 @@ export class Page1 {
       console.log('Async operation has ended');
       refresher.complete();
     }, 500);
+  } 
+
+  play(vidoeId) {
+
+    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
+    this.playing[vidoeId] = true;   
+    this.vid.play();  
+
+
+    setInterval(() => {
+      this.currentTime = this.vid.currentTime;
+    }, 500);
+
+
+  }
+  pause(vidoeId) {
+
+    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
+    this.playing[vidoeId] = false;
+    this.vid.pause();
+
   }
 
+  toDate(timeStamp) {
+    if (!timeStamp)
+      return '';
+
+    var d = new Date(timeStamp * 1000);
+
+    return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
+
+  }
  
 
   constructor(public navCtrl: NavController, public videoService: VideoService) {
 
-      this.videoService.load()
+      this.videoService.load(this.host)
       .then(data => {
         this.videos = data
-        console.log(this.videos)
       }); 
 
 
@@ -56,3 +80,4 @@ export class Page1 {
    }
 
 }
+
