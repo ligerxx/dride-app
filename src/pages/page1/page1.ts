@@ -20,6 +20,7 @@ export class Page1 {
   public data: any;
   //public host: string = "http://192.168.2.2"; 
   public host: string = "http://192.168.42.1:9000"; 
+  public videosAll: any;
   public videos: any;
 
   public vid: HTMLVideoElement;
@@ -49,7 +50,7 @@ export class Page1 {
 
       this.videoService.load(this.host)
       .then(data => {
-        this.videos = data
+        this.videosAll = data
         refresher.complete();
       }); 
 
@@ -163,18 +164,17 @@ export class Page1 {
     });
   }
 
- // doInfinite(infiniteScroll) {
- //    console.log('Begin async operation');
+ doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
 
- //    setTimeout(() => {
- //      for (var i = 0; i < 4; i++) {
- //        this.users.push( this.users.length );
- //      }
+    for (var i = 0; i < 6 && this.videosAll.length; i++) {
+      this.videos.push( this.videosAll.pop() );
+    }
 
- //      console.log('Async operation has ended');
- //      infiniteScroll.complete();
- //    }, 500);
- //  }
+    console.log('Async operation has ended');
+    infiniteScroll.complete();
+
+  }
 
 
 
@@ -182,7 +182,13 @@ export class Page1 {
 
       this.videoService.load(this.host)
       .then(data => {
-        this.videos = data
+        this.videosAll = data
+        this.videos = [];
+        for (var i = 0; i < 2 && this.videosAll.length; i++) {
+          this.videos.push( this.videosAll.pop() );
+        }
+
+
       }); 
 
    }
