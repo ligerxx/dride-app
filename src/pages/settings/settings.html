@@ -6,18 +6,30 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content class="padContent">
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
+
+  <ion-item-divider>
+    Settings
+  </ion-item-divider>
+
+  <ion-item *ngFor="let item of settingsNodes" class="settingsNodes">
+    <ion-icon [name]="item.icon" item-left></ion-icon>
+    <ion-label [innerHTML]="item.title"></ion-label>
+    <ion-toggle [(ngModel)]="item.id"></ion-toggle>
+  </ion-item>
+
+  <ion-item-divider>
+    Calibration
+  </ion-item-divider>
+
+
+	<ion-item detail-push (click)="openCalibration()">
+	  Start Calibration
+	</ion-item>
+
+
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+
 </ion-content>
 

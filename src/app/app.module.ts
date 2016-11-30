@@ -3,13 +3,15 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
+import { CalibrationPage } from '../pages/calibration/calibration';
 
 
 @NgModule({
   declarations: [
     MyApp,
     clipsPage,
-    SettingsPage
+    SettingsPage,
+    CalibrationPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -18,7 +20,8 @@ import { SettingsPage } from '../pages/settings/settings';
   entryComponents: [
     MyApp,
     clipsPage,
-    SettingsPage
+    SettingsPage,
+    CalibrationPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -5,6 +5,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
+import { CalibrationPage } from '../pages/calibration/calibration';
 
 
 @Component({
