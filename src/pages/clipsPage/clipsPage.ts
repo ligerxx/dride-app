@@ -168,7 +168,7 @@ export class clipsPage {
     console.log('Begin async operation');
 
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
-      this.videos.push( this.videosAll.shift() );
+      this.videos.push( this.videosAll.pop() );
     }
 
     console.log('Async operation has ended');
@@ -185,7 +185,7 @@ export class clipsPage {
         this.videosAll = data
         this.videos = [];
         for (var i = 0; i < 2 && this.videosAll.length; i++) {
-          this.videos.push( this.videosAll.shift() );
+          this.videos.push( this.videosAll.shidt() );
         }
 
 

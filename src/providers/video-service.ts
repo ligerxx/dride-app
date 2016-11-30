@@ -41,7 +41,6 @@ export class VideoService {
 	        // we've got back the raw data, now generate the core schedule data
 	        // and save the data for later reference
 	        this.data = data.data;
-	        this.data.reverse();
 	        
 	        resolve(this.data);
 	      });
