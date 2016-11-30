@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Globals } from '../providers/globals';
 
 /*
   Generated class for the Settings provider.
@@ -12,15 +13,20 @@ import 'rxjs/add/operator/map';
 export class Settings {
 
 
-  constructor(public http: Http) {
+  public data: any;
+  public host: string;
+  
+  constructor(public http: Http, public g: Globals) {
+
+    this.host = g.host;
 
   	console.log('Hello from Settings Provider');
 
   }
 
-  public data: any;
 
-	load(host: string) {
+	load() {
+
 	  if (this.data) {
 	    // already loaded data
 	    return Promise.resolve(this.data);
@@ -29,7 +35,7 @@ export class Settings {
 	  // don't have the data yet
 	  return new Promise(resolve => {
 
-	    this.http.get( host +'/api/getSettings')
+	    this.http.get( this.host +'/api/getSettings')
 	      .map(res => res.json())
 	      .subscribe(data => {
         
@@ -39,12 +45,12 @@ export class Settings {
 	  });
 	}
 
-	setSettings(configObj: any, host: string, fieldName: string, fieldValue: string, CategoryName: string) {
+	setSettings(configObj: any,  fieldName: string, fieldValue: string, CategoryName: string) {
 
 	  // don't have the data yet
 	  return new Promise(resolve => {
 
-	    this.http.get( host +'/api/setSetting?fieldName=' + fieldName + '&fieldValue=' + fieldValue + '&CategoryName=' + CategoryName)
+	    this.http.get( this.host +'/api/setSetting?fieldName=' + fieldName + '&fieldValue=' + fieldValue + '&CategoryName=' + CategoryName)
 	      .map(res => res.json())
 	      .subscribe(data => {
         

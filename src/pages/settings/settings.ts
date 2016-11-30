@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CalibrationPage } from '../../pages/calibration/calibration';
 import { Settings } from '../../providers/settings';
+import { Globals } from '../../providers/globals';
 
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ Settings ]
+  providers: [ Settings, Globals ]
 })
 export class SettingsPage {
 
@@ -40,12 +41,11 @@ export class SettingsPage {
                           }
 
 
-  public host: string = "http://192.168.2.3:9000";
 
   constructor(public navCtrl: NavController, public settings: Settings) {
     
 
-     this.settings.load(this.host)
+     this.settings.load()
       .then(data => {
         this.configObj = data;
       }); 
@@ -66,7 +66,7 @@ export class SettingsPage {
 
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 
-   this.settings.setSettings(this.configObj, this.host, fieldName, fieldValue, CategoryName)
+   this.settings.setSettings(this.configObj, fieldName, fieldValue, CategoryName)
 
   }
 

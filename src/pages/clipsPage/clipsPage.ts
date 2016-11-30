@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-
 import { NavController, LoadingController} from 'ionic-angular';
-
 import { Transfer, SocialSharing } from 'ionic-native';
-
-import {VideoService} from '../../providers/video-service';
-
+import { VideoService } from '../../providers/video-service';
+import { Globals } from '../../providers/globals';
 
 @Component({
   selector: 'page-clipsPage',
   templateUrl: 'clipsPage.html',
-  providers: [ VideoService ]
+  providers: [ VideoService, Globals ]
 })
  
  
@@ -45,10 +42,29 @@ export class clipsPage {
    ];
 
 
+
+  constructor(public navCtrl: NavController, public videoService: VideoService, public loadingCtrl: LoadingController, public g: Globals) {
+
+      this.host = g.host;
+
+      this.videoService.load()
+      .then(data => {
+        this.videosAll = data
+        this.videos = [];
+        for (var i = 0; i < 2 && this.videosAll.length; i++) {
+          this.videos.push( this.videosAll.pop() );
+        }
+
+
+      }); 
+
+   }
+
+
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
-      this.videoService.load(this.host)
+      this.videoService.load()
       .then(data => {
         this.videosAll = data
         refresher.complete();
@@ -177,21 +193,6 @@ export class clipsPage {
   }
 
 
-
-  constructor(public navCtrl: NavController, public videoService: VideoService, public loadingCtrl: LoadingController) {
-
-      this.videoService.load(this.host)
-      .then(data => {
-        this.videosAll = data
-        this.videos = [];
-        for (var i = 0; i < 2 && this.videosAll.length; i++) {
-          this.videos.push( this.videosAll.shidt() );
-        }
-
-
-      }); 
-
-   }
 
 }
 
