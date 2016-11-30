@@ -8,13 +8,13 @@ import {VideoService} from '../../providers/video-service';
 
 
 @Component({
-  selector: 'page-page1',
-  templateUrl: 'page1.html',
+  selector: 'page-clipsPage',
+  templateUrl: 'clipsPage.html',
   providers: [ VideoService ]
 })
  
  
-export class Page1 {
+export class clipsPage {
 
 
   public data: any;
@@ -168,7 +168,7 @@ export class Page1 {
     console.log('Begin async operation');
 
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
-      this.videos.push( this.videosAll.pop() );
+      this.videos.push( this.videosAll.shift() );
     }
 
     console.log('Async operation has ended');
@@ -185,7 +185,7 @@ export class Page1 {
         this.videosAll = data
         this.videos = [];
         for (var i = 0; i < 2 && this.videosAll.length; i++) {
-          this.videos.push( this.videosAll.pop() );
+          this.videos.push( this.videosAll.shift() );
         }
 
 
