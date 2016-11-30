@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Settings</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="padContent">
+    <br>
+
+    <ion-list>
+        <ion-item *ngFor="let item of settingsNodes" class="settingsNodes">
+            <ion-icon [name]="item.icon" item-left></ion-icon>
+            <ion-label [innerHTML]="item.title"></ion-label>
+            <ion-toggle [(ngModel)]="configObj[item.category][item.id]" (click)="setSetting(item.id, configObj[item.category][item.id], item.category)"></ion-toggle>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item detail-push (click)="openCalibration()">
+            Start Calibration
+        </ion-item>
+        <ion-item detail-push >
+            Change dride password
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item detail-push >
+         	<ion-icon name="help-buoy" item-left></ion-icon>
+            Contact Support
+        </ion-item>
+        <ion-item detail-push >
+			<ion-icon name="bug" item-left></ion-icon>
+            Report a Bug
+        </ion-item>
+        <ion-item detail-push >
+        	<ion-icon name="information-circle" item-left></ion-icon>
+            About this device
+        </ion-item>
+    </ion-list>
+
+
+
+</ion-content>
