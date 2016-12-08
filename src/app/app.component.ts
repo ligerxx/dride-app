@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { AngularFire } from 'angularfire2';
+
 
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
-import { CalibrationPage } from '../pages/calibration/calibration';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -15,10 +15,11 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = clipsPage;
+  profileModal: any;
 
   pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform) {
+ 
+  constructor(public platform: Platform, af: AngularFire) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -29,10 +30,10 @@ export class MyApp {
 
   }
 
+
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       StatusBar.styleDefault();
       Splashscreen.hide();
 
@@ -45,3 +46,5 @@ export class MyApp {
     this.nav.push(page.component);
   }
 }
+
+

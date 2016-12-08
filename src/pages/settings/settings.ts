@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Transfer } from 'ionic-native';
+
+import { Globals } from '../../providers/globals';
 import { CalibrationPage } from '../../pages/calibration/calibration';
 import { Settings } from '../../providers/settings';
-import { Globals } from '../../providers/globals';
+import { FirmwareUpdate } from '../../providers/firmware-update';
 
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ Settings, Globals ]
+  providers: [ Settings, Globals, FirmwareUpdate, Transfer ]
 })
 export class SettingsPage {
 
@@ -41,8 +44,7 @@ export class SettingsPage {
                           }
 
 
-
-  constructor(public navCtrl: NavController, public settings: Settings) {
+  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate) {
     
 
      this.settings.load()
@@ -63,6 +65,12 @@ export class SettingsPage {
 
   }
 
+  // will update dride's firmware.
+  updateDride(){
+
+    this.firmwareUpdate.updateDride()
+
+  }
 
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 

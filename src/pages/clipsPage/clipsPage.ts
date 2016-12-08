@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController} from 'ionic-angular';
+import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { Transfer, SocialSharing } from 'ionic-native';
 import { VideoService } from '../../providers/video-service';
 import { Globals } from '../../providers/globals';
+import { AuthService } from '../../providers/auth-service';
+import { AngularFire } from 'angularfire2';
+
 
 @Component({
   selector: 'page-clipsPage',
@@ -28,6 +31,7 @@ export class clipsPage {
 
   public loading: any;
 
+
   public users = [
      "151515115151" ,
      "151516115151" ,
@@ -43,9 +47,10 @@ export class clipsPage {
 
 
 
-  constructor(public navCtrl: NavController, public videoService: VideoService, public loadingCtrl: LoadingController, public g: Globals) {
+  constructor(public navCtrl: NavController, public videoService: VideoService, public loadingCtrl: LoadingController, public g: Globals, af: AngularFire, private _auth: AuthService, public platform: Platform) {
 
-      this.host = g.host;
+
+     this.host = g.host;
 
       this.videoService.load()
       .then(data => {
@@ -58,7 +63,9 @@ export class clipsPage {
 
       }); 
 
+
    }
+
 
 
   doRefresh(refresher) {
@@ -103,12 +110,20 @@ export class clipsPage {
     return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes();
 
   }
-  
+   
 
   shareVideo(vidoeId) {
 
-    this.download(vidoeId)
+    //make sure the user Is logged in, a login pop up will jump if not.
+    this._auth.isLogedIn().then(result => {
 
+        this.download(vidoeId);
+
+    }, function(reason) {
+      console.log('close modal without execution.');
+    });
+
+        
   }
 
 
@@ -126,6 +141,10 @@ export class clipsPage {
 
   download(vidoeId){
 
+    if (!this.platform.is('cordova')) {
+     alert('Platform not supported');
+     return;
+    }
 
     this.showLoading();
   
