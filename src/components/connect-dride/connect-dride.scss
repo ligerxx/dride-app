@@ -1,0 +1,80 @@
+connect-dride {
+	.popUpHeader{
+		background-color: #333;
+		height: 52px;
+		text-align: center;
+	}	
+	.roundBottom{
+	    height: 154px;
+	    background-color: #333;
+	    margin-top: -113px;
+	    border-radius: 250%;
+	    width: 171%;
+	    margin-left: -34%;
+	}
+	.closePopup{
+	    background-color: #333;
+	    color: #808080;
+	    font-size: 25px;
+	    position: relative;
+	    right: 5px;
+	    top: -7px;
+	    float: right;
+	}
+	.product{
+		width: 63%;
+    	margin-top: 61px;
+	}
+	.popUpHeader {
+	    height: 312px;
+	}
+	.roundBottom {
+	    margin-top: -201px;
+	}
+	.popUpHeader h2{
+		margin-top: -59px;
+    	margin-bottom: 61px;
+	}
+	.steps{
+		list-style: none;
+		padding-top: 25px;
+		background-color: #fff;
+		border-top: 1px solid #c8c7cc;
+		border-bottom: 1px solid #c8c7cc;
+
+	}
+	ion-content{
+		margin-top: 75%;
+	}
+	.steps li{
+		margin-bottom: 25px;
+		font-size: 15px;
+	}
+	.steps li label{
+		margin-right: 6px;
+    	font-size: 22px;
+	}
+	.buyDride{
+		background-color: #fff;
+		width: 100%;
+		height: 55px;
+		text-align: center;
+		font-size: 18px;
+		padding-top: 15px;
+		border-top: 1px solid #c8c7cc;
+	}
+
+	.icon-toyCar-1{
+		position: relative;
+	    top: 19px;
+	    left: 13px;
+	    color: #72CAD2;
+
+	}
+	.animatedCar{
+		transition: 10s;
+    	left: 90%;
+	}
+
+
+}

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { Transfer, SocialSharing, File } from 'ionic-native';
 import { VideoService } from '../../providers/video-service';
+import { DeviceConnectionService } from '../../providers/device-connection-service';
+
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFire } from 'angularfire2';
@@ -31,8 +33,7 @@ export class clipsPage {
 
   public loading: any;
 
-
-  public users = [
+   public users = [
      "151515115151" ,
      "151516115151" ,
      "151517115151" ,
@@ -45,34 +46,31 @@ export class clipsPage {
      "151524115151" 
    ];
 
+ 
 
+    constructor(public navCtrl: NavController,
+                public videoService: VideoService, 
+                public loadingCtrl: LoadingController, 
+                public g: Globals, 
+                public af: AngularFire, 
+                private _auth: AuthService, 
+                public platform: Platform, 
+                public connectToDride: DeviceConnectionService
+              ) {
+ 
+                    connectToDride.isConnected().then( data => {
+                       this.host = g.host;
+                   
+                        this.videoService.load()
+                        .then(data => {
+                          this.videosAll = data
+                          this.videos = [];
+                          for (var i = 0; i < 2 && this.videosAll.length; i++) {
+                            this.videos.push( this.videosAll.pop() );
+                          }
 
-  constructor(public navCtrl: NavController, public videoService: VideoService, public loadingCtrl: LoadingController, public g: Globals, af: AngularFire, private _auth: AuthService, public platform: Platform) {
-
-
-     this.host = g.host;
-
-      this.videoService.load()
-      .then(data => {
-        this.videosAll = data
-        this.videos = [];
-        for (var i = 0; i < 2 && this.videosAll.length; i++) {
-          this.videos.push( this.videosAll.pop() );
-        }
-
-
-      }); 
-
-
-    //make sure the user Is logged in, a login pop up will jump if not.
-    this._auth.isLogedIn().then(result => {
-
-        console.log('debug login!')
-
-    }, function(reason) {
-      console.log('close modal without execution.');
-    });
-
+                        }); 
+                    })
 
    }
 
