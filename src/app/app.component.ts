@@ -34,6 +34,10 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
 
+      StatusBar.overlaysWebView(false); // let status bar overlay webview
+
+      StatusBar.backgroundColorByHexString('#90d7dc'); // set status bar to green
+
       StatusBar.styleDefault();
       Splashscreen.hide();
 
