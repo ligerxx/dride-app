@@ -64,6 +64,16 @@ export class clipsPage {
       }); 
 
 
+    //make sure the user Is logged in, a login pop up will jump if not.
+    this._auth.isLogedIn().then(result => {
+
+        console.log('debug login!')
+
+    }, function(reason) {
+      console.log('close modal without execution.');
+    });
+
+
    }
 
 
@@ -158,43 +168,15 @@ export class clipsPage {
 
 
       File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
-        console.log('yay')
         this.uploadToDrideNetworkFB(file, vidoeId);
-      }).catch(err => console.log('boooh', err));
+      }).catch(err => console.error('file upload failed ', err));
       
-
     }, (error) => {
       // handle error
       console.log(error);
     });
   }
-
-
-
-  uploadToDrideNetwork(filePath){
-    const fileTransfer = new Transfer();
-    var options: any;
-
-    options = {
-       fileKey: 'file',
-       fileName: 'name.jpg',
-       headers: {}
-    }
-    fileTransfer.upload(filePath, "http://getcardigan.com/upload.php", options)
-     .then((data) => {
-       // success
-       console.log("Upload completed > " + data.response)
-       this.dismissLoanding();
-       this.shareToSocial('https://getcardigan.com/embeded.php?id=' + data.response)
-     }, (err) => {
-       // error
-       console.log(err)
-     })
-  }
-
-
-
-
+ 
   uploadToDrideNetworkFB(file, vidoeId){
 
 
@@ -207,11 +189,11 @@ export class clipsPage {
     storageRef.put(file).then((data) => {
        // success
        console.log("Upload completed  " )
-       var httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/dride-2384f/o/clips/' + uid + '/' + vidoeId + '.mp4');
+       //var httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/dride-2384f/o/clips/' + uid + '/' + vidoeId + '.mp4');
 
 
        this.dismissLoanding();
-       this.shareToSocial('https://dride.io/' + uid + '/' + vidoeId )
+       this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
      }, (err) => {
        // error
        console.log(err)

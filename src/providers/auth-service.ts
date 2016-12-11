@@ -1,7 +1,7 @@
 import { Platform , ModalController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { FirebaseAuth, FirebaseAuthState } from 'angularfire2';
-import { Facebook } from 'ionic-native';
+import { Facebook, StatusBar } from 'ionic-native';
 import { LoginComponent } from '../components/login/login';
 
 
@@ -44,7 +44,9 @@ export class AuthService {
                data.completed ? resolve(true) : reject(true);
 
              });
+             StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
              profileModal.present();
+
 
          }
          else

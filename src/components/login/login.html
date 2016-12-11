@@ -1,13 +1,68 @@
-<ion-content class="whiteBg">
+<ion-header class="popUpHeader">
+	
+	<span class="icon-dride-cloud"></span>
 
-<button ion-button outline (click)="signInWithFacebook()">Facebook</button>
+	<button class="closePopup pull-right" (click)="closeWindow()">⨯</button>
 
-<button ion-button outline (click)="closeWindow()">Dismiss</button>
+	<div class="roundBottom black"></div>
+</ion-header>
+
+ 
+<ion-content >
+
+	<div class="spacer"></div>
+
+	<span [ngClass]="{'animatedCar': isLoaded}" class="icon-toyCar-1"></span>
+
+	<div class="loginBox">
+		<h2 class="text-center">Social Login</h2>
+
+		<button class="socialButtons" ion-button block (click)="signInWithFacebook()">
+			 <span class="sideIcon icon-facebook"></span>
+			 Login with Facebook
+		 </button>
+		<button class="socialButtons" ion-button block (click)="signInWithFacebook()">
+			 <span class="sideIcon icon-google"></span>
+			 Login with Google
+		 </button>
+	</div>
+
+	<div class="spacer"></div>
+
+	<div class="loginBox">
+	    <h2 class="text-center">Regular Login</h2>
+
+	    <div class="iconInput">
+	        <ion-input type="text" placeholder="Email"></ion-input>
+	        <span class="sideIcon icon-userName"></span>
+	        <div class="clear"></div>
+	    </div>
+
+	    <div class="iconInput">
+	        <ion-input type="text" placeholder="Password"></ion-input>
+	        <span class="sideIcon icon-password"></span>
+	        <div class="clear"></div>
+	    </div>
+
+	    <button ion-button block class="loginBtn" >
+	        Login
+	    </button>
+
+	    <div class="forgetPass">
+	    	<span>Forget password?</span>
+	    </div>
+
+	</div>
 
 
 
 </ion-content>
 
 
+<!-- static register box -->
+<ion-footer class="registerBox">
+	NEW DRIVER ?
+</ion-footer>
 
-<!-- (click)="dismiss() -->
+
+
