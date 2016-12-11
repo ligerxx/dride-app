@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
-import { Transfer, SocialSharing } from 'ionic-native';
+import { Transfer, SocialSharing, File } from 'ionic-native';
 import { VideoService } from '../../providers/video-service';
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
@@ -151,16 +151,25 @@ export class clipsPage {
     const fileTransfer = new Transfer();
 
     let url = this.host + '/modules/video/clip/' + vidoeId + '.mp4';
-    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.').then((entry) => {
+
+    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.mp4').then((entry) => {
+      console.log(entry);
       console.log('download complete: ' + entry.toURL());
 
-      this.uploadToDrideNetwork(entry.toURL());
+
+      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
+        console.log('yay')
+        this.uploadToDrideNetworkFB(file, vidoeId);
+      }).catch(err => console.log('boooh', err));
+      
 
     }, (error) => {
       // handle error
       console.log(error);
     });
   }
+
+
 
   uploadToDrideNetwork(filePath){
     const fileTransfer = new Transfer();
@@ -181,6 +190,34 @@ export class clipsPage {
        // error
        console.log(err)
      })
+  }
+
+
+
+
+  uploadToDrideNetworkFB(file, vidoeId){
+
+
+    // Create a root reference
+    var uid = this._auth.getUid();
+
+    console.log(this._auth)
+    var storage = firebase.storage();
+    var storageRef = storage.ref().child('clips').child(uid).child(vidoeId + '.mp4');
+    storageRef.put(file).then((data) => {
+       // success
+       console.log("Upload completed  " )
+       var httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/dride-2384f/o/clips/' + uid + '/' + vidoeId + '.mp4');
+
+
+       this.dismissLoanding();
+       this.shareToSocial('https://dride.io/' + uid + '/' + vidoeId )
+     }, (err) => {
+       // error
+       console.log(err)
+     })
+
+
   }
 
 

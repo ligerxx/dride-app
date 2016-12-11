@@ -27,7 +27,9 @@ export class AuthService {
     return this.authState !== null;
   }
 
-
+  getUid(): string{
+    return this.authState.uid;
+  }
 
   isLogedIn(): Promise<any> {
 
