@@ -6,7 +6,7 @@ import { DeviceConnectionService } from '../../providers/device-connection-servi
 
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class clipsPage {
      "151524115151" 
    ];
 
- 
+   userClipDbObject: FirebaseListObservable<any[]>;
 
     constructor(public navCtrl: NavController,
                 public videoService: VideoService, 
@@ -60,7 +60,7 @@ export class clipsPage {
  
                     connectToDride.isConnected().then( data => {
                        this.host = g.host;
-                   
+
                         this.videoService.load()
                         .then(data => {
                           this.videosAll = data
@@ -183,19 +183,31 @@ export class clipsPage {
 
     console.log(this._auth)
     var storage = firebase.storage();
-    var storageRef = storage.ref().child('clips').child(uid).child(vidoeId + '.mp4');
+    const storageRef = storage.ref().child('clips').child(uid).child(vidoeId + '.mp4');
     storageRef.put(file).then((data) => {
        // success
        console.log("Upload completed  " )
-       //var httpsReference = storage.refFromURL('https://firebasestorage.googleapis.com/b/dride-2384f/o/clips/' + uid + '/' + vidoeId + '.mp4');
+
+       storageRef.getDownloadURL().then(url => {
+         
+               //save to DB
+                this.userClipDbObject = this.af.database.list('/clips/' + uid + '/');
+                this.userClipDbObject.push({
+                    id: vidoeId,
+                    link: url
+                }).then(_ => console.log('item added!'));
+
+               this.dismissLoanding();
+               this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
+             }, (err) => {
+               // error
+               console.log(err)
+             })
+
+       });
 
 
-       this.dismissLoanding();
-       this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
-     }, (err) => {
-       // error
-       console.log(err)
-     })
+
 
 
   }

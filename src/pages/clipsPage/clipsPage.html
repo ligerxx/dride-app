@@ -23,10 +23,10 @@
                {{toDate(video)}} | Near Tel Aviv 
                <ion-icon ios="ios-map" md="ios-map" class="pull-right"></ion-icon>
             </div>
-              <img src="assets/images/demo.jpg" />
-<!--             <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+<!--               <img src="assets/images/demo.jpg" /> -->
+            <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
                 <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
-            </video> -->
+            </video>
             <div class="controls">
               <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon>
               <div class="clear"></div>
