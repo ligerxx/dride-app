@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Platform , ModalController } from 'ionic-angular';
 import { Facebook, StatusBar } from 'ionic-native';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+import { Globals } from '../providers/globals';
 
 /*
   Generated class for the DeviceConnectionService provider.
@@ -12,7 +15,7 @@ import { ConnectDrideComponent } from '../components/connect-dride/connect-dride
 @Injectable()
 export class DeviceConnectionService {
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController, public g: Globals, public http: Http) {
     console.log('Hello DeviceConnectionService Provider');
   }
 
@@ -21,31 +24,54 @@ export class DeviceConnectionService {
 
       return new Promise<boolean>((resolve, reject) => {
 
-         if (!this.isOnline()){
+        this.isOnline().then(resp => {
 
-         	 console.log('open!');
-             //open login pop up
-             let profileModal = this.modalCtrl.create(ConnectDrideComponent);
-             profileModal.onDidDismiss(data => {
+           if (!resp){
 
-               resolve(true)
+               //open login pop up
+               let profileModal = this.modalCtrl.create(ConnectDrideComponent);
+               profileModal.onDidDismiss(data => {
 
-             });
-             StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
-             profileModal.present();
+                 resolve(true)
+
+               });
+               StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
+               profileModal.present();
 
 
-         }
-         else
-           resolve(true);
+           }
+           else
+             resolve(true);
+        });
+
         
     });
   }
 
-  isOnline(){
 
-  	return false;
-  
-  }
+    isOnline(){
+
+      // don't have the data yet
+      return new Promise(resolve => {
+
+        this.http.get( this.g.host +'/api/isOnline')
+          .map(res => res.json())
+          .subscribe(data => {
+
+            if (data.status){
+              resolve(true);
+              return;
+            }
+            
+          });
+            
+            //if we didn't receive a response than we're not connected!
+            setTimeout(() => {
+              resolve(false);
+            }, 1000);
+
+      });
+    
+    }
 
 }

@@ -11,9 +11,11 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
+    <div *ngIf="!videos" class="text-center">
+      <span class="icon-bigD"></span>
+    </div>
 
-
-    <ion-card *ngFor="let video of users; let i = index;">
+    <ion-card *ngFor="let video of videos; let i = index;">
 
 
         <div class="videoObject" > 

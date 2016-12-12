@@ -4,6 +4,8 @@ import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
 import { DeviceConnectionService } from '../providers/device-connection-service';
+import { Globals } from '../providers/globals';
+
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
@@ -48,7 +50,8 @@ export const firebaseConfig = {
               AuthService,
               LoginComponent,
               DeviceConnectionService,
-              ConnectDrideComponent
+              ConnectDrideComponent,
+              Globals
              ]
 })
 export class AppModule {}
