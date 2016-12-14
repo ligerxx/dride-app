@@ -6,7 +6,7 @@ import { DeviceConnectionService } from '../../providers/device-connection-servi
 
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class clipsPage {
      "151524115151" 
    ];
 
-   userClipDbObject: FirebaseListObservable<any[]>;
+   userClipDbObject: FirebaseObjectObservable<any[]>;
 
     constructor(public navCtrl: NavController,
                 public videoService: VideoService, 
@@ -135,7 +135,7 @@ export class clipsPage {
   }
 
 
-  showLoading(){
+  public showLoading(){
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...'
     });
@@ -143,11 +143,11 @@ export class clipsPage {
     this.loading.present(); 
   }
 
-  dismissLoanding(){
+  public dismissLoanding(){
     this.loading.dismiss();
   }
 
-  download(vidoeId){
+  public download(vidoeId){
 
     if (!this.platform.is('cordova')) {
      alert('Platform not supported');
@@ -166,7 +166,8 @@ export class clipsPage {
 
 
       File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
-        this.uploadToDrideNetworkFB(file, vidoeId);
+        this.uploadToDrideNetworkFB(file, vidoeId, 'clips');
+        this.uploadThumbOnBackground(vidoeId, fileTransfer);
       }).catch(err => console.error('file upload failed ', err));
       
     }, (error) => {
@@ -175,7 +176,25 @@ export class clipsPage {
     });
   }
  
-  uploadToDrideNetworkFB(file, vidoeId){
+
+  public uploadThumbOnBackground(vidoeId, fileTransfer){
+    let url = this.host + '/modules/video/thumb/' + vidoeId + '.jpg';
+
+    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.jpg').then((entry) => {
+      console.log(entry);
+      console.log('download complete [thumb]: ' + entry.toURL());
+
+      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.jpg').then(file => {
+        this.uploadToDrideNetworkFB(file, vidoeId, 'thumbs');
+      }).catch(err => console.error('file upload failed [thumb] ', err));
+      
+    }, (error) => {
+      // handle error
+      console.log(error);
+    });
+  }
+
+  public uploadToDrideNetworkFB(file, vidoeId, bucket){
 
 
     // Create a root reference
@@ -183,7 +202,7 @@ export class clipsPage {
 
     console.log(this._auth)
     var storage = firebase.storage();
-    const storageRef = storage.ref().child('clips').child(uid).child(vidoeId + '.mp4');
+    const storageRef = storage.ref().child(bucket).child(uid).child(vidoeId + (bucket=='clips' ? '.mp4' : '.jpg'));
     storageRef.put(file).then((data) => {
        // success
        console.log("Upload completed  " )
@@ -191,14 +210,15 @@ export class clipsPage {
        storageRef.getDownloadURL().then(url => {
          
                //save to DB
-                this.userClipDbObject = this.af.database.list('/clips/' + uid + '/');
-                this.userClipDbObject.push({
-                    id: vidoeId,
-                    link: url
-                }).then(_ => console.log('item added!'));
+                this.userClipDbObject = this.af.database.object('/clips/' + uid + '/' + '/' + vidoeId + '/' + bucket);
+                this.userClipDbObject.set({
+                    src: url
+                }).then(_ => console.log('item added! ' + bucket));
 
-               this.dismissLoanding();
-               this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
+               if (bucket == 'clips'){
+                 this.dismissLoanding();
+                 this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
+               }
              }, (err) => {
                // error
                console.log(err)
