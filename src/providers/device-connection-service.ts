@@ -22,10 +22,12 @@ export class DeviceConnectionService {
 
   isConnected() {
 
+
+
       return new Promise<boolean>((resolve, reject) => {
 
         this.isOnline().then(resp => {
-
+            
            if (!resp){
 
                //open login pop up
@@ -67,6 +69,10 @@ export class DeviceConnectionService {
             
             //if we didn't receive a response than we're not connected!
             setTimeout(() => {
+
+            //for debug
+            resolve(true);
+            
               resolve(false);
             }, 1000);
 
