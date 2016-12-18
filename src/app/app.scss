@@ -30,30 +30,28 @@
 .toolbar-background{
     border: 0;
     background: rgba(248, 248, 248, 0);
-    background-image: url("../assets/images/header.svg");
-    background-size: 156%;
+    background-image: url(../assets/images/header.svg);
+    background-size: 100%;
     background-position-x: center;
-    height: 113px;
+    background-repeat: no-repeat;
 }
 .toolbar-title{
-	color: #fff;
-    margin-top: -36px;
+	color: #333;
     font-size: 28px;
     font-weight: 300;
 }
 
  .toolbar{
  	overflow: visible;
-	min-height: 102px !important;
+    height: 68px !important;
  }
 
-scroll-content{
-	margin-top: 43px !important;
-    border-top: 0px !important;
-}
+// scroll-content{
+// 	margin-top: 43px !important;
+//     border-top: 0px !important;
+// }
 .bar-button-default {
-    color: #ffffff;
-    margin-top: -41px;
+    color: #333;
 }
 
 ion-menu .toolbar-background{
@@ -63,14 +61,13 @@ ion-menu .toolbar-background{
 .toggleMenu{
 	background-color: transparent;
     font-size: 25px;
-    margin-top: -29px;
-    color: #fff;
+    color: #333;
 }
 .has-refresher > .scroll-content{
     border-top: 0;
 }
 .scroll-content{
-    margin-top: 66px !important;
+    margin-top: 54px !important;
 }
 .padContent{
     margin-top: 24px;
@@ -92,4 +89,7 @@ h1, h2, h3, h4{
 }
 .spacer{
     margin-bottom: 28px;
+}
+.settingsNodes{
+    color: #333;
 }
