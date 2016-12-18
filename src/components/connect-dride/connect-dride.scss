@@ -53,6 +53,14 @@ connect-dride {
     	margin-right: 9px;
 	    font-size: 15px;
 	}
+	.steps li span{
+		margin-left: 21px;
+	    display: block;
+	    margin-top: -22px;
+	}
+	.steps li:last-child{
+		margin-bottom: 0;
+	}
 	.buyDride{
 		background-color: #fff;
 		width: 100%;
