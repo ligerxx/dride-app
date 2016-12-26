@@ -6,7 +6,7 @@ import { Globals } from '../../providers/globals';
 import { CalibrationPage } from '../../pages/calibration/calibration';
 import { Settings } from '../../providers/settings';
 import { FirmwareUpdate } from '../../providers/firmware-update';
-
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-settings',
@@ -44,7 +44,7 @@ export class SettingsPage {
                           }
 
 
-  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate) {
+  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService) {
     
 
      this.settings.load()
@@ -77,5 +77,20 @@ export class SettingsPage {
    this.settings.setSettings(this.configObj, fieldName, fieldValue, CategoryName)
 
   }
+
+  isLoggedIn(){
+
+      //make sure the user Is logged in, a login pop up will jump if not.
+      return this._auth.authenticated;
+
+  }
+
+  logOut(){
+
+      //make sure the user Is logged in, a login pop up will jump if not.
+      return this._auth.signOut();
+
+  }
+
 
 }

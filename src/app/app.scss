@@ -93,6 +93,7 @@ h1, h2, h3, h4{
 .settingsNodes{
     color: #333;
 }
-.header-ios .toolbar-ios:last-child .toolbar-background-ios{
-    border-width: 0;
+.ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child, .ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child ion-title{
+    padding-top: 0!important;
 }
+

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Globals } from '../providers/globals';
 
+
 /*
   Generated class for the Settings provider.
 
@@ -59,5 +60,10 @@ export class Settings {
 	      });
 	  });
 	}
+
+
+
+
+
 
 }

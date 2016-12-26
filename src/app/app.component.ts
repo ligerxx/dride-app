@@ -36,7 +36,7 @@ export class MyApp {
 
       StatusBar.overlaysWebView(false); // let status bar overlay webview
 
-      StatusBar.backgroundColorByHexString('#90d7dc'); // set status bar to green
+      StatusBar.backgroundColorByHexString('#ffffff'); // set status bar to green
 
       StatusBar.styleDefault();
       Splashscreen.hide();
@@ -49,6 +49,7 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.push(page.component);
   }
+  
 }
 
 

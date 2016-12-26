@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
     <ion-navbar>
         <ion-title>Settings</ion-title>
     </ion-navbar>
@@ -45,6 +45,12 @@
         </ion-item>
     </ion-list>
 
+    <ion-list *ngIf="isLoggedIn()" (click)="signOut()">
+        <ion-item detail-push (click)="logOut()" class="settingsNodes">
+            <ion-icon name="thunderstorm" item-left></ion-icon>
+            Logout
+        </ion-item>
+    </ion-list>
 
 
 </ion-content>

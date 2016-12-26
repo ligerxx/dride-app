@@ -1,6 +1,6 @@
 import { Platform , ModalController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { FirebaseAuth, FirebaseAuthState } from 'angularfire2';
+import { FirebaseAuth, FirebaseAuthState, AngularFire } from 'angularfire2';
 import { Facebook, StatusBar } from 'ionic-native';
 import { LoginComponent } from '../components/login/login';
 
@@ -54,5 +54,17 @@ export class AuthService {
         
     });
   }
+
+
+  signOut(): any{
+
+     this.auth$.logout();
+
+  }
+  
+
+
+
+
 
 }
