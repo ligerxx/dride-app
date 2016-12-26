@@ -1,6 +1,5 @@
-import { Component, Injectable } from '@angular/core';
-import { Platform , ModalController } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { Component } from '@angular/core';
+import { ModalController } from 'ionic-angular';
 
 
 /*

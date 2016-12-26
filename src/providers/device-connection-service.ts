@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Platform , ModalController } from 'ionic-angular';
-import { Facebook, StatusBar } from 'ionic-native';
+import { ModalController } from 'ionic-angular';
+import { StatusBar } from 'ionic-native';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -74,7 +74,7 @@ export class DeviceConnectionService {
             resolve(true);
             
               resolve(false);
-            }, 1000);
+            }, 2000);
 
       });
     
