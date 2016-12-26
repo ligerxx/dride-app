@@ -70,8 +70,8 @@ export class DeviceConnectionService {
             //if we didn't receive a response than we're not connected!
             setTimeout(() => {
 
-            //for debug
-            resolve(true);
+            // //for debug
+            // resolve(true);
             
               resolve(false);
             }, 2000);

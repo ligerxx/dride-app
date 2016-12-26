@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-
+import {InAppBrowser} from 'ionic-native';
 
 /*
   Generated class for the ConnectDride component.
@@ -24,6 +24,14 @@ export class ConnectDrideComponent {
 
 
   }
+
+
+  buyDride(){
+
+    let browser = new InAppBrowser('https://dride.io/buy', '_system');
+
+  }
+
 
 
 }

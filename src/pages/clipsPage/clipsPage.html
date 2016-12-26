@@ -6,26 +6,27 @@
         <ion-title >dride</ion-title>
     </ion-navbar>
 </ion-header>
+
 <ion-content class="home" >
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <div *ngIf="!users" class="text-center">
+    <div *ngIf="!videos" class="text-center">
       <span class="icon-bigD"></span>
     </div>
 
-    <ion-card *ngFor="let video of users; let i = index;">
+    <ion-card *ngFor="let video of videos; let i = index;">
 
 
         <div class="videoObject" > 
             <div class="clipTitle" >
                {{toDate(video)}} | Unknown location
             </div>
-              <img src="assets/images/demo.jpg" />
-<!--             <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+<!--               <img src="assets/images/demo.jpg" /> -->
+            <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
                 <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
-            </video> -->
+            </video>
             <div class="controls">
               <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon>
               <div class="clear"></div>
