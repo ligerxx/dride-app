@@ -52,10 +52,12 @@ page-clipsPage {
     	transition: width 0.5s, height 4s;
 	}
 	.icon-bigD{
-		font-size: 370px;
-	    position: relative;
+	    font-size: 370px;
+	    position: fixed;
 	    top: 101px;
 	    color: #444444;
+	    margin: auto auto;
+	    left: calc(50% - 132px);
 	}
 	.icon-play{
 	    color: rgba(255, 255, 255, 0.7);
@@ -67,4 +69,28 @@ page-clipsPage {
 	.sepia{
 		    filter: sepia(20%);
 	}
+	.animCar span{
+		color: #5dd2e0;
+	    position: relative;
+	    left: 51px;
+	    z-index: 1000;
+	}
+	.animCar{
+		width: 40px;
+	    height: 236px;
+	    position: fixed;
+	    top: 222px;
+	    left: calc(50% - 17px);
+	    margin-bottom: -236px;
+	    z-index: 1000000;
+
+	    background-image: url(../assets/images/loader.png);
+		-webkit-animation:spin 1.5s cubic-bezier(0.4, 0, 0.4, 0.91) infinite;
+	    -moz-animation:spin 1.5s cubic-bezier(0.4, 0, 0.4, 0.91) infinite;
+	    animation:spin 1.5s cubic-bezier(0.4, 0, 0.4, 0.91) infinite;
+	}
+
+	@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 }
