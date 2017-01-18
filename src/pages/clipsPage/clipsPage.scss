@@ -29,8 +29,8 @@ page-clipsPage {
 	    width: 100%;
 	}
 	.clipTitle{
-	    background: linear-gradient(to bottom, #000000 0%, transparent 100%);
-	    height: 50px;
+	    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.61) 0%, transparent 100%);
+	    height: 41px;
 	    position: relative;
 	    bottom: -50px;
 	    color: #fff;
@@ -56,5 +56,15 @@ page-clipsPage {
 	    position: relative;
 	    top: 101px;
 	    color: #444444;
+	}
+	.icon-play{
+	    color: rgba(255, 255, 255, 0.7);
+	    font-size: 28px;
+	    margin-left: -7px;
+	    top: -21px;
+	    position: relative;
+	}
+	.sepia{
+		    filter: sepia(20%);
 	}
 }

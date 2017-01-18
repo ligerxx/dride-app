@@ -20,8 +20,7 @@ export class clipsPage {
 
 
   public data: any;
-  //public host: string = "http://192.168.2.2"; 
-  public host: string = "http://192.168.42.1:9000"; 
+  public host: string; 
   public videosAll: any;
   public videos: any;
 

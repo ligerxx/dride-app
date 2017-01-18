@@ -36,7 +36,7 @@ export class MyApp {
 
       StatusBar.overlaysWebView(false); // let status bar overlay webview
 
-      StatusBar.backgroundColorByHexString('#ffffff'); // set status bar to green
+      StatusBar.backgroundColorByHexString('#333333'); // set status bar to green
 
       StatusBar.styleDefault();
       Splashscreen.hide();

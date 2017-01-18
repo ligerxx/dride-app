@@ -36,14 +36,14 @@
     background-repeat: no-repeat;
 }
 .toolbar-title{
-	color: #333;
+	color: #fff;
     font-size: 28px;
     font-weight: 300;
 }
 
  .toolbar{
  	overflow: visible;
-    height: 68px !important;
+    height: 76px !important;
  }
 
 // scroll-content{
@@ -61,7 +61,7 @@ ion-menu .toolbar-background{
 .toggleMenu{
 	background-color: transparent;
     font-size: 25px;
-    color: #333;
+    color: #fff;
 }
 .has-refresher > .scroll-content{
     border-top: 0;
@@ -96,4 +96,18 @@ h1, h2, h3, h4{
 .ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child, .ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child ion-title{
     padding-top: 0!important;
 }
+
+.ion-page > ion-content {
+    top: -16px;
+}
+
+.bar-button-menutoggle-ios{
+    margin: 0 -8px;
+    margin-top: -28px;
+}
+.title{
+    height: 65px !important;
+}
+
+
 

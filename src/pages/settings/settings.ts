@@ -74,7 +74,7 @@ export class SettingsPage {
 
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 
-   this.settings.setSettings(this.configObj, fieldName, fieldValue, CategoryName)
+   this.settings.setSettings(fieldName, fieldValue, 'calibration');
 
   }
 

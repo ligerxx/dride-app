@@ -20,15 +20,16 @@
 
 
         <div class="videoObject" > 
-            <div class="clipTitle" >
+<!--             <div class="clipTitle" >
                {{toDate(video)}} | Unknown location
-            </div>
-<!--               <img src="assets/images/demo.jpg" /> -->
-            <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+            </div> -->
+<!--               <img src="https://firebasestorage.googleapis.com/v0/b/dride-2384f.appspot.com/o/thumbs%2FJx7Ocxzdhmc3c4WrwSyxXp90cUM2%2F1481713504.jpg?alt=media&token=8922d528-aff0-4c7f-ae24-f1ff46574271" />
+ -->        <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
                 <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
             </video>
             <div class="controls">
-              <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon>
+              <span [hidden]="playing && playing[i]" class="icon-play" (click)="play(i)"></span>
+             <!--  <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon> -->
               <div class="clear"></div>
               <div class="scrollbar" [hidden]="playing && !playing[i]">
                   <ion-icon  ios="ios-pause" md="ios-pause" (click)="pause(i)" class="pull-left"></ion-icon>

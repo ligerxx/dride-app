@@ -21,8 +21,6 @@ export class Settings {
 
     this.host = g.host;
 
-  	console.log('Hello from Settings Provider');
-
   }
 
 
@@ -46,7 +44,8 @@ export class Settings {
 	  });
 	}
 
-	setSettings(configObj: any,  fieldName: string, fieldValue: string, CategoryName: string) {
+	setSettings(fieldName: string, fieldValue: string, CategoryName: string) {
+
 
 	  // don't have the data yet
 	  return new Promise(resolve => {
