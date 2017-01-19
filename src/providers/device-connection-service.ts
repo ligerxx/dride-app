@@ -60,25 +60,30 @@ export class DeviceConnectionService {
       // don't have the data yet
       return new Promise(resolve => {
 
-        this.http.get( this.g.host +'/api/isOnline')
+        //if we didn't receive a response than we're not connected!
+        setTimeout(() => {
+
+          resolve(false);
+          console.log('kill connection');
+          con.unsubscribe();
+          
+        }, 2000);
+            
+        let con = this.http.get( this.g.host +'/api/isOnline')
           .map(res => res.json())
-          .subscribe(data => {
+          .timeout(2000)
+          .subscribe(
+            data => {
 
-            if (data.status){
-              resolve(true);
-              return;
-            }
+                if (data.status){
+                  resolve(true);
+                  return;
+                }
+                
+              }
+              );
             
-          });
-            
-            //if we didn't receive a response than we're not connected!
-            setTimeout(() => {
 
-            // //for debug
-            // resolve(true);
-            
-              resolve(false);
-            }, 2000);
 
       });
     
