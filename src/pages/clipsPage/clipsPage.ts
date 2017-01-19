@@ -7,6 +7,9 @@ import { DeviceConnectionService } from '../../providers/device-connection-servi
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import {Observable} from 'rxjs/Rx';
+
+
 
 
 @Component({
@@ -29,7 +32,8 @@ export class clipsPage {
   public progressBar: boolean[] = [];
   public progress: any = 50;
   public currentTime: any = 0;
-
+  
+  public watchForDevice: any;
   public loading: any;
 
    public users = [
@@ -56,23 +60,43 @@ export class clipsPage {
                 public platform: Platform, 
                 public connectToDride: DeviceConnectionService
               ) {
- 
-                    connectToDride.isConnected().then( data => {
-                       this.host = g.host;
+                   this.host = g.host;
+                   
 
-                        this.videoService.load()
-                        .then(data => {
-                          this.videosAll = data
-                          this.videos = [];
-                          for (var i = 0; i < 2 && this.videosAll.length; i++) {
-                            this.videos.push( this.videosAll.pop() );
-                          }
+                  //loop until we got a connection
+                  let timer = Observable.timer(0,2000);
+                  let withPopUp = true;
 
-                        }); 
+                  this.watchForDevice = timer.subscribe(t=> {
+                    connectToDride.isConnected(withPopUp).then( data => {
+
+                       withPopUp = false
+                       if (data){
+                         this.loadClipsKnowingDeviceIsConnected();
+                         this.watchForDevice.unsubscribe();
+                        }
                     })
+                  });
+
+
 
    }
 
+
+   loadClipsKnowingDeviceIsConnected(){
+
+
+        this.videoService.load()
+        .then(data => {
+          this.videosAll = data
+          this.videos = [];
+          for (var i = 0; i < 2 && this.videosAll.length; i++) {
+            this.videos.push( this.videosAll.pop() );
+          }
+
+        }); 
+
+   }
 
 
   doRefresh(refresher) {

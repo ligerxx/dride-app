@@ -15,12 +15,14 @@ import { Globals } from '../providers/globals';
 @Injectable()
 export class DeviceConnectionService {
 
+  public connectModal: any;
+
   constructor(public modalCtrl: ModalController, public g: Globals, public http: Http) {
     console.log('Hello DeviceConnectionService Provider');
   }
 
 
-  isConnected() {
+  isConnected(withPopUp: boolean) {
 
 
 
@@ -28,22 +30,24 @@ export class DeviceConnectionService {
 
         this.isOnline().then(resp => {
             
+
            if (!resp){
 
                //open login pop up
-               let profileModal = this.modalCtrl.create(ConnectDrideComponent);
-               profileModal.onDidDismiss(data => {
+               if (withPopUp){
+                 this.connectModal = this.modalCtrl.create(ConnectDrideComponent);
 
-                 resolve(true)
-
-               });
-               StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
-               profileModal.present();
-
+                 StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
+                 this.connectModal.present();
+                 
+               }
+               resolve(false);
 
            }
-           else
+           else{
              resolve(true);
+             this.connectModal.dismiss();
+           }
         });
 
         

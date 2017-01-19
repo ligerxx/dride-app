@@ -41,6 +41,7 @@ connect-dride {
 	    background-color: #fff;
 	    border-top: 1px solid #c8c7cc;
 	    border-bottom: 1px solid #c8c7cc;
+	    margin-top: 41px;
 	}
 	ion-content{
 		margin-top: 75%;
@@ -74,17 +75,52 @@ connect-dride {
 
 	.icon-toyCar-1{
 		position: relative;
-    	top: 18px;
-	    left: 13px;
+    	top: 46px;
+    	left: 13px;
 	    color: #72CAD2;
+	    //animation: backAndForthCar 10s infinite;
 
 	}
 	.animatedCar{
-		transition: 10s;
-    	left: 90%;
+		display: inline-block;
+    	animation: backAndForthCar 10s infinite,
+    			   flipAfterSecs 1s linear 5s infinite,
+    			   flipBackAfterSecs 1s linear 10s infinite;
 	}
+
+
 	.scroll-content {
 	    margin-top: 44px !important;
 	}
+	.connecting{
 
+		font-size: 15px;
+		label{
+			color: #fff;
+    		font-size: 32px;
+		}
+	}
+
+}
+
+@keyframes backAndForthCar {
+	    0% {
+	        left: 13px;
+	    }
+	    50% {
+	        left: 90%;
+	    }
+	    100% {
+	        left: 13px;
+	    }
+	}
+@keyframes flipAfterSecs {
+		0%, 100%{
+			transform: scaleX(-1); 
+		}
+}
+@keyframes flipBackAfterSecs {
+		0%, 100%{
+			transform: scaleX(1); 
+		}
 }
