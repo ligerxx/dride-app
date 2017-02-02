@@ -9,6 +9,7 @@ import { AuthService } from '../../providers/auth-service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import {Observable} from 'rxjs/Rx';
 
+import firebase from 'firebase';
 
 
 

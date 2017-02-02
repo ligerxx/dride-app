@@ -46,7 +46,8 @@ export class DeviceConnectionService {
            }
            else{
              resolve(true);
-             this.connectModal.dismiss();
+             if (this.connectModal)
+               this.connectModal.dismiss();
            }
         });
 
@@ -63,7 +64,6 @@ export class DeviceConnectionService {
         //if we didn't receive a response than we're not connected!
         setTimeout(() => {
 
-
           resolve(false);
           console.log('kill connection');
           con.unsubscribe();
@@ -75,7 +75,6 @@ export class DeviceConnectionService {
           .timeout(2000)
           .subscribe(
             data => {
-
 
                 if (data.status){
                   resolve(true);
