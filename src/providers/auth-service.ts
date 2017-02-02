@@ -1,6 +1,6 @@
 import { Platform , ModalController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { FirebaseAuth, FirebaseAuthState, AngularFire } from 'angularfire2';
+import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 import { Facebook, StatusBar } from 'ionic-native';
 import { LoginComponent } from '../components/login/login';
 
@@ -13,7 +13,7 @@ export class AuthService {
 
   user: any;
 
-  constructor(public auth$: FirebaseAuth, private platform: Platform, public modalCtrl: ModalController) {
+  constructor(public auth$: AngularFireAuth, private platform: Platform, public modalCtrl: ModalController) {
 
     Facebook.browserInit(this.FB_APP_ID, "v2.8");
 

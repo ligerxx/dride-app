@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ViewController, Platform } from 'ionic-angular';
-import { AuthProviders, FirebaseAuth, FirebaseAuthState, AuthMethods, AngularFire } from 'angularfire2';
+import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 
 import { Facebook, StatusBar } from 'ionic-native';
+import firebase from 'firebase';
+
 /*
   Generated class for the Login component.
 
@@ -23,7 +25,7 @@ export class LoginComponent {
   FB_APP_ID: number = 1825311747740641;
 
 
-  constructor(af: AngularFire, public viewCtrl: ViewController, public auth$: FirebaseAuth, private platform: Platform) {
+  constructor(public viewCtrl: ViewController, public auth$: AngularFireAuth, private platform: Platform) {
      
       Facebook.browserInit(this.FB_APP_ID, "v2.8");
 
@@ -51,6 +53,7 @@ export class LoginComponent {
 
       Facebook.login(['email', 'public_profile']).then(res => {
         console.log(res)
+        console.log('xxx HERE xxx')
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         firebase.auth().signInWithCredential(facebookCredential).then(() => this.onSignInSuccess())
       });
