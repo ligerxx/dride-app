@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFire } from 'angularfire2';
 
 
@@ -19,7 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
  
-  constructor(public platform: Platform, af: AngularFire) {
+  constructor(public platform: Platform, af: AngularFire,  public splashScreen: SplashScreen, public statusBar: StatusBar) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -34,12 +35,12 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      StatusBar.overlaysWebView(false); // let status bar overlay webview
+      this.statusBar.overlaysWebView(false); // let status bar overlay webview
 
-      StatusBar.backgroundColorByHexString('#333333'); // set status bar to green
+      this.statusBar.backgroundColorByHexString('#333333'); // set status bar to green
 
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
 
     });
   }

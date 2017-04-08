@@ -1,7 +1,8 @@
 import { Platform , ModalController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
-import { Facebook, StatusBar } from 'ionic-native';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { StatusBar } from '@ionic-native/status-bar';
 import { LoginComponent } from '../components/login/login';
 
 
@@ -13,9 +14,9 @@ export class AuthService {
 
   user: any;
 
-  constructor(public auth$: AngularFireAuth, private platform: Platform, public modalCtrl: ModalController) {
+  constructor(public auth$: AngularFireAuth, private platform: Platform, public modalCtrl: ModalController, public statusBar: StatusBar, private fb: Facebook) {
 
-    Facebook.browserInit(this.FB_APP_ID, "v2.8");
+    this.fb.browserInit(this.FB_APP_ID, "v2.8");
 
     this.authState = auth$.getAuth();
     auth$.subscribe((state: FirebaseAuthState) => {
@@ -44,7 +45,7 @@ export class AuthService {
                data.completed ? resolve(true) : reject(true);
 
              });
-             StatusBar.backgroundColorByHexString('#333333'); // set status bar to black
+             this.statusBar.backgroundColorByHexString('#333333'); // set status bar to black
              profileModal.present();
 
 

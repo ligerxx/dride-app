@@ -1,3 +1,5 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler} from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -11,6 +13,9 @@ import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
 import { CalibrationPage } from '../pages/calibration/calibration';
 
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //components
 import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
@@ -35,6 +40,8 @@ export const firebaseConfig = {
     ConnectDrideComponent
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       mode: 'ios'
     }),
@@ -54,7 +61,10 @@ export const firebaseConfig = {
               LoginComponent,
               DeviceConnectionService,
               ConnectDrideComponent,
-              Globals
+              Globals,
+              SplashScreen,
+              StatusBar,
+              Facebook
              ]
 })
 export class AppModule {}
