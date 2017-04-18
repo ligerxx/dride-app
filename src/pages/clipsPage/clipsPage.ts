@@ -192,6 +192,7 @@ export class clipsPage {
       File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
         this.uploadToDrideNetworkFB(file, vidoeId, 'clips');
         this.uploadThumbOnBackground(vidoeId, fileTransfer);
+        this.uploadGPSOnBackground(vidoeId, fileTransfer);
       }).catch(err => console.error('file upload failed ', err));
       
     }, (error) => {
@@ -218,6 +219,24 @@ export class clipsPage {
     });
   }
 
+  public uploadGPSOnBackground(vidoeId, fileTransfer){
+    let url = this.host + '/modules/video/gps/' + vidoeId + '.json';
+
+    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedGPS.json').then((entry) => {
+      console.log(entry);
+      console.log('download complete [thumb]: ' + entry.toURL());
+
+      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedGPS.json').then(file => {
+        this.uploadToDrideNetworkFB(file, vidoeId, 'gps');
+      }).catch(err => console.error('file upload failed [GPS] ', err));
+      
+    }, (error) => {
+      // handle error
+      console.log(error);
+    });
+  }
+
+
   public uploadToDrideNetworkFB(file, vidoeId, bucket){
 
 
@@ -226,7 +245,7 @@ export class clipsPage {
 
     console.log(this._auth)
     var storage = firebase.storage();
-    const storageRef = storage.ref().child(bucket).child(uid).child(vidoeId + (bucket=='clips' ? '.mp4' : '.jpg'));
+    const storageRef = storage.ref().child(bucket).child(uid).child(vidoeId + (this.getFileExtensionByBucketName(bucket)));
     storageRef.put(file).then((data) => {
        // success
        console.log("Upload completed  " )
@@ -249,13 +268,19 @@ export class clipsPage {
              })
 
        });
-
-
-
-
-
   }
 
+
+  public getFileExtensionByBucketName(bucket){
+
+      if (bucket == 'clips' )
+        return '.mp4';
+      if (bucket == 'thumbs' )
+        return '.jpg';
+      if (bucket == 'gps' )
+        return '.json';
+
+  }
 
   shareToSocial(url){
     var options = {
