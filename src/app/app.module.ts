@@ -17,6 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Firebase } from '@ionic-native/firebase';
+
 //components
 import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
@@ -66,7 +68,8 @@ export const firebaseConfig = {
               SplashScreen,
               StatusBar,
               Facebook,
-              GooglePlus
+              GooglePlus,
+              Firebase
              ]
 })
 export class AppModule {}

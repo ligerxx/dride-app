@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>802741428178-kobq6qupo37ipqa6ocr448spova6ubg4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.802741428178-kobq6qupo37ipqa6ocr448spova6ubg4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>802741428178-c30l7fuu4452i7k3qr37sqmee607nide.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDhl6RAjDhV-TMoXN3TStv_TqIGMLwYzBk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>802741428178</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.dride</string>
+	<key>PROJECT_ID</key>
+	<string>dride-2384f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dride-2384f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:802741428178:ios:c43cecaaf24bf041</string>
+	<key>DATABASE_URL</key>
+	<string>https://dride-2384f.firebaseio.com</string>
+</dict>
+</plist>

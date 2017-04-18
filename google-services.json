@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "802741428178",
+    "firebase_url": "https://dride-2384f.firebaseio.com",
+    "project_id": "dride-2384f",
+    "storage_bucket": "dride-2384f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802741428178:android:c43cecaaf24bf041",
+        "android_client_info": {
+          "package_name": "io.dride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802741428178-c30l7fuu4452i7k3qr37sqmee607nide.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.dride",
+            "certificate_hash": "2c222f9258d6463441535fad1df28ce8b5e1463b"
+          }
+        },
+        {
+          "client_id": "802741428178-b4c1j22k6507i33qhmmqgjem3s5e1ofg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvn29jy_hwnKSKMi4OkL3h11jXaT6iVtQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802741428178-kobq6qupo37ipqa6ocr448spova6ubg4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.dride",
+                "app_store_id": "1185398002"
+              }
+            },
+            {
+              "client_id": "802741428178-b4c1j22k6507i33qhmmqgjem3s5e1ofg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,6 +10,7 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import {Observable} from 'rxjs/Rx';
 
 import firebase from 'firebase';
+import { Firebase } from '@ionic-native/firebase';
 
 
 
@@ -59,7 +60,8 @@ export class clipsPage {
                 public af: AngularFire, 
                 private _auth: AuthService, 
                 public platform: Platform, 
-                public connectToDride: DeviceConnectionService
+                public connectToDride: DeviceConnectionService,
+                private firebaseNative: Firebase
               ) {
                    this.host = g.host;
                    
@@ -292,6 +294,8 @@ export class clipsPage {
     // Share via share sheet
     SocialSharing.shareWithOptions(options).then(() => {
       // Success!
+      this.firebaseNative.logEvent("video uploaded", {content_type: "share_video", item_id: "home"});
+      
     }).catch(() => {
       // Error!
     });
