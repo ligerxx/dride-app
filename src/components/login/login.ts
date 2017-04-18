@@ -3,6 +3,7 @@ import { ViewController, Platform, AlertController } from 'ionic-angular';
 import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 
 import firebase from 'firebase';
@@ -27,7 +28,7 @@ export class LoginComponent {
   FB_APP_ID: number = 1825311747740641;
 
 
-  constructor(public viewCtrl: ViewController, public auth$: AngularFireAuth, private platform: Platform, private fb: Facebook, public statusBar: StatusBar, private alertCtrl: AlertController) {
+  constructor(public viewCtrl: ViewController, public auth$: AngularFireAuth, private platform: Platform, private fb: Facebook, public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus) {
      
       this.fb.browserInit(this.FB_APP_ID, "v2.8");
 
@@ -81,8 +82,25 @@ export class LoginComponent {
 
     if (this.platform.is('cordova')) {
 
-      alert('Coming soon');
+              this.googlePlus.login({})
+                .then(res => {
+                  const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+                  firebase.auth().signInWithCredential(googleCredential).then(() => this.onSignInSuccess())
+                  .catch((error) => {
 
+                      let alert = this.alertCtrl.create({
+                        title: 'Pull Over',
+                        subTitle: error.message,
+                        buttons: ['Dismiss']
+                      });
+                      alert.present();
+                    
+                  });
+
+
+                })
+                .catch(err => console.error(err));
+                
     } else {
 
      this.auth$.login({

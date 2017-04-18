@@ -16,6 +16,7 @@ import { CalibrationPage } from '../pages/calibration/calibration';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 //components
 import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
@@ -64,7 +65,8 @@ export const firebaseConfig = {
               Globals,
               SplashScreen,
               StatusBar,
-              Facebook
+              Facebook,
+              GooglePlus
              ]
 })
 export class AppModule {}
