@@ -81,13 +81,17 @@ export class LoginComponent {
   signInWithGoogle(): void {
 
     if (this.platform.is('cordova')) {
-
-              this.googlePlus.login({})
+            console.log('start google connect')
+              this.googlePlus.login({
+                'webClientId': '802741428178-b4c1j22k6507i33qhmmqgjem3s5e1ofg.apps.googleusercontent.com',
+              })
                 .then(res => {
+                  console.log('res')
+                  console.log(res)
                   const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
                   firebase.auth().signInWithCredential(googleCredential).then(() => this.onSignInSuccess())
                   .catch((error) => {
-
+                        console.log('error' + error)
                       let alert = this.alertCtrl.create({
                         title: 'Pull Over',
                         subTitle: error.message,
