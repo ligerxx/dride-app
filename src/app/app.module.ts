@@ -18,6 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Firebase } from '@ionic-native/firebase';
+import { Toast } from '@ionic-native/toast';
 
 //components
 import { LoginComponent } from '../components/login/login';
@@ -69,7 +70,8 @@ export const firebaseConfig = {
               StatusBar,
               Facebook,
               GooglePlus,
-              Firebase
+              Firebase,
+              Toast
              ]
 })
 export class AppModule {}

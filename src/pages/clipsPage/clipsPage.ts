@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Rx';
 
 import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
-
+import { Toast } from '@ionic-native/toast';
 
 
 @Component({
@@ -48,7 +48,8 @@ export class clipsPage {
                 private _auth: AuthService, 
                 public platform: Platform, 
                 public connectToDride: DeviceConnectionService,
-                private firebaseNative: Firebase
+                private firebaseNative: Firebase,
+                private toast: Toast
               ) {
                    this.host = g.host;
                    
@@ -156,8 +157,14 @@ export class clipsPage {
 
       var index = this.videos.indexOf(vidoeId, 0);
       if (index > -1) {
-        console.log(index);
          this.videos.splice(index, 1);
+         
+         this.toast.show("Video was deleted", '5000', 'bottom').subscribe(
+            toast => {
+              console.log(toast);
+            }
+          );
+
       }
 
 
