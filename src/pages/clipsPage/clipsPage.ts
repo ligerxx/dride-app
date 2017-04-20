@@ -161,6 +161,26 @@ export class clipsPage {
   }
 
 
+  deleteVideo(vidoeId) {
+      console.log('try to delete' + vidoeId)
+
+      this.videoService.delete(vidoeId)
+      .then(data => {
+
+      var index = this.videos.indexOf(vidoeId, 0);
+      if (index > -1) {
+        console.log(index);
+         this.videos.splice(index, 1);
+      }
+
+
+      }); 
+
+        
+  }
+
+
+
   public showLoading(){
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...'

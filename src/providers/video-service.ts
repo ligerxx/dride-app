@@ -50,5 +50,23 @@ export class VideoService {
 	  });
 	}
 
+	delete(videoId) {
+
+	  // don't have the data yet
+	  return new Promise(resolve => {
+
+	    this.http.get( this.host + '/api/deleteClip/' + videoId)
+	      .map(res => res.json())
+	      .subscribe(data => {
+	        // we've got back the raw data, now generate the core schedule data
+	        // and save the data for later reference
+	        this.data = data.data;
+	        
+	        resolve(this.data);
+	      });
+	  });
+	}
+
+
 
 }

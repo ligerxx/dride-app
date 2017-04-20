@@ -18,10 +18,10 @@
       <span class="icon-bigD"></span>
     </div>
 
-    <ion-card *ngFor="let video of videos; let i = index;">
+    <ion-card *ngFor=" let video of videos; let i = index; "> 
 
 
-        <div class="videoObject" > 
+        <div class="videoObject"> 
 <!--             <div class="clipTitle" >
                {{toDate(video)}} | Unknown location
             </div> -->
@@ -48,7 +48,7 @@
         <ion-card-content>
             <button ion-button clear icon-left class="pull-left actionButtons" (click)="shareVideo(video)">
                 <ion-icon name="share-alt"></ion-icon>Share</button>
-            <button ion-button clear icon-left class="pull-right actionButtons">
+            <button ion-button clear icon-left class="pull-right actionButtons" (click)="deleteVideo(video)">
                 <ion-icon name="trash"></ion-icon>Delete</button>
         </ion-card-content>
     </ion-card>
