@@ -126,13 +126,12 @@ export class LoginComponent {
 
 
   private onSignInSuccess(): void {    
-    console.log("Facebook display name ", this.displayName());
+
     this.viewCtrl.dismiss({completed: true});
   }
 
   closeWindow() {
 
-    this.statusBar.backgroundColorByHexString('#90d7dc'); // set status bar to green
     this.viewCtrl.dismiss({completed: false});
 
   }

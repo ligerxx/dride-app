@@ -38,19 +38,6 @@ export class clipsPage {
   public watchForDevice: any;
   public loading: any;
 
-   public users = [
-     "151515115151" ,
-     "151516115151" ,
-     "151517115151" ,
-     "151518115151" ,
-     "151519115151" ,
-     "151520115151" ,
-     "151521115151" ,
-     "151522115151" ,
-     "151523115151" ,
-     "151524115151" 
-   ];
-
    userClipDbObject: FirebaseObjectObservable<any[]>;
 
     constructor(public navCtrl: NavController,
