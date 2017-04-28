@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Transfer } from 'ionic-native';
 
 import { Globals } from '../../providers/globals';
@@ -7,11 +7,16 @@ import { CalibrationPage } from '../../pages/calibration/calibration';
 import { Settings } from '../../providers/settings';
 import { FirmwareUpdate } from '../../providers/firmware-update';
 import { AuthService } from '../../providers/auth-service';
+import { Firebase } from '@ionic-native/firebase';
+
+import { FirmwareUpdatePage } from '../firmware-update-page/firmware-update-page';
+
+
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ Settings, Globals, FirmwareUpdate, Transfer ]
+  providers: [ Settings, Globals, FirmwareUpdate, Transfer, FirmwareUpdatePage ]
 })
 export class SettingsPage {
 
@@ -44,7 +49,7 @@ export class SettingsPage {
                           }
 
 
-  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService) {
+  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private firebase: Firebase) {
     
 
      this.settings.load()
@@ -68,9 +73,57 @@ export class SettingsPage {
   // will update dride's firmware.
   updateDride(){
 
-    this.firmwareUpdate.updateDride()
+
+    //this.navCtrl.push(FirmwareUpdatePage);
+
+    let loading = this.loadingCtrl.create({
+      content: 'Downloading new firmware...'
+    });
+    loading.present();
+
+    this.firmwareUpdate.getLatestFirmware()
+        .then(data => {
+            loading.setContent('Uploading firmware to Dride..')
+            this.firmwareUpdate.uploadFirmwareToDride(data)
+                    .then(data => {
+                            loading.dismiss();
+
+                              let alert = this.alertCtrl.create({
+                                title: 'Success',
+                                subTitle: 'The firmware was updated, Your device will now reboot..',
+                                buttons: ['Dismiss']
+                              });
+                              alert.present();
+                            
+                    }, (error) => {
+                      //FAILURE
+                       loading.dismiss();
+                        this.firebase.logEvent("firmware", {content_type: "fail", item_id: "upload", info: error})
+                        let alert = this.alertCtrl.create({
+                          title: 'Something is wrong',
+                          subTitle: 'The firmware was not updated, Let us know dride.io/forum',
+                          buttons: ['OK']
+                        });
+                        alert.present();
+                              
+                      console.log(error);
+                  })  
+            }, (error) => {
+            //FAILURE
+            console.log(error);
+            loading.dismiss();
+            this.firebase.logEvent("firmware", {content_type: "fail", item_id: "download", info: error})
+            let alert = this.alertCtrl.create({
+              title: 'Something is wrong',
+              subTitle: 'The firmware was not updated, Let us know dride.io/forum',
+              buttons: ['OK']
+            });
+            alert.present();
+
+        })  
 
   }
+
 
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transfer } from 'ionic-native';
+import { Transfer, FileUploadOptions } from 'ionic-native';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Globals } from '../providers/globals';
@@ -15,9 +15,6 @@ export class FirmwareUpdate {
 
 
 	public host: string;
-
-	//TODO make the version of firmware dynamic!
-	public latest: string = '0.1.1';
 	public firmwareZip: any;
 
 
@@ -35,29 +32,50 @@ export class FirmwareUpdate {
 	}
 
 	getLatestFirmware() {
+		return new Promise((resolve, reject) => {
 
-   		const fileTransfer = new Transfer();
+	   		const fileTransfer = new Transfer();
 
-	    let url =  'https://github.com/dride/dride-ws/archive/'+ this.latest +'.zip';
-	    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.').then((entry) => {
-	      console.log('download complete: ' + entry.toURL());
+		    let url =  'https://s3.amazonaws.com/dride/releases/cardigan/latest.zip';
 
-	      this.uploadToDride(entry.toURL());
+		    fileTransfer.download(url, cordova.file.dataDirectory + 'latest.zip').then((entry) => {
+		      console.log('download complete: ' + entry.toURL());
+		      resolve(entry.toURL());
 
-	    }, (error) => {
-	      // handle error
-	      console.log(error);
-	    });
-
+		    }, (error) => {
+		      // handle error
+		      console.log(error);
+		      reject();
+		    });
+	  });
 	}
 
 
 
-	uploadToDride(zipUrl){
+	uploadFirmwareToDride(zipUrl){
+		return new Promise((resolve, reject) => {
+
+		  const fileTransfer = new Transfer();
+		  let options: FileUploadOptions = {
+		     fileKey: 'file',
+		     fileName: 'latest.zip'
+		  }
+
+		  fileTransfer.upload(zipUrl, this.host + '/api/updateFirmware', options)
+		   .then((data) => {
+		     // success
+		     console.log(data)
+		     resolve();
+		   }, (err) => {
+		     // error
+		     reject();
+		   })
+		
 
 
-		alert("xxxxxxx");
+			
 
+		  });
 
 
 	}

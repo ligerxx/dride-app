@@ -11,6 +11,7 @@ import { Globals } from '../providers/globals';
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
+import { FirmwareUpdatePage } from '../pages/firmware-update-page/firmware-update-page';
 import { CalibrationPage } from '../pages/calibration/calibration';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +40,7 @@ export const firebaseConfig = {
     MyApp,
     clipsPage,
     SettingsPage,
+    FirmwareUpdatePage,
     CalibrationPage,
     LoginComponent,
     ConnectDrideComponent
@@ -56,6 +58,7 @@ export const firebaseConfig = {
     MyApp,
     clipsPage,
     SettingsPage,
+    FirmwareUpdatePage,
     CalibrationPage,
     LoginComponent,
     ConnectDrideComponent

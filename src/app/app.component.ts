@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFire } from 'angularfire2';
@@ -20,7 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
  
-  constructor(public platform: Platform, af: AngularFire,  public splashScreen: SplashScreen, public statusBar: StatusBar) {
+  constructor(public platform: Platform, af: AngularFire,  public splashScreen: SplashScreen, public statusBar: StatusBar, private config: Config) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -41,6 +41,7 @@ export class MyApp {
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.config.set('backButtonText', '');
 
     });
   }
