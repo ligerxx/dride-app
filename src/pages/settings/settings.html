@@ -7,49 +7,51 @@
     <br>
 
     <ion-list>
-        <ion-item *ngFor="let item of settingsNodes" class="settingsNodes">
-            <ion-icon [name]="item.icon" item-left></ion-icon>
-            <ion-label [innerHTML]="item.title"></ion-label>
-            <ion-toggle [(ngModel)]="configObj[item.category][item.id]" (click)="setSetting(item.id, configObj[item.category][item.id], item.category)"></ion-toggle>
-        </ion-item>
+
+            <ion-item *ngFor="let item of settingsNodes" class="settingsNodes">
+                <ion-icon [name]="item.icon" item-left></ion-icon>
+                <ion-label [innerHTML]="item.title"></ion-label>
+                <ion-toggle [(ngModel)]="configObj[item.category][item.id]" (click)="setSetting(item.id, configObj[item.category][item.id], item.category)"></ion-toggle>
+            </ion-item>
+
     </ion-list>
 
     <ion-list>
-        <ion-item detail-push (click)="openCalibration()" class="settingsNodes">
+        <button ion-item detail-push (click)="openCalibration()" class="settingsNodes">
             Start calibration
-        </ion-item>
-        <ion-item detail-push class="settingsNodes">
+        </button>
+<!--         <button ion-item detail-push class="settingsNodes">
             Update password
-        </ion-item>
+        </button> -->
     </ion-list>
 
     <ion-list>
-        <ion-item detail-push (click)="updateDride()" class="settingsNodes">
+        <button ion-item detail-push (click)="updateDride()" class="settingsNodes">
             <ion-icon name="thunderstorm" item-left></ion-icon>
             Firmware update
-        </ion-item>
+        </button>
     </ion-list>
 
     <ion-list>
-        <ion-item detail-push class="settingsNodes">
+        <button ion-item detail-push class="settingsNodes">
          	<ion-icon name="help-buoy" item-left></ion-icon>
             Contact Support
-        </ion-item>
-        <ion-item detail-push class="settingsNodes">
+        </button>
+        <button ion-item detail-push class="settingsNodes">
 			<ion-icon name="bug" item-left></ion-icon>
             Report a Bug
-        </ion-item>
-        <ion-item detail-push class="settingsNodes">
+        </button>
+        <button ion-item detail-push class="settingsNodes">
         	<ion-icon name="information-circle" item-left></ion-icon>
             About this device
-        </ion-item>
+        </button>
     </ion-list>
 
     <ion-list *ngIf="isLoggedIn()" (click)="signOut()">
-        <ion-item detail-push (click)="logOut()" class="settingsNodes">
+        <button ion-item detail-push (click)="logOut()" class="settingsNodes">
             <ion-icon name="log-out" item-left></ion-icon>
             Logout
-        </ion-item>
+        </button>
     </ion-list>
 
 
