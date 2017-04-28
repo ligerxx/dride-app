@@ -25,9 +25,10 @@ export class SettingsPage {
   	{"title": "Sound", "category": "sound", "id": "mute", "icon": "volume-mute"},
   	{"title": "Microphone", "category": "sound", "id": "mic", "icon": "mic"},
   	{"title": "GPS", "category": "gps", "id": "gps", "icon": "navigate"},
-  	{"title": "ADAS <label>Beta</label>", "category": "mode", "id": "adas", "icon": "reverse-camera"},
+  	{"title": "ADAS <label>Beta</label>", "category": "calibration", "id": "adas", "icon": "reverse-camera"},
   	{"title": "Video Recorder", "category": "mode", "id": "dvr", "icon": "videocam"}
   ]
+
 
   public configObj: any = {
                             "mode": {
@@ -127,8 +128,8 @@ export class SettingsPage {
 
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 
-   this.settings.setSettings(fieldName, fieldValue, 'calibration');
-   
+   this.settings.setSettings(fieldName, fieldValue, CategoryName);
+
   }
 
   isLoggedIn(){
