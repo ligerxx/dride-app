@@ -26,22 +26,22 @@
     </ion-list>
 
     <ion-list>
-        <button ion-item detail-push (click)="updateDride()" class="settingsNodes">
+        <button ion-item detail-push (click)="promtUpdateDride()" class="settingsNodes">
             <ion-icon name="thunderstorm" item-left></ion-icon>
             Firmware update
         </button>
     </ion-list>
 
     <ion-list>
-        <button ion-item detail-push class="settingsNodes">
+        <button ion-item detail-push class="settingsNodes" (click)="sendToSupport()">
          	<ion-icon name="help-buoy" item-left></ion-icon>
-            Contact Support
+            Support
         </button>
-        <button ion-item detail-push class="settingsNodes">
+        <button ion-item detail-push class="settingsNodes" (click)="sendToSupport()">
 			<ion-icon name="bug" item-left></ion-icon>
             Report a Bug
         </button>
-        <button ion-item detail-push class="settingsNodes">
+        <button ion-item detail-push class="settingsNodes" (click)="getInfo()">
         	<ion-icon name="information-circle" item-left></ion-icon>
             About this device
         </button>

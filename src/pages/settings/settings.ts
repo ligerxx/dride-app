@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import { Transfer } from 'ionic-native';
+import { Transfer, InAppBrowser } from 'ionic-native';
 
 import { Globals } from '../../providers/globals';
 import { CalibrationPage } from '../../pages/calibration/calibration';
@@ -50,7 +50,9 @@ export class SettingsPage {
                           }
 
 
-  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private firebase: Firebase) {
+  constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService, 
+              public loadingCtrl: LoadingController, private alertCtrl: AlertController, private firebase: Firebase
+              ) {
     
 
      this.settings.load()
@@ -72,6 +74,35 @@ export class SettingsPage {
   }
 
   // will update dride's firmware.
+
+
+  promtUpdateDride(){
+      let alert = this.alertCtrl.create({
+      title: 'Confirm update',
+      message: 'This will update your Dride, Continue?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Install',
+          handler: () => {
+            this.updateDride()
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
+
+
   updateDride(){
 
 
@@ -84,7 +115,7 @@ export class SettingsPage {
 
     this.firmwareUpdate.getLatestFirmware()
         .then(data => {
-            loading.setContent('Uploading firmware to Dride..')
+            loading.setContent('Installing drideOS..')
             this.firmwareUpdate.uploadFirmwareToDride(data)
                     .then(data => {
                             loading.dismiss();
@@ -136,6 +167,30 @@ export class SettingsPage {
 
       //make sure the user Is logged in, a login pop up will jump if not.
       return this._auth.authenticated;
+
+  }
+
+  /*
+  *  Will open the dride forum
+  */
+  sendToSupport(){
+
+    let browser = new InAppBrowser('https://dride.io/forum', '_system');
+
+  }
+
+  /*
+  *  Will show info for the device
+  */
+  getInfo(){
+
+    let alert = this.alertCtrl.create({
+      title: 'Device Info',
+      subTitle: 'Device version: ' + this.configObj.os.version,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+
 
   }
 
