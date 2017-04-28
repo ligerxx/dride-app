@@ -128,7 +128,7 @@ export class SettingsPage {
   setSetting(fieldName: string, fieldValue: string, CategoryName: string) {
 
    this.settings.setSettings(fieldName, fieldValue, 'calibration');
-
+   
   }
 
   isLoggedIn(){
