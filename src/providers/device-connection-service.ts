@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Globals } from '../providers/globals';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+
 
 /*
   Generated class for the DeviceConnectionService provider.
@@ -16,9 +18,10 @@ import { Globals } from '../providers/globals';
 export class DeviceConnectionService {
 
   public connectModal: any;
+  public af: AngularFire;
 
-  constructor(public modalCtrl: ModalController, public g: Globals, public http: Http) {
-    console.log('Hello DeviceConnectionService Provider');
+  constructor(public modalCtrl: ModalController, public g: Globals, public http: Http, af: AngularFire) {
+    this.af = af;
   }
 
 
@@ -77,6 +80,7 @@ export class DeviceConnectionService {
             data => {
 
                 if (data.status){
+                  this.makeSureDeviceIsRegistered()
                   resolve(true);
                   return;
                 }
@@ -89,5 +93,25 @@ export class DeviceConnectionService {
       });
     
     }
+
+
+    makeSureDeviceIsRegistered(){
+
+        let con = this.http.get( this.g.host +'/api/getSerialNumber')
+          .map(res => res.json())
+          .timeout(2000)
+          .subscribe(
+            data => {
+                  const devices = this.af.database.object('devices/' + data.serial);
+                  devices.set({'lastSeen': (new Date).getTime()});               
+              }
+              );
+
+      return true;
+
+
+    }
+
+
 
 }
