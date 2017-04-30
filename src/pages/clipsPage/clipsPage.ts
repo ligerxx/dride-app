@@ -259,7 +259,6 @@ export class clipsPage {
     // Create a root reference
     var uid = this._auth.getUid();
 
-    console.log(this._auth)
     var storage = firebase.storage();
     const storageRef = storage.ref().child(bucket).child(uid).child(vidoeId + (this.getFileExtensionByBucketName(bucket)));
     storageRef.put(file).then((data) => {

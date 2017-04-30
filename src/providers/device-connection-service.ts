@@ -87,8 +87,6 @@ export class DeviceConnectionService {
                 
               }
               );
-            
-
 
       });
     
@@ -102,7 +100,7 @@ export class DeviceConnectionService {
           .timeout(2000)
           .subscribe(
             data => {
-                  const devices = this.af.database.object('devices/' + data.serial);
+                  const devices = this.af.database.object('devicesAll/' + data.serial);
                   devices.set({'lastSeen': (new Date).getTime()});               
               }
               );

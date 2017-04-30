@@ -1,0 +1,37 @@
+<!--
+  Generated template for the Calibration page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>Calibration</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="padContent">
+    <br>
+
+    <img src="{{imgSrc}}" />
+
+
+
+    <div class="controlers">
+
+		<ion-icon name="arrow-dropup-circle" (click)="updateCalibration('up')"></ion-icon>
+		<div class="clear"></div>
+		<ion-icon name="arrow-dropright-circle" class="pull-right" (click)="updateCalibration('right')"></ion-icon>
+
+		<ion-icon name="arrow-dropleft-circle" class="pull-left" (click)="updateCalibration('left')"></ion-icon>
+		<div class="clear"></div>
+
+		<ion-icon name="arrow-dropdown-circle" class="downArrow" (click)="updateCalibration('down')"></ion-icon>
+
+
+
+		<br><br>
+		<button ion-button round color="dark" (click)="finishCalibration()">Finish Calibration</button>
+	</div>
+
+
+</ion-content>

@@ -13,6 +13,7 @@ import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
 import { FirmwareUpdatePage } from '../pages/firmware-update-page/firmware-update-page';
 import { CalibrationPage } from '../pages/calibration/calibration';
+import { ManualCalibration } from '../pages/manual-calibration/manual-calibration';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -42,6 +43,7 @@ export const firebaseConfig = {
     SettingsPage,
     FirmwareUpdatePage,
     CalibrationPage,
+    ManualCalibration,
     LoginComponent,
     ConnectDrideComponent
   ],
@@ -60,6 +62,7 @@ export const firebaseConfig = {
     SettingsPage,
     FirmwareUpdatePage,
     CalibrationPage,
+    ManualCalibration,
     LoginComponent,
     ConnectDrideComponent
   ],

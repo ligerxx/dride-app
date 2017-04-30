@@ -1,7 +1,7 @@
 <!--
-  Generated template for the Calibration page.
+  Generated template for the ManualCalibration page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header no-border>
@@ -10,28 +10,53 @@
     </ion-navbar>
 </ion-header>
 <ion-content class="padContent">
-    <br>
+   
 
-    <img src="{{imgSrc}}" />
+	<div class="box" *ngIf="!calibrationClips">
+	   <p class="alert-warning">We couldn't find any videos above 90 mph, Please drive on a highway for at least 10 minutes and come back to this window.</p>
 
+	   <br>
+	   <br>
+	   <br>
+	   <div class="text-center">
+	   		<label>OR</label>
+	   </div>
+	   <br>
+	   <button (click)="manualCalibration()" ion-button full color="light">Manual Calibration</button>
 
-
-    <div class="controlers">
-
-		<ion-icon name="arrow-dropup-circle" (click)="updateCalibration('up')"></ion-icon>
-		<div class="clear"></div>
-		<ion-icon name="arrow-dropright-circle" class="pull-right" (click)="updateCalibration('right')"></ion-icon>
-
-		<ion-icon name="arrow-dropleft-circle" class="pull-left" (click)="updateCalibration('left')"></ion-icon>
-		<div class="clear"></div>
-
-		<ion-icon name="arrow-dropdown-circle" class="downArrow" (click)="updateCalibration('down')"></ion-icon>
-
-
-
-		<br><br>
-		<button ion-button round color="dark" (click)="finishCalibration()">Finish Calibration</button>
 	</div>
+
+	
+	<div class="box" *ngIf="calibrationClips">
+	   
+	   <div *ngIf="!calibrationStatus">
+		   <p class="alert-info">Great! We can now calibrate your Dride, This can take up to 24 hours.</p>
+
+		   <button (click)="uploadClipsForCalibration()" ion-button full color="dark">Request Calibration</button>
+	   </div>
+	   <div *ngIf="calibrationStatus=='pendingUpload'">
+		   <p class="alert-info"><b>Success!</b> Your device was successful calibrated!</p>
+
+		   <button (click)="uploadClipsForCalibration()" ion-button full color="dark">Request Calibration</button>
+	   </div>
+		<div *ngIf="calibrationStatus=='watingForCalibration'">
+		   <p class="alert-warning">This device is pending calibration, Come back in a few hours</p>
+		</div>   
+	   <br>
+	   <br>
+	   <br>
+	   <div class="text-center">
+	   		<label>OR</label>
+	   </div>
+	   <br>
+	   <button (click)="manualCalibration()" ion-button full color="light">Manual Calibration</button>
+
+	</div>
+
+
+
+
+
 
 
 </ion-content>
