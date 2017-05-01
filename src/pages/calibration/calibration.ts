@@ -65,13 +65,13 @@ export class CalibrationPage {
                 this.settings.setSettings('square_height', this.calibrationObj.data.square_height, 'calibration');
 
                 this.userClipDbObject = this.af.database.object('devices/' +'/' + this._auth.getUid() + '/' + this.serialNumber);
-                this.userClipDbObject.set({
+                this.userClipDbObject.update({
                     calibrationStatus: ''
                 }).then(_ => console.log('defaults updated'));
 
             }
 
-       
+
      })
    })
  

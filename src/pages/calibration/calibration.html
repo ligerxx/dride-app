@@ -29,17 +29,17 @@
 	
 	<div class="box" *ngIf="calibrationClips">
 	   
-	   <div *ngIf="!calibrationStatus">
+	   <div *ngIf="!calibrationObj ||  (calibrationObj.calibrationStatus!='watingForCalibration' &&  calibrationObj.calibrationStatus!='pendingUpload')">
 		   <p class="alert-info">Great! We can now calibrate your Dride, This can take up to 24 hours.</p>
 
 		   <button (click)="uploadClipsForCalibration()" ion-button full color="dark">Request Calibration</button>
 	   </div>
-	   <div *ngIf="calibrationStatus=='pendingUpload'">
+	   <div *ngIf="calibrationObj && calibrationObj.calibrationStatus=='pendingUpload'">
 		   <p class="alert-info"><b>Success!</b> Your device was successful calibrated!</p>
 
 		   <button (click)="uploadClipsForCalibration()" ion-button full color="dark">Request Calibration</button>
 	   </div>
-		<div *ngIf="calibrationStatus=='watingForCalibration'">
+		<div *ngIf="calibrationObj && calibrationObj.calibrationStatus=='watingForCalibration'">
 		   <p class="alert-warning">This device is pending calibration, Come back in a few hours</p>
 		</div>   
 	   <br>
