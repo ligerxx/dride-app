@@ -65,10 +65,10 @@ export class FirmwareUpdate {
 		   .then((data) => {
 		     // success
 		     console.log(data)
-		     resolve();
+		     resolve(data);
 		   }, (err) => {
 		     // error
-		     reject();
+		     reject(err);
 		   })
 		
 
