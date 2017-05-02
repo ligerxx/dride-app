@@ -64,29 +64,8 @@ export class DeviceConnectionService {
       // don't have the data yet
       return new Promise(resolve => {
 
-        //if we didn't receive a response than we're not connected!
-        setTimeout(() => {
+        resolve(true);
 
-          resolve(false);
-          console.log('kill connection');
-          con.unsubscribe();
-          
-        }, 2000);
-            
-        let con = this.http.get( this.g.host +'/api/isOnline')
-          .map(res => res.json())
-          .timeout(2000)
-          .subscribe(
-            data => {
-
-                if (data.status){
-                  this.makeSureDeviceIsRegistered()
-                  resolve(true);
-                  return;
-                }
-                
-              }
-              );
 
       });
     

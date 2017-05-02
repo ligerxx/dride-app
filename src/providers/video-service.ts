@@ -32,11 +32,11 @@ export class VideoService {
 	  // don't have the data yet
 	  return new Promise(resolve => {
 
-	    this.http.get( this.host + '/api/getClips')
-	      .map(res => res.json())
+	    this.http.get( this.host + '?custom=1&cmd=3015')
+	      .map(res => {console.log(res)})
 	      .subscribe(data => {
 
-	        this.data = data.data;
+	        this.data = data;
 	        
 	        resolve(this.data);
 	      });
