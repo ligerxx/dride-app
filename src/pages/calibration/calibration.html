@@ -12,7 +12,7 @@
 <ion-content class="padContent">
    
 
-	<div class="box" *ngIf="!calibrationClips">
+	<div class="box" *ngIf="!calibrationClips || calibrationClips?.length == 0">
 	   <p class="alert-warning">We couldn't find any videos above 90 mph, Please drive on a highway for at least 10 minutes and come back to this window.</p>
 
 	   <br>
@@ -27,7 +27,7 @@
 	</div>
 
 	
-	<div class="box" *ngIf="calibrationClips">
+	<div class="box" *ngIf="calibrationClips?.length > 0">
 	   
 	   <div *ngIf="!calibrationObj ||  (calibrationObj.calibrationStatus!='watingForCalibration' &&  calibrationObj.calibrationStatus!='pendingUpload')">
 		   <p class="alert-info">Great! We can now calibrate your Dride, This can take up to 24 hours.</p>

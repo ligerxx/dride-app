@@ -55,7 +55,7 @@ export class CalibrationPage {
      this.getCalibrationStatus().then(res => {
 
            //if we need to upload new defaults file do this now
-            if (this.calibrationObj.calibrationStatus == 'pendingUpload')    {
+            if (this.calibrationObj && this.calibrationObj.calibrationStatus == 'pendingUpload')    {
 
                 this.settings.setSettings('x1', this.calibrationObj.data.x1, 'calibration');
                 this.settings.setSettings('y1', this.calibrationObj.data.y1, 'calibration');
@@ -93,7 +93,7 @@ export class CalibrationPage {
         .subscribe(data => {
 
           this.calibrationClips = data.data;
-          
+
           resolve(this.calibrationClips);
         });
     });
