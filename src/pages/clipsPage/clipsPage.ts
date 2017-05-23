@@ -13,6 +13,7 @@ import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
 
+import {VgAPI} from 'videogular2/core';
 
 @Component({
   selector: 'page-clipsPage',
@@ -37,6 +38,9 @@ export class clipsPage {
   
   public watchForDevice: any;
   public loading: any;
+
+  public preload:string = 'auto';
+  public api:VgAPI;
 
    userClipDbObject: FirebaseObjectObservable<any[]>;
 
@@ -72,6 +76,18 @@ export class clipsPage {
 
 
    }
+
+    onPlayerReady(api:VgAPI) {
+        this.api = api;
+
+        this.api.getDefaultMedia().subscriptions.ended.subscribe(
+            () => {
+                // Set the video to the beginning
+                this.api.getDefaultMedia().currentTime = 0;
+            }
+        );
+    }
+
 
 
    loadClipsKnowingDeviceIsConnected(){

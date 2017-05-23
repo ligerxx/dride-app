@@ -1,46 +1,49 @@
 <ion-header no-border>
-    <ion-navbar >
+    <ion-navbar>
         <button ion-button menuToggle class="toggleMenu">
             <ion-icon name="md-more" class="pull-left"></ion-icon>
         </button>
-        <ion-title >dride</ion-title>
+        <ion-title>dride</ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content class="home" >
+<ion-content class="home">
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-
     <div *ngIf="!videos" class="text-center">
-      <div class="animCar">
-      </div>
-      <span class="icon-bigD"></span>
-    </div>
-
-    <ion-card *ngFor=" let video of videos; let i = index; "> 
-
-
-        <div class="videoObject"> 
-        <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
-                <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
-            </video>
-            <div class="controls">
-              <span [hidden]="playing && playing[i]" class="icon-play" (click)="play(i)"></span>
-             <!--  <ion-icon [hidden]="playing && playing[i]" ios="ios-play" md="ios-play" (click)="play(i)"></ion-icon> -->
-              <div class="clear"></div>
-              <div class="scrollbar" [hidden]="playing && !playing[i]">
-                  <ion-icon  ios="ios-pause" md="ios-pause" (click)="pause(i)" class="pull-left"></ion-icon>
-                  <div class="scroll" >
-                    <div class="scrollFill" [style.width]="(currentTime/100)*100 + '%'"></div>
-                  </div>
-                  
-              </div>
-
-            </div>
+        <div class="animCar">
         </div>
+        <span class="icon-bigD"></span>
+    </div>
+    <ion-card *ngFor=" let video of videos; let i = index; ">
+        <div class="videoObject">
+<!--             <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
+                <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
+            </video> -->
+
+            <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
+                <!--<vg-overlay-play></vg-overlay-play> -->
+                <vg-buffering></vg-buffering>
+
+                <video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{video}}.jpg" class="videoPlayer">
+                    <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4">
+                </video>
+                <vg-controls>
+                    <vg-play-pause></vg-play-pause>
+
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                    </vg-scrub-bar>
+
+                    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+
+                </vg-controls>
+            </vg-player>
 
 
+        </div>
         <ion-card-content>
             <button ion-button clear icon-left class="pull-left actionButtons" (click)="shareVideo(video)">
                 <ion-icon name="share-alt"></ion-icon>Share</button>
@@ -48,12 +51,7 @@
                 <ion-icon name="trash"></ion-icon>Delete</button>
         </ion-card-content>
     </ion-card>
-    
-     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-     </ion-infinite-scroll>
-
-
-
-
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
