@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="11" id="io.dride" version="0.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="12" id="io.dride" version="0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>dride</name>
     <description>An app for dride</description>
     <author email="hello@dride.io" href="http://dride.io">The dride guys</author>
@@ -65,6 +65,11 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <config-file parent="UIBackgroundModes" target="*-Info.plist">
+            <array>
+                <string>bluetooth-central</string>
+            </array>
+        </config-file>
     </platform>
     <preference name="target-device" value="handset" />
     <preference name="webviewbounce" value="false" />
@@ -85,14 +90,21 @@
     <plugin name="cordova-plugin-console" spec="~1.0.4" />
     <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="~5.1.3" />
-    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
-    <allow-navigation href="http://192.168.1.12:8000" />
-    <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
     <plugin name="cordova-plugin-googleplus" spec="~5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.802741428178-kobq6qupo37ipqa6ocr448spova6ubg4" />
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.0" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="~5.1.3" />
+    <plugin name="cordova-plugin-file" spec="~4.3.0" />
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <allow-navigation href="http://192.168.1.12:8000" />
+    <engine name="ios" spec="~4.3.1" />
+    <plugin name="cordova-plugin-ble-central" spec="~1.1.4">
+        <variable name="BLUETOOTH_USAGE_DESCRIPTION" value="Control you Dride" />
+    </plugin>
+    <plugin name="cordova-custom-config" spec="~3.2.0" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.5" />
 </widget>

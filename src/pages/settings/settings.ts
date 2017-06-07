@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import { Transfer, InAppBrowser } from 'ionic-native';
 
 import { Globals } from '../../providers/globals';
 import { CalibrationPage } from '../../pages/calibration/calibration';
@@ -10,13 +9,13 @@ import { AuthService } from '../../providers/auth-service';
 import { Firebase } from '@ionic-native/firebase';
 
 import { FirmwareUpdatePage } from '../firmware-update-page/firmware-update-page';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ Settings, Globals, FirmwareUpdate, Transfer, FirmwareUpdatePage ]
+  providers: [ Settings, Globals, FirmwareUpdate, FirmwareUpdatePage ]
 })
 export class SettingsPage {
 
@@ -51,13 +50,14 @@ export class SettingsPage {
 
 
   constructor(public navCtrl: NavController, public settings: Settings, public firmwareUpdate: FirmwareUpdate, private _auth: AuthService, 
-              public loadingCtrl: LoadingController, private alertCtrl: AlertController, private firebase: Firebase
+              public loadingCtrl: LoadingController, private alertCtrl: AlertController, private firebase: Firebase, private iab: InAppBrowser
               ) {
     
 
      this.settings.load()
       .then(data => {
         this.configObj = data;
+        console.log(data)
       }); 
 
 
@@ -175,7 +175,7 @@ export class SettingsPage {
   */
   sendToSupport(){
 
-    let browser = new InAppBrowser('https://dride.io/forum', '_system');
+    const browser = this.iab.create('https://dride.io/forum', '_system');
 
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import {InAppBrowser} from 'ionic-native';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 /*
   Generated class for the ConnectDride component.
@@ -16,7 +17,7 @@ export class ConnectDrideComponent {
 
   public isLoaded: boolean = false;
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController, private iab: InAppBrowser) {
 
       setTimeout(() => {
         this.isLoaded =true;
@@ -28,7 +29,7 @@ export class ConnectDrideComponent {
 
   buyDride(){
 
-    let browser = new InAppBrowser('https://dride.io/buy', '_system');
+    const browser = this.iab.create('https://dride.io/store', '_system');
 
   }
 

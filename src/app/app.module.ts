@@ -21,6 +21,13 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { BLE } from '@ionic-native/ble';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+
 
 //videogular2
 import {VgCoreModule} from 'videogular2/core';
@@ -87,7 +94,13 @@ export const firebaseConfig = {
               Facebook,
               GooglePlus,
               Firebase,
-              Toast
+              Toast,
+              Transfer,
+              File,
+              SocialSharing,
+              InAppBrowser,
+              BLE,
+              LocalNotifications
              ]
 })
 export class AppModule {}

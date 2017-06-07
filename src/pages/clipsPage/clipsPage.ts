@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
-import { Transfer, SocialSharing, File } from 'ionic-native';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
 
@@ -12,6 +11,10 @@ import {Observable} from 'rxjs/Rx';
 import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
+import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 import {VgAPI} from 'videogular2/core';
 
@@ -53,7 +56,10 @@ export class clipsPage {
                 public platform: Platform, 
                 public connectToDride: DeviceConnectionService,
                 private firebaseNative: Firebase,
-                private toast: Toast
+                private toast: Toast,
+                private socialSharing: SocialSharing,
+                private transfer: Transfer,
+                private file: File
               ) {
                    this.host = g.host;
                    
@@ -212,16 +218,16 @@ export class clipsPage {
 
     this.showLoading();
   
-    const fileTransfer = new Transfer();
+    const fileTransfer: TransferObject = this.transfer.create();
 
     let url = this.host + '/modules/video/clip/' + vidoeId + '.mp4';
 
-    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.mp4').then((entry) => {
+    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.mp4').then((entry) => {
       console.log(entry);
       console.log('download complete: ' + entry.toURL());
 
 
-      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
+      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
         this.uploadToDrideNetworkFB(file, vidoeId, 'clips');
         this.uploadThumbOnBackground(vidoeId, fileTransfer);
         this.uploadGPSOnBackground(vidoeId, fileTransfer);
@@ -237,11 +243,11 @@ export class clipsPage {
   public uploadThumbOnBackground(vidoeId, fileTransfer){
     let url = this.host + '/modules/video/thumb/' + vidoeId + '.jpg';
 
-    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedClips.jpg').then((entry) => {
+    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.jpg').then((entry) => {
       console.log(entry);
       console.log('download complete [thumb]: ' + entry.toURL());
 
-      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedClips.jpg').then(file => {
+      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.jpg').then(file => {
         this.uploadToDrideNetworkFB(file, vidoeId, 'thumbs');
       }).catch(err => console.error('file upload failed [thumb] ', err));
       
@@ -254,11 +260,11 @@ export class clipsPage {
   public uploadGPSOnBackground(vidoeId, fileTransfer){
     let url = this.host + '/modules/video/gps/' + vidoeId + '.json';
 
-    fileTransfer.download(url, cordova.file.dataDirectory + 'tmpSharedGPS.json').then((entry) => {
+    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedGPS.json').then((entry) => {
       console.log(entry);
       console.log('download complete [thumb]: ' + entry.toURL());
 
-      File.readAsArrayBuffer(cordova.file.dataDirectory, 'tmpSharedGPS.json').then(file => {
+      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedGPS.json').then(file => {
         this.uploadToDrideNetworkFB(file, vidoeId, 'gps');
       }).catch(err => console.error('file upload failed [GPS] ', err));
       
@@ -321,7 +327,7 @@ export class clipsPage {
     }
 
     // Share via share sheet
-    SocialSharing.shareWithOptions(options).then(() => {
+    this.socialSharing.shareWithOptions(options).then(() => {
       // Success!
       this.firebaseNative.logEvent("video uploaded", {content_type: "share_video", item_id: "home"});
       
