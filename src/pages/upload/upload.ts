@@ -56,6 +56,7 @@ export class UploadPage {
   ) {
     this.host = g.host;
     this.videoId = navParams.get('videoId');
+    
   }
 
   ionViewDidEnter() {
@@ -74,6 +75,7 @@ export class UploadPage {
     this.trimFrom();
   }
   trimTo() {
+
     if (this.structure.lower && this.seekLower == this.structure.lower) return;
 
     this.seekLower = this.structure.lower;
@@ -82,6 +84,7 @@ export class UploadPage {
   }
 
   trimFrom() {
+
     if (this.structure.upper != 25 && this.seekUpper == this.structure.upper) return;
 
     this.seekUpper = this.structure.upper;

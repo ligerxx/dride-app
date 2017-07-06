@@ -19,17 +19,16 @@
 
   <h1 class="text-center">Scroll to the <label>first frame</label> of the event</h1>
   <div class="box">
-    <ion-card>
+    <ion-card *ngIf="videoId">
       <div class="videoObject">
         <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
           <!--<vg-overlay-play></vg-overlay-play> -->
           <vg-buffering></vg-buffering>
 
-          <video [vgMedia]="media" #media [id]="v1" preload="auto" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{videoId}}.jpg"
-            class="videoPlayer">
-            <source src="{{host}}/modules/video/clip/{{videoId}}.mp4" type="video/mp4">
+          <video [vgMedia]="mediaScrub" #mediaScrub id="vv1" preload="auto" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{videoId}}.jpg"
+            class="videoPlayer" src="{{host}}/modules/video/clip/{{videoId}}.mp4" type="video/mp4">
           </video>
-
+                <vg-controls style="display: none;">                </vg-controls>
         </vg-player>
 
 
