@@ -1,0 +1,69 @@
+<!--
+  Generated template for the UploadPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>
+      <ion-icon name="cloud"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+  <h1 class="text-center">Scroll to the <label>first frame</label> of the event</h1>
+  <div class="box">
+    <ion-card>
+      <div class="videoObject">
+        <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
+          <!--<vg-overlay-play></vg-overlay-play> -->
+          <vg-buffering></vg-buffering>
+
+          <video [vgMedia]="media" #media [id]="v1" preload="auto" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{videoId}}.jpg"
+            class="videoPlayer">
+            <source src="{{host}}/modules/video/clip/{{videoId}}.mp4" type="video/mp4">
+          </video>
+
+        </vg-player>
+
+
+        <ion-row class="rangePicker">
+          <ion-range style="width:100%;" (ionChange)="trim();" min="0" max="{{totalTime}}" dualKnobs="true" pin="true" [(ngModel)]="structure" color="dark">
+          </ion-range>
+        </ion-row>
+
+
+
+      </div>
+
+    </ion-card>
+  </div>
+
+  <div padding *ngIf="!downloadStatus">
+      <button ion-button full color="dark" (click)="cropAndUpload()">
+        Upload
+      </button>
+  </div>
+
+  <div class="loaderStatus" *ngIf="downloadStatus" >
+
+    <span class="lbl">{{downloadStatus}}..</span>
+            <p class="col-xs-2 progressPracent">{{progress}}%</p>
+
+            <div class="col-xs-10 padlcart">
+              <div class="progressCar" [style.width]="progress  +'%'">
+                <span class="icon-toyCar-1 pull-right"></span>
+              </div>
+            </div>
+
+
+  </div>
+
+
+</ion-content>

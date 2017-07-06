@@ -11,6 +11,8 @@ import { Globals } from '../providers/globals';
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
+import { UploadPage } from '../pages/upload/upload';
+
 import { FirmwareUpdatePage } from '../pages/firmware-update-page/firmware-update-page';
 import { CalibrationPage } from '../pages/calibration/calibration';
 import { ManualCalibration } from '../pages/manual-calibration/manual-calibration';
@@ -55,6 +57,7 @@ export const firebaseConfig = {
     clipsPage,
     SettingsPage,
     FirmwareUpdatePage,
+    UploadPage,
     CalibrationPage,
     ManualCalibration,
     LoginComponent,
@@ -76,6 +79,7 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     clipsPage,
+    UploadPage,
     SettingsPage,
     FirmwareUpdatePage,
     CalibrationPage,

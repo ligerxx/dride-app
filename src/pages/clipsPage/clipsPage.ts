@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
+import { UploadPage } from '../../pages/upload/upload';
+
 
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
-import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
-import { File } from '@ionic-native/file';
-import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 
 import {VgAPI} from 'videogular2/core';
@@ -57,9 +57,6 @@ export class clipsPage {
                 public connectToDride: DeviceConnectionService,
                 private firebaseNative: Firebase,
                 private toast: Toast,
-                private socialSharing: SocialSharing,
-                private transfer: Transfer,
-                private file: File
               ) {
                    this.host = g.host;
                    
@@ -161,7 +158,9 @@ export class clipsPage {
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-        this.download(vidoeId);
+        this.navCtrl.push(UploadPage,  {
+          videoId: vidoeId
+        })
 
     }, function(reason) {
       console.log('close modal without execution.');
@@ -170,171 +169,30 @@ export class clipsPage {
         
   }
 
+  deleteVideo(videoId) {
+    console.log('try to delete' + videoId)
 
-  deleteVideo(vidoeId) {
-      console.log('try to delete' + vidoeId)
-
-      this.videoService.delete(vidoeId)
+    this.videoService.delete(videoId)
       .then(data => {
 
-      var index = this.videos.indexOf(vidoeId, 0);
-      if (index > -1) {
-         this.videos.splice(index, 1);
-         
-         this.toast.show("Video was deleted", '5000', 'bottom').subscribe(
+        var index = this.videos.indexOf(videoId, 0);
+        if (index > -1) {
+          this.videos.splice(index, 1);
+
+          this.toast.show("Video was deleted", '5000', 'bottom').subscribe(
             toast => {
               console.log(toast);
             }
           );
 
-      }
+        }
 
 
-      }); 
+      });
 
-        
-  }
-
-
-
-  public showLoading(){
-    this.loading = this.loadingCtrl.create({
-      content: 'Uploading...'
-    });
-
-    this.loading.present(); 
-  }
-
-  public dismissLoanding(){
-    this.loading.dismiss();
-  }
-
-  public download(vidoeId){
-
-    if (!this.platform.is('cordova')) {
-     alert('Platform not supported');
-     return;
-    }
-
-    this.showLoading();
-  
-    const fileTransfer: TransferObject = this.transfer.create();
-
-    let url = this.host + '/modules/video/clip/' + vidoeId + '.mp4';
-
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.mp4').then((entry) => {
-      console.log(entry);
-      console.log('download complete: ' + entry.toURL());
-
-
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
-        this.uploadToDrideNetworkFB(file, vidoeId, 'clips');
-        this.uploadThumbOnBackground(vidoeId, fileTransfer);
-        this.uploadGPSOnBackground(vidoeId, fileTransfer);
-      }).catch(err => console.error('file upload failed ', err));
-      
-    }, (error) => {
-      // handle error
-      console.log(error);
-    });
-  }
- 
-
-  public uploadThumbOnBackground(vidoeId, fileTransfer){
-    let url = this.host + '/modules/video/thumb/' + vidoeId + '.jpg';
-
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.jpg').then((entry) => {
-      console.log(entry);
-      console.log('download complete [thumb]: ' + entry.toURL());
-
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.jpg').then(file => {
-        this.uploadToDrideNetworkFB(file, vidoeId, 'thumbs');
-      }).catch(err => console.error('file upload failed [thumb] ', err));
-      
-    }, (error) => {
-      // handle error
-      console.log(error);
-    });
-  }
-
-  public uploadGPSOnBackground(vidoeId, fileTransfer){
-    let url = this.host + '/modules/video/gps/' + vidoeId + '.json';
-
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedGPS.json').then((entry) => {
-      console.log(entry);
-      console.log('download complete [thumb]: ' + entry.toURL());
-
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedGPS.json').then(file => {
-        this.uploadToDrideNetworkFB(file, vidoeId, 'gps');
-      }).catch(err => console.error('file upload failed [GPS] ', err));
-      
-    }, (error) => {
-      // handle error
-      console.log(error);
-    });
-  }
-
-
-  public uploadToDrideNetworkFB(file, vidoeId, bucket){
-
-
-    // Create a root reference
-    var uid = this._auth.getUid();
-
-    var storage = firebase.storage();
-    const storageRef = storage.ref().child(bucket).child(uid).child(vidoeId + (this.getFileExtensionByBucketName(bucket)));
-    storageRef.put(file).then((data) => {
-       // success
-       console.log("Upload completed  " )
-
-       storageRef.getDownloadURL().then(url => {
-         
-               //save to DB
-                this.userClipDbObject = this.af.database.object('/clips/' + uid + '/' + '/' + vidoeId + '/' + bucket);
-                this.userClipDbObject.set({
-                    src: url
-                }).then(_ => console.log('item added! ' + bucket));
-
-               if (bucket == 'clips'){
-                 this.dismissLoanding();
-                 this.shareToSocial('https://dride.io/profile/' + uid + '/' + vidoeId )
-               }
-             }, (err) => {
-               // error
-               console.log(err)
-             })
-
-       });
-  }
-
-
-  public getFileExtensionByBucketName(bucket){
-
-      if (bucket == 'clips' )
-        return '.mp4';
-      if (bucket == 'thumbs' )
-        return '.jpg';
-      if (bucket == 'gps' )
-        return '.json';
 
   }
 
-  shareToSocial(url){
-    var options = {
-      subject: 'dride event', 
-      url: url,
-      chooserTitle: 'Share an event' // Android only, you can override the default share sheet title
-    }
-
-    // Share via share sheet
-    this.socialSharing.shareWithOptions(options).then(() => {
-      // Success!
-      this.firebaseNative.logEvent("video uploaded", {content_type: "share_video", item_id: "home"});
-      
-    }).catch(() => {
-      // Error!
-    });
-  }
 
  doInfinite(infiniteScroll) {
     console.log('Begin async operation');
