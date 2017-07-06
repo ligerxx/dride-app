@@ -12,7 +12,7 @@ constructor(public platform: Platform) {
 	if (this.platform.is('cordova'))
 		this.host = "http://192.168.42.1:9000"; 
 	else
-		this.host = "http://192.168.2.2:9000"; 
+		this.host = "http://192.168.42.1:9000"; 
 
 
 }
