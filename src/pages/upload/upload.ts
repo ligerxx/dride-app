@@ -4,12 +4,16 @@ import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
+import { Dialogs } from '@ionic-native/dialogs';
 import { File } from '@ionic-native/file';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { VgAPI } from 'videogular2/core';
 import { VideoService } from '../../providers/video-service';
+
+import { VideoEditor } from '@ionic-native/video-editor';
+
 
 /**
  * Generated class for the UploadPage page.
@@ -52,7 +56,9 @@ export class UploadPage {
     private file: File,
     private firebaseNative: Firebase,
     public loadingCtrl: LoadingController,
-    public videoService: VideoService
+    public videoService: VideoService,
+    private videoEditor: VideoEditor,
+    private dialogs: Dialogs
   ) {
     this.host = g.host;
     this.videoId = navParams.get('videoId');
@@ -109,14 +115,23 @@ export class UploadPage {
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-      this.download(this.videoId)
+      //check we have at least 150 mb free on device
+      this.file.getFreeDiskSpace().then(
+        res => {
+          console.log(res);
+          if (res > 150000000)
+            this.download(this.videoId)
+          else{
+            this.dialogs.alert('There is not enough space on your device to share this video. Please free up additional space and try again.')
+          }
+        }
+
+      )
+
 
     }, function (reason) {
       console.log('close modal without execution.');
     });
-
-
-
 
 
   }
@@ -136,18 +151,42 @@ export class UploadPage {
     let url = this.host + '/modules/video/clip/' + videoId + '.mp4';
 
     fileTransfer.onProgress((progressEvent: any) => {
-      this.progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+      //should be 30% of the entire process
+      this.progress = Math.round((progressEvent.loaded / progressEvent.total) * 30);
     });
 
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.mp4').then((entry) => {
+    fileTransfer.download(url, this.file.tempDirectory + videoId + '_tmp.mp4').then((entry) => {
       console.log(entry);
       console.log('download complete: ' + entry.toURL());
 
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.mp4').then(file => {
-        this.uploadToDrideNetworkFB(file, videoId, 'clips');
-        this.uploadThumbOnBackground(videoId, fileTransfer);
-        //this.uploadGPSOnBackground(videoId, fileTransfer);
-      }).catch(err => console.error('file upload failed ', err));
+        //trim the video
+        this.videoEditor.trim({
+                fileUri: entry.toURL(), // path to input video
+                trimStart: this.seekLower, // time to start trimming in seconds
+                trimEnd: this.seekUpper, // time to end trimming in seconds
+                outputFileName: videoId + '_trimmed_' + (new Date).getTime(), // output file name
+                progress: (info) => {
+                  console.log(info)
+                } // optional, see docs on progress
+            })
+            .then(resPath => {
+              console.log('trimSuccess, result: ' + resPath)
+              let resultFileName = resPath.replace(/^.*[\\\/]/, '');
+              let resultPath = 'file://' + resPath.replace(resultFileName, '');
+              console.log('>>>> ' + resultPath + '||' + resultFileName)
+              this.file.readAsArrayBuffer(resultPath, resultFileName).then(file => {
+
+                this.uploadToDrideNetworkFB(file, videoId, 'clips');
+                this.uploadThumbOnBackground(videoId, fileTransfer);
+                //this.uploadGPSOnBackground(videoId, fileTransfer);
+
+                //TODO: then remove all tmp & trimmed files from phone
+
+
+              }).catch(err => { console.log(err); console.error('file upload failed ', err);});
+                  
+            })
+            .catch((error: any) => console.log('video trim error', error));
 
     }, (error) => {
       // handle error
@@ -161,11 +200,11 @@ export class UploadPage {
   public uploadThumbOnBackground(videoId, fileTransfer) {
     let url = this.host + '/modules/video/thumb/' + videoId + '.jpg';
 
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedClips.jpg').then((entry) => {
+    fileTransfer.download(url, this.file.tempDirectory + 'tmpSharedClips.jpg').then((entry) => {
       console.log(entry);
       console.log('download complete [thumb]: ' + entry.toURL());
 
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedClips.jpg').then(file => {
+      this.file.readAsArrayBuffer(this.file.tempDirectory, 'tmpSharedClips.jpg').then(file => {
         this.uploadToDrideNetworkFB(file, videoId, 'thumbs');
       }).catch(err => console.error('file upload failed [thumb] ', err));
 
@@ -178,11 +217,11 @@ export class UploadPage {
   public uploadGPSOnBackground(videoId, fileTransfer) {
     let url = this.host + '/modules/video/gps/' + videoId + '.json';
 
-    fileTransfer.download(url, this.file.dataDirectory + 'tmpSharedGPS.json').then((entry) => {
+    fileTransfer.download(url, this.file.tempDirectory + 'tmpSharedGPS.json').then((entry) => {
       console.log(entry);
       console.log('download complete [thumb]: ' + entry.toURL());
 
-      this.file.readAsArrayBuffer(this.file.dataDirectory, 'tmpSharedGPS.json').then(file => {
+      this.file.readAsArrayBuffer(this.file.tempDirectory, 'tmpSharedGPS.json').then(file => {
         this.uploadToDrideNetworkFB(file, videoId, 'gps');
       }).catch(err => console.error('file upload failed [GPS] ', err));
 
@@ -195,31 +234,31 @@ export class UploadPage {
 
   public uploadToDrideNetworkFB(file, videoId, bucket) {
 
-
     // Create a root reference
     var uid = this._auth.getUid();
-    this.showLoading('Uploading video to Dride-Cloud.');
+    this.showLoading('Uploading video to Dride-Cloud. ['+videoId+']');
+    var metadata = {
+      contentType: this.getFileMetaDataByBucketName(bucket),
+    };
 
     var storage = firebase.storage();
     const storageRef = storage.ref().child(bucket).child(uid).child(videoId + (this.getFileExtensionByBucketName(bucket)));
-    storageRef.put(file)
+    storageRef.put(file, metadata)
       .on('state_changed',
        snapshot => {
         //dont monitor progress for thumbnail
-        if (bucket != 'clips') 
-          return;
-
-        this.progress = parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 100 + '');
+        if (bucket == 'clips') {
+          console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 70 )
+          this.progress = 30 + parseInt((snapshot.bytesTransferred / snapshot.totalBytes) * 70 + '');
+        }
 
       },
        error =>  console.log(error),
        () => {
         // success
         console.log("Upload completed  ")
-        if (bucket != 'clips') 
-          return;
 
-        this.dismissLoading();
+
         storageRef.getDownloadURL().then(url => {
 
           //save to DB
@@ -253,6 +292,17 @@ export class UploadPage {
       return '.jpg';
     if (bucket == 'gps')
       return '.json';
+
+  }
+
+  public getFileMetaDataByBucketName(bucket){
+
+      if (bucket == 'clips' )
+        return 'video/mp4';
+      if (bucket == 'thumbs' )
+        return 'image/jpeg';
+      if (bucket == 'gps' )
+        return 'application/octet-stream';
 
   }
 

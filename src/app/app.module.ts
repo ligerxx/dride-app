@@ -20,6 +20,8 @@ import { ManualCalibration } from '../pages/manual-calibration/manual-calibratio
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { VideoEditor } from '@ionic-native/video-editor';
+import { Dialogs } from '@ionic-native/dialogs';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
@@ -96,11 +98,13 @@ export const firebaseConfig = {
               SplashScreen,
               StatusBar,
               Facebook,
+              Dialogs,
               GooglePlus,
               Firebase,
               Toast,
               Transfer,
               File,
+              VideoEditor,
               SocialSharing,
               InAppBrowser,
               BLE,
