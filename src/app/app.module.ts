@@ -4,6 +4,8 @@ import { NgModule, ErrorHandler} from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from '../providers/auth-service';
 import { DeviceConnectionService } from '../providers/device-connection-service';
 import { Globals } from '../providers/globals';
@@ -12,6 +14,9 @@ import { Globals } from '../providers/globals';
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
 import { UploadPage } from '../pages/upload/upload';
+import { CloudPage, KeysPipe } from '../pages/cloud/cloud';
+import { CloudPaginationService } from '../pages/cloud/cloud-pagination.service';
+
 
 import { FirmwareUpdatePage } from '../pages/firmware-update-page/firmware-update-page';
 import { CalibrationPage } from '../pages/calibration/calibration';
@@ -31,6 +36,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BLE } from '@ionic-native/ble';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { MomentModule } from 'angular2-moment';
+import { ElasticModule } from 'angular2-elastic';
 
 
 //videogular2
@@ -60,28 +67,35 @@ export const firebaseConfig = {
     SettingsPage,
     FirmwareUpdatePage,
     UploadPage,
+    CloudPage,
     CalibrationPage,
     ManualCalibration,
     LoginComponent,
-    ConnectDrideComponent
+    ConnectDrideComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    MomentModule,
     IonicModule.forRoot(MyApp, {
       mode: 'ios'
     }),
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule, 
+    AngularFireAuthModule,
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    ElasticModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     clipsPage,
     UploadPage,
+    CloudPage,
     SettingsPage,
     FirmwareUpdatePage,
     CalibrationPage,
@@ -108,7 +122,8 @@ export const firebaseConfig = {
               SocialSharing,
               InAppBrowser,
               BLE,
-              LocalNotifications
+              LocalNotifications,
+              CloudPaginationService
              ]
 })
 export class AppModule {}

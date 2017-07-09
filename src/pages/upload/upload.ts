@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { Dialogs } from '@ionic-native/dialogs';
 import { File } from '@ionic-native/file';
@@ -11,6 +11,8 @@ import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { VgAPI } from 'videogular2/core';
 import { VideoService } from '../../providers/video-service';
+import { CloudPage } from '../../pages/cloud/cloud';
+
 
 import { VideoEditor } from '@ionic-native/video-editor';
 
@@ -49,7 +51,7 @@ export class UploadPage {
     public navParams: NavParams,
     public g: Globals,
     private _auth: AuthService,
-    public af: AngularFire,
+    public af: AngularFireDatabase,
     public platform: Platform,
     private socialSharing: SocialSharing,
     private transfer: Transfer,
@@ -86,7 +88,6 @@ export class UploadPage {
 
     this.seekLower = this.structure.lower;
     this.api.seekTime(this.seekLower);
-    console.log("trimto", this.seekLower);
   }
 
   trimFrom() {
@@ -95,7 +96,6 @@ export class UploadPage {
 
     this.seekUpper = this.structure.upper;
     this.api.seekTime(this.seekUpper);
-    console.log("trimFrom", this.seekUpper);
   }
 
   onPlayerReady(api: VgAPI) {
@@ -262,14 +262,19 @@ export class UploadPage {
         storageRef.getDownloadURL().then(url => {
 
           //save to DB
-          this.userClipDbObject = this.af.database.object('/clips/' + uid + '/' + '/' + videoId + '/' + bucket);
-          this.userClipDbObject.set({
-            src: url
-          }).then(_ => console.log('item added! ' + bucket));
+          var putObj = {dateUploaded: new Date().getTime(), [bucket]: {'src': url}}
+          this.userClipDbObject = this.af.object('/clips/' + uid + '/' + videoId);
+          this.userClipDbObject.set(putObj).then(_ => console.log('item added! ' + bucket));
 
           if (bucket == 'clips') {
             this.dismissLoading();
-            this.shareToSocial('https://dride.io/profile/' + uid + '/' + videoId)
+            // upload done
+            this.dialogs.alert('Great! Your video is now on Dride-Cloud.', 'WhoHoo 🙌').then(r => {
+                this.navCtrl.push(CloudPage)
+            })
+
+
+
           }
         }, (err) => {
           // error

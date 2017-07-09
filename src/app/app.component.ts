@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Config } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AngularFire } from 'angularfire2';
-
 
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
@@ -20,7 +18,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
  
-  constructor(public platform: Platform, af: AngularFire,  public splashScreen: SplashScreen, public statusBar: StatusBar, private config: Config) {
+  constructor(public platform: Platform,  public splashScreen: SplashScreen, public statusBar: StatusBar, private config: Config) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

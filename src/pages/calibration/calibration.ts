@@ -9,7 +9,7 @@ import { Settings } from '../../providers/settings';
 import { ManualCalibration } from '../../pages/manual-calibration/manual-calibration';
 import { AuthService } from '../../providers/auth-service';
 import firebase from 'firebase';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 
 /*
   Generated class for the Calibration page.
@@ -39,7 +39,7 @@ export class CalibrationPage {
 
 
   constructor(public navCtrl: NavController, public g: Globals, public settings: Settings, public http: Http,
-              private _auth: AuthService, public platform: Platform, public loadingCtrl: LoadingController, public af: AngularFire,
+              private _auth: AuthService, public platform: Platform, public loadingCtrl: LoadingController, public af: AngularFireDatabase,
               private transfer: Transfer, private file: File
               ) {
 
@@ -66,7 +66,7 @@ export class CalibrationPage {
                 this.settings.setSettings('square_width', this.calibrationObj.data.square_width, 'calibration');
                 this.settings.setSettings('square_height', this.calibrationObj.data.square_height, 'calibration');
 
-                this.userClipDbObject = this.af.database.object('devices/' +'/' + this._auth.getUid() + '/' + this.serialNumber);
+                this.userClipDbObject = this.af.object('devices/' +'/' + this._auth.getUid() + '/' + this.serialNumber);
                 this.userClipDbObject.update({
                     calibrationStatus: ''
                 }).then(_ => console.log('defaults updated'));
@@ -222,19 +222,19 @@ export class CalibrationPage {
        storageRef.getDownloadURL().then(url => {
          
                //save to DB
-                this.userClipDbObject = this.af.database.object('/clips/' + uid + '/' + '/' + vidoeId + '/' + bucket);
+                this.userClipDbObject = this.af.object('/clips/' + uid + '/' + '/' + vidoeId + '/' + bucket);
                 this.userClipDbObject.set({
                     src: url
                 }).then(_ => console.log('item added! ' + bucket));
 
                 //mark clip as un-active
-                this.userClipDbObject = this.af.database.object('/clips/' + uid + '/' + '/' + vidoeId );
+                this.userClipDbObject = this.af.object('/clips/' + uid + '/' + '/' + vidoeId );
                 this.userClipDbObject.update({
                     active: 0
                 });
 
                 //update calibration Status for DEVICE to watingForCalibration
-                this.userClipDbObject = this.af.database.object('/devices/' +'/' + uid + '/' + this.serialNumber + '/' );
+                this.userClipDbObject = this.af.object('/devices/' +'/' + uid + '/' + this.serialNumber + '/' );
                 this.userClipDbObject.update({
                     calibrationStatus: 'watingForCalibration'
                 });
@@ -285,7 +285,7 @@ export class CalibrationPage {
 
     return new Promise(resolve => {
 
-       this.af.database.object('devices/' +'/' + this._auth.getUid() + '/' + this.serialNumber, { preserveSnapshot: true })
+       this.af.object('devices/' +'/' + this._auth.getUid() + '/' + this.serialNumber, { preserveSnapshot: true })
        .subscribe(snapshot => {
           this.calibrationObj = snapshot.val()
           resolve(this.calibrationObj)

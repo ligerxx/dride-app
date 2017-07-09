@@ -1,0 +1,105 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle class="toggleMenu">
+            <ion-icon name="md-more" class="pull-left"></ion-icon>
+        </button>
+    <ion-title><span class="icon-cloud"></span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <div class="container">
+
+    <div class="col-md-offset-2 col-md-8 mx-auto">
+      <h2 class="bVideosT">My videos in the Cloud</h2>
+    </div>
+    <div *ngIf="hpClips.items">
+      <div class="col-md-offset-2 col-md-8 whiteBg p-0 animBox mx-auto cClips" *ngFor="let currentVideo of hpClips.items;  index as key">
+        <div class="box mainVid">
+
+          <!-- <p class="dateLabel float-right">{{currentVideo.videoId | date:'MM-dd-yyyy'}}</p>	 -->
+
+          <div class="videogular-container" *ngIf="currentVideo">
+
+            <vg-player  class="player">
+              <video [vgMedia]="media" #media [id]="'v' + key" preload="none" webkit-playsinline playsinline poster="{{currentVideo.thumbs.src}}"
+                class="videoPlayer">
+                <source src="{{currentVideo.clips.src}}" type="video/mp4">
+              </video>
+              <vg-controls>
+                <vg-play-pause></vg-play-pause>
+
+                <vg-scrub-bar [vgFor]="current">
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                </vg-scrub-bar>
+
+                 <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+
+              </vg-controls>
+
+            </vg-player>
+
+
+          </div>
+
+
+        </div>
+        <div class="box">
+          <div class="actionBar innerPad">
+            <div class="views pull-left">
+              <label>{{currentVideo.views | number:0}} Views </label> &nbsp;&nbsp;&nbsp;
+              <label *ngIf="currentVideo.cmntsCount" (click)="commentFoucs('replyBox'+key)">{{currentVideo.cmntsCount | number:0}} Comments</label>
+            </div>
+            <ul class="pull-right actions">
+              <li (click)="fbShare(currentVideo.op, currentVideo.videoId)"><span class="icon-facebookMedium shareIcon"></span></li>
+              <li (click)="twShare(currentVideo.op, currentVideo.videoId)"><span class="icon-twitterMedium shareIcon"></span></li>
+              <li *ngIf="isOwner(currentVideo.op)" (click)="removeClip(currentVideo.op, currentVideo.videoId, key)"><span class="icon-trash-can"></span></li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+
+
+          <div class="cmntsBox innerPad">
+            <div *ngFor="let node of currentVideo.comments | keys" class="listItem">
+              <div class="bubble">
+                <div class="auther pull-left pl">
+                  <img src="{{node.pic}}" alt="{{node.auther}}" />
+                </div>
+                <div class="ago">{{node.timestamp | amTimeAgo}}</div>
+                <a class="bold" href="profile/{{node.autherId}}">@{{node.auther}}</a>
+                <div class="bdy" ng-bind-html2="node.body | markdown">{{node.body}}</div>
+
+              </div>
+              <!-- <div class="connectorLine" *ngIf="conversationPreviusIsMine[key]"></div> -->
+            </div>
+            <p *ngIf="currentVideo && !hasComments(currentVideo.comments)" class="firstToCmnt">Be the first to comment</p>
+            <p *ngIf="hasMoreToLoad(currentVideo)" class="moreCmnts" (click)="loadMoreComments(currentVideo.videoId, key)">Load More Comments</p>
+
+
+          </div>
+          <div class="postBox">
+            <div class="wrapReplyBox mt-0">
+              <textarea id="replyBox{{key}}" ctrl-enter="sendComment(currentVideo.videoId, replyBox[key], key)" class="form-control replyBox mt-0"
+                fz-elastic [(ngModel)]="replyBox[key]" type="text" name="reply" placeholder="What's on your mind?"></textarea>
+              <button class="btn btn-dride-black sendBtn pull-right" (click)="sendComment(currentVideo.videoId, replyBox[key], key)">Send</button>
+            </div>
+          </div>
+
+
+          <div class="clear"></div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+</ion-content>

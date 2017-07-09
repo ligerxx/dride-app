@@ -1,35 +1,39 @@
 import { Platform , ModalController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { StatusBar } from '@ionic-native/status-bar';
 import { LoginComponent } from '../components/login/login';
 
 
 @Injectable()
 export class AuthService {
-  public authState: FirebaseAuthState;
+  public authState: Observable<firebase.User>;
 
   FB_APP_ID: number = 1825311747740641;
 
   user: any;
 
-  constructor(public auth$: AngularFireAuth, private platform: Platform, public modalCtrl: ModalController, public statusBar: StatusBar, private fb: Facebook) {
+  constructor(public afAuth: AngularFireAuth, private platform: Platform, public modalCtrl: ModalController,
+              private fb: Facebook) {
 
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
 
-    this.authState = auth$.getAuth();
-    auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
-    });
+    this.authState = afAuth.authState;
+    
   }
 
   get authenticated(): boolean {
-    return this.authState !== null;
+    return this.afAuth.auth.currentUser !== null;
   }
 
   getUid(): string{
-    return this.authState.uid;
+    return this.afAuth.auth.currentUser.uid;
+  }
+
+  getUser(): any{
+    return this.afAuth.auth.currentUser;
   }
 
   isLogedIn(): Promise<any> {
@@ -45,7 +49,6 @@ export class AuthService {
                data.completed ? resolve(true) : reject(true);
 
              });
-             this.statusBar.backgroundColorByHexString('#333333'); // set status bar to black
              profileModal.present();
 
 
@@ -59,7 +62,7 @@ export class AuthService {
 
   signOut(): any{
 
-     this.auth$.logout();
+     this.afAuth.auth.signOut();
 
   }
   

@@ -3,14 +3,13 @@ import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
 import { UploadPage } from '../../pages/upload/upload';
+import { CloudPage } from '../../pages/cloud/cloud';
 
 
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Rx';
 
-import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
 
@@ -45,13 +44,12 @@ export class clipsPage {
   public preload:string = 'auto';
   public api:VgAPI;
 
-   userClipDbObject: FirebaseObjectObservable<any[]>;
+
 
     constructor(public navCtrl: NavController,
                 public videoService: VideoService, 
                 public loadingCtrl: LoadingController, 
                 public g: Globals, 
-                public af: AngularFire, 
                 private _auth: AuthService, 
                 public platform: Platform, 
                 public connectToDride: DeviceConnectionService,
@@ -158,9 +156,13 @@ export class clipsPage {
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-        this.navCtrl.push(UploadPage,  {
+        this.navCtrl.push(CloudPage,  {
           videoId: vidoeId
         })
+
+        // this.navCtrl.push(UploadPage,  {
+        //   videoId: vidoeId
+        // })
 
     }, function(reason) {
       console.log('close modal without execution.');
