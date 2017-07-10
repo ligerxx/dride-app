@@ -25,7 +25,7 @@
           <!--<vg-overlay-play></vg-overlay-play> -->
           <vg-buffering></vg-buffering>
 
-          <video [vgMedia]="mediaScrub" #mediaScrub id="vv1" preload="auto" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{videoId}}.jpg"
+          <video [vgMedia]="mediaScrub" #mediaScrub id="vv1" preload="true" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{videoId}}.jpg"
             class="videoPlayer" src="{{host}}/modules/video/clip/{{videoId}}.mp4" type="video/mp4">
           </video>
                 <vg-controls style="display: none;">                </vg-controls>
@@ -43,13 +43,26 @@
 
     </ion-card>
   </div>
+  <div class="box" *ngIf="downloadStatus">
 
+    <ion-item no-lines>
+      <ion-label color="primary" stacked>License Plate</ion-label>
+      <ion-input type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label color="primary" stacked>What happened?</ion-label>
+      <ion-textarea type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+    <!-- ADD MAP -->
+
+
+  </div>
   <div padding *ngIf="!downloadStatus">
       <button ion-button full color="dark" (click)="cropAndUpload()">
         Upload
       </button>
   </div>
-
+    <br><br><br><br><br><br> <br><br><br><br><br><br> <br><br><br><br><br><br>
   <div class="loaderStatus" *ngIf="downloadStatus" >
 
     <span class="lbl">{{downloadStatus}}..</span>

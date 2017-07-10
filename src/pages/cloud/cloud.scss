@@ -56,8 +56,8 @@ page-cloud {
         text-transform: capitalize;
         padding-bottom: 29px;
         letter-spacing: 1px;
-        margin-top: 11px !important;
-        margin-bottom: -18px;
+        margin-top: 23px !important;
+        margin-bottom: -28px;
     
     }
     .box {
@@ -103,7 +103,7 @@ page-cloud {
     }
     .views {
         font-weight: 600;
-        font-size: 19px;
+        font-size: 16px;
         margin-top: -5px;
     }
     .innerPad {
@@ -185,6 +185,7 @@ page-cloud {
             padding: 10px;
             margin-left: 31px;
             font-weight: 100;
+            display: inline-block;
             .bdy a {
                 color: #337ab7 !important;
             }
@@ -199,17 +200,18 @@ page-cloud {
              color: #999;
          }
         .pl {
-            margin-left: -69px;
+            margin-left: -48px;
             margin-right: 18px;
         }
         .auther {
             height: 48px;
-            margin-top: 45px;
+            position: relative;
+            top: 42px;
             img {
                 width: 50px;
                 height: 50px;
                 border-radius: 2px;
-                margin-top: -73px;
+                margin-top: -43px;
             }
             label {
                 position: relative;
@@ -255,10 +257,10 @@ page-cloud {
     }
 
     .shareIcon{
-        font-size: 33px;
+        font-size: 32px;
         position: relative;
-        top: -11px;
-        color: #565656;
+        top: -12px;
+        color: #3e3e3e;
     }
 
     .listItem.ng-enter {
@@ -269,8 +271,7 @@ page-cloud {
         opacity: 1;
     }
     .videoPlayer{
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
+        object-fit: cover;
     }
 	.player{
 		display: initial !important;
@@ -300,6 +301,7 @@ page-cloud {
 	}
     .cClips{
         display: inline-block;
+        border-radius: 4px;
     }
 
 }

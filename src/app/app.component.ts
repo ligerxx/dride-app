@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
+import { CloudPage } from '../pages/cloud/cloud';
 import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
@@ -24,7 +25,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Main', component: clipsPage },
-      { title: 'Settings', component: SettingsPage }
+      { title: 'Settings', component: SettingsPage },
+      { title: 'My Videos', component: CloudPage }
     ];
 
   }

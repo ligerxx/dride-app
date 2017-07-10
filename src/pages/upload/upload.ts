@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, Content } from 'ionic-angular';
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
@@ -13,7 +13,7 @@ import { VgAPI } from 'videogular2/core';
 import { VideoService } from '../../providers/video-service';
 import { CloudPage } from '../../pages/cloud/cloud';
 
-
+import {  trigger,  state,  style,  animate,  transition} from '@angular/animations';
 import { VideoEditor } from '@ionic-native/video-editor';
 
 
@@ -30,7 +30,7 @@ import { VideoEditor } from '@ionic-native/video-editor';
   providers: [VideoService]
 })
 export class UploadPage {
-
+  @ViewChild(Content) content: Content;
   public host: string;
   public videoId: string;
   public api: VgAPI;
@@ -40,6 +40,8 @@ export class UploadPage {
   totalTime: number = 60;
   seekLower: number;
   seekUpper: number;
+  licensePlates: string;
+  description: string;
   userClipDbObject: FirebaseObjectObservable<any[]>;
   public loading: any;
   public videosAll: any;
@@ -74,7 +76,7 @@ export class UploadPage {
   getTotalTime() {
     this.api.getDefaultMedia().subscriptions.timeUpdate.subscribe(() => {
 
-      this.totalTime = this.api.getDefaultMedia().time.total / 1000;
+      this.totalTime = this.api.getDefaultMedia() ? this.api.getDefaultMedia().time.total / 1000 : 0;
 
     });
   }
@@ -112,13 +114,13 @@ export class UploadPage {
 
   cropAndUpload() {
 
+
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
       //check we have at least 150 mb free on device
       this.file.getFreeDiskSpace().then(
         res => {
-          console.log(res);
           if (res > 150000000)
             this.download(this.videoId)
           else{
@@ -145,6 +147,9 @@ export class UploadPage {
     }
 
     this.showLoading('Downloading video from device.');
+    setTimeout( r =>{
+          this.content.scrollToBottom(600);
+    }, 200)
 
     const fileTransfer: TransferObject = this.transfer.create();
 
@@ -262,7 +267,7 @@ export class UploadPage {
         storageRef.getDownloadURL().then(url => {
 
           //save to DB
-          var putObj = {dateUploaded: new Date().getTime(), [bucket]: {'src': url}}
+          var putObj = {dateUploaded: new Date().getTime(), [bucket]: {'src': url}, plates: this.licensePlates, description: this.description}
           this.userClipDbObject = this.af.object('/clips/' + uid + '/' + videoId);
           this.userClipDbObject.set(putObj).then(_ => console.log('item added! ' + bucket));
 

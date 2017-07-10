@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler} from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
@@ -88,7 +89,8 @@ export const firebaseConfig = {
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    ElasticModule
+    ElasticModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

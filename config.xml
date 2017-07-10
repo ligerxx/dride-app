@@ -120,7 +120,6 @@
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
-    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.5" />
     <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
         <variable name="APP_ID" value="1825311747740641" />
         <variable name="APP_NAME" value="dride" />
@@ -128,4 +127,5 @@
     <plugin name="cordova-plugin-googleplus" spec="~5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.802741428178-kobq6qupo37ipqa6ocr448spova6ubg4" />
     </plugin>
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.5" />
 </widget>

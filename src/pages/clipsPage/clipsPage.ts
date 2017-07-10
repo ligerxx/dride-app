@@ -156,7 +156,7 @@ export class clipsPage {
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-        this.navCtrl.push(CloudPage,  {
+        this.navCtrl.push(UploadPage,  {
           videoId: vidoeId
         })
 

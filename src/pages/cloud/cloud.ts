@@ -10,6 +10,8 @@ import { CloudPaginationService } from '../cloud/cloud-pagination.service';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Dialogs } from '@ionic-native/dialogs';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Firebase } from '@ionic-native/firebase';
 
 import { VgAPI } from 'videogular2/core';
 
@@ -33,7 +35,7 @@ export class CloudPage {
   public replyBox:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, public af: AngularFireDatabase,
     private dCloud: CloudPaginationService, private _auth: AuthService, private afAuth: AngularFireAuth, private http: Http,
-    private dialogs: Dialogs) {
+    private dialogs: Dialogs, private socialSharing: SocialSharing, private firebaseNative: Firebase) {
 
     //load Firebase user object
     this._auth.isLogedIn().then(result => {
@@ -41,7 +43,6 @@ export class CloudPage {
 
       this.hpClips = this.dCloud
       this.firebaseUser = this._auth.getUser();
-      console.log(this.firebaseUser)
       this.hpClips.loadUid(this.firebaseUser.uid);
 
     });
@@ -66,55 +67,41 @@ export class CloudPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CloudPage');
   }
-  fbShare = function (uid, videoId) {
-    window.open(
-      "https://www.facebook.com/sharer/sharer.php?u=https://dride.io/profile/" +
-      uid +
-      "/" +
-      videoId,
-      "Facebook",
-      "toolbar=0,status=0,resizable=yes,width=" +
-      500 +
-      ",height=" +
-      600 +
-      ",top=" +
-      (window.innerHeight - 600) / 2 +
-      ",left=" +
-      (window.innerWidth - 500) / 2
-    );
-  };
-  twShare = function (uid, videoId) {
-    var url = "https://dride.io/profile/" + uid + "/" + videoId;
-    var txt = encodeURIComponent("You need to see this! #dride " + url);
-    window.open(
-      "https://www.twitter.com/intent/tweet?text=" + txt,
-      "Twitter",
-      "toolbar=0,status=0,resizable=yes,width=" +
-      500 +
-      ",height=" +
-      600 +
-      ",top=" +
-      (window.innerHeight - 600) / 2 +
-      ",left=" +
-      (window.innerWidth - 500) / 2
-    );
-  };
+
+  shareLink(videoId){
+    let url = "https://dride.io/profile/" +this.firebaseUser.uid + "/" + videoId;
+    // Share via share sheet
+    var options = {
+      subject: 'Video from Dride-Cloud',
+      url: url,
+      chooserTitle: 'Share an event on Dride-Cloud' // Android only, you can override the default share sheet title
+    }
+    this.socialSharing.shareWithOptions(options).then(() => {
+      // Success!
+      this.firebaseNative.logEvent("video uploaded", { content_type: "share_video", item_id: "home" });
+
+    }).catch(() => {
+      // Error!
+    });
+
+
+  }
 
   isOwner(uid) {
     return uid && uid == this.firebaseUser.uid
   }
 
 
-  removeClip = function (op, vId, index) {
+  removeClip = function (vId, index) {
 
-    if (!op || !vId) {
+    if (!this.firebaseUser.uid || !vId) {
       console.error('Error: No Uid or videoId, Delete aborted')
       return;
     }
     //TODO: prompt before remove
 
     //firebase functions will take it from here..
-    this.db.object('/clips/' + op + '/' + vId).update({ 'deleted': true })
+    this.db.object('/clips/' + this.firebaseUser.uid + '/' + vId).update({ 'deleted': true })
 
 
     this.hpClips.items.splice(index, 1)
@@ -164,9 +151,7 @@ export class CloudPage {
       alert("Please write something");
       return;
     }
-    console.log(videoId)
-    console.log(body)
-    console.log(index)
+
     this._auth.isLogedIn().then(result => {
 
       firebase

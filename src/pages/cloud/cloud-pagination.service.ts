@@ -10,9 +10,10 @@ export class CloudPaginationService {
 	before: string = "";
 	end: boolean = false;
 	public uid: string;
-	items: FirebaseListObservable<any>;
+	fbLits: FirebaseListObservable<any>;
+	items: any = [];
 
-	constructor(private http: Http, db: AngularFireDatabase) {
+	constructor(private http: Http, public db: AngularFireDatabase) {
 		this.busy = false;
 
 
@@ -27,57 +28,49 @@ export class CloudPaginationService {
 
 		if (this.busy || this.end) return;
 		this.busy = true;
-		this.items = this.db.list('/clips/' + this.uid, {
+		this.fbLits = this.db.list('/clips/' + this.uid, {
 			preserveSnapshot: true,
 			query: {
 				limitToLast: 10,
-				orderByKey: true
+				orderByChild: "dateUploaded"
 			}
 		})
-		this.items.subscribe(snapshots => {
+		let cloudFeed = this.fbLits.subscribe(snapshots => {
+			this.items = [];
 			snapshots.forEach(snapshot => {
 
 				let data = snapshot.val();
 
-				console.log(data)
+
+				var itemsFromFB = data;
+
+				//if we dont have a thumb or a clip skip 
+				if (!itemsFromFB || !itemsFromFB.thumbs || !itemsFromFB.clips || itemsFromFB.deleted) return;
+
+				itemsFromFB.videoId = snapshot.key
+
+				this.items.push(itemsFromFB);
+				this.after = itemsFromFB.hpInsertTime;
 
 
-				var itemsFromFB = this.reverseObject(data);
-				for (var item in itemsFromFB) {
-					//if we dont have a thumb or a clip skip
+			})
 
-					if (!itemsFromFB[item] || !itemsFromFB[item].thumbs) continue;
+			this.busy = false;
 
-					itemsFromFB[item].videoId = item
+			if (this.after == this.before) {
+				this.end = true;
+				return;
+			}
 
-					// if (items[item].comments)
-					//     items[item].comments = {};
+			this.before = this.after;
+			cloudFeed.unsubscribe();
 
-					this.items.push(itemsFromFB[item]);
-					this.after = itemsFromFB[item].hpInsertTime;
-
-				}
-
-				this.busy = false;
-
-				if (this.after == this.before) {
-					this.end = true;
-					return;
-				}
-
-				this.before = this.after;
-
-
-
-			},
-				error => {
-					this.end = true
-					//TODO: log this
-					console.log("An error occurred when requesting cloud clips.");
-				}
-
-			)
-		});
+		},
+			error => {
+				this.end = true
+				//TODO: log this
+				console.log("An error occurred when requesting cloud clips.");
+			});
 
 	};
 
