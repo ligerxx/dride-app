@@ -3,7 +3,7 @@ import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
 import { UploadPage } from '../../pages/upload/upload';
-import { CloudPage } from '../../pages/cloud/cloud';
+import { LivePage } from '../../pages/live/live';
 
 
 import { Globals } from '../../providers/globals';
@@ -15,7 +15,7 @@ import { Toast } from '@ionic-native/toast';
 
 
 
-import {VgAPI} from 'videogular2/core';
+import { VgAPI } from 'videogular2/core';
 
 @Component({
   selector: 'page-clipsPage',
@@ -43,7 +43,7 @@ export class clipsPage {
 
   public preload:string = 'auto';
   public api:VgAPI;
-
+  livePage: any;
 
 
     constructor(public navCtrl: NavController,
@@ -57,7 +57,7 @@ export class clipsPage {
                 private toast: Toast,
               ) {
                    this.host = g.host;
-                   
+                   this.livePage = LivePage;
 
                   //loop until we got a connection
                   let timer = Observable.timer(0,2000);

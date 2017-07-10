@@ -17,6 +17,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { UploadPage } from '../pages/upload/upload';
 import { CloudPage, KeysPipe } from '../pages/cloud/cloud';
 import { CloudPaginationService } from '../pages/cloud/cloud-pagination.service';
+import { LivePage } from '../pages/live/live';
 
 
 import { FirmwareUpdatePage } from '../pages/firmware-update-page/firmware-update-page';
@@ -69,6 +70,7 @@ export const firebaseConfig = {
     FirmwareUpdatePage,
     UploadPage,
     CloudPage,
+    LivePage,
     CalibrationPage,
     ManualCalibration,
     LoginComponent,
@@ -98,6 +100,7 @@ export const firebaseConfig = {
     clipsPage,
     UploadPage,
     CloudPage,
+    LivePage,
     SettingsPage,
     FirmwareUpdatePage,
     CalibrationPage,

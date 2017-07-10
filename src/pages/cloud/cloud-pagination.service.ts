@@ -42,14 +42,16 @@ export class CloudPaginationService {
 				let data = snapshot.val();
 
 
-				var itemsFromFB = data;
+				var itemsFromFB = this.reverseObject(data);
 
 				//if we dont have a thumb or a clip skip 
 				if (!itemsFromFB || !itemsFromFB.thumbs || !itemsFromFB.clips || itemsFromFB.deleted) return;
 
 				itemsFromFB.videoId = snapshot.key
+				itemsFromFB.views = itemsFromFB.views ? itemsFromFB.views : '0'
 
-				this.items.push(itemsFromFB);
+
+				this.items.unshift(itemsFromFB);
 				this.after = itemsFromFB.hpInsertTime;
 
 
