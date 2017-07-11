@@ -2,10 +2,13 @@ page-upload {
 
     h1{
         font-size: 18px;
-        padding: 10px 0;
+        padding: 12px 0;
         label{
             color: #F06060;
         }
+    }
+    .sp1 {
+        padding: 11px !important;
     }
 	.videoPlayer{
 		width: 100%;
@@ -63,19 +66,33 @@ page-upload {
         margin-bottom: 20px;
     }
     .loaderStatus{
-        height: 68px;
+        height: 78px;
         background-color: #fff;
         width: 100%;
         border-top: 1px solid #adadad;
         -webkit-transform: translate3d(0,0,0);
         .lbl{
             position: relative;
-            top: -18px;
+            top: 55px;
             padding: 5px;
             color: #8c8c8c;
+            font-size: 12px;
         }
     }
-
+    .mtb1{
+        margin-top: 21px;
+        margin-bottom: 17px;
+    }
+    ion-label{
+        font-size: 16px !important;
+    }
+    ion-textarea{
+        height: 120px !important;
+        font-size: 16px !important;
+    }
+    ion-input{
+        font-size: 16px !important;
+    }
     .progressCar {
         -webkit-transform: translate3d(0,0,0);
         transition: 0.5s;

@@ -19,11 +19,11 @@
     <div *ngIf="hpClips.items">
       <ion-card class="whiteBg p-0 animBox mx-auto cClips" *ngFor="let currentVideo of hpClips.items;  index as key">
         <div class="box mainVid">
-
-          <!-- <p class="dateLabel float-right">{{currentVideo.videoId | date:'MM-dd-yyyy'}}</p>	 -->
-
           <div class="videogular-container" *ngIf="currentVideo">
-
+          <div class="videoHead">
+            <p class="dateLabel" float-left>{{currentVideo.dateUploaded | date:'medium'}}</p>	 
+            <ion-icon (click)="presentActionSheet(currentVideo.videoId, key)" ios="md-more" md="md-more" float-right></ion-icon>
+          </div>
             <vg-player  class="player">
               <video [vgMedia]="media" #media [id]="'v' + key" preload="auto" webkit-playsinline playsinline poster="{{currentVideo.thumbs.src}}"
                 class="videoPlayer">
@@ -54,8 +54,10 @@
               <label *ngIf="currentVideo.cmntsCount" (click)="commentFoucs('replyBox'+key)">{{currentVideo.cmntsCount | number:0}} Comments</label>
             </div>
             <ul class="pull-right actions">
-              <li (click)="shareLink(currentVideo.videoId)">  <ion-icon name="share-alt" class="shareIcon"></ion-icon></li>
-              <li (click)="removeClip(currentVideo.videoId, key)"><span class="icon-trash-can"></span></li>
+              <li class="shareIcon" (click)="shareLink(currentVideo.videoId)">
+                 <span class="icon-share-outline" ></span>
+                 <label >Share</label>
+              </li>
             </ul>
             <div class="clear"></div>
           </div>

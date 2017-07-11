@@ -118,17 +118,19 @@ export class UploadPage {
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-      //check we have at least 150 mb free on device
-      this.file.getFreeDiskSpace().then(
-        res => {
-          if (res > 150000000)
-            this.download(this.videoId)
-          else{
-            this.dialogs.alert('There is not enough space on your device to share this video. Please free up additional space and try again.')
-          }
-        }
+      this.showLoading('Downloading video from device.');
 
-      )
+      // //check we have at least 150 mb free on device
+      // this.file.getFreeDiskSpace().then(
+      //   res => {
+      //     if (res > 150000000)
+      //       this.download(this.videoId)
+      //     else{
+      //       this.dialogs.alert('There is not enough space on your device to share this video. Please free up additional space and try again.')
+      //     }
+      //   }
+
+      // )
 
 
     }, function (reason) {

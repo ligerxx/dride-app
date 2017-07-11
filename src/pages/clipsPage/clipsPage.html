@@ -19,12 +19,12 @@
         </div>
         <span class="icon-bigD"></span>
     </div>
-    <ion-card *ngFor=" let video of videos; let i = index; ">
+    <ion-card *ngFor="let video of videos; let i = index; ">
         <div class="videoObject">
-<!--             <video id="v{{i}}" my-dir preload="metadata" width="100%" height="100%" preload="none" webkit-playsinline playsinline class="videoPlayer" poster="{{host}}/modules/video/thumb/{{video}}.jpg">
-                <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4" />
-            </video> -->
-
+            <div class="videoHead">
+                <p class="dateLabel" float-left>{{video | date:'medium'}}</p>	 
+                <ion-icon (click)="presentActionSheet(videoId)" ios="md-more" md="md-more" float-right></ion-icon>
+            </div>
             <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
                 <!--<vg-overlay-play></vg-overlay-play> -->
                 <vg-buffering></vg-buffering>
@@ -49,7 +49,7 @@
         </div>
         <ion-card-content>
             <button ion-button clear icon-left class="pull-left actionButtons" (click)="shareVideo(video)">
-                <ion-icon name="share-alt"></ion-icon>Upload</button>
+                <ion-icon name="cloud"></ion-icon>Upload To Cloud</button>
             <button ion-button clear icon-left class="pull-right actionButtons" (click)="deleteVideo(video)">
                 <ion-icon name="trash"></ion-icon>Delete</button>
         </ion-card-content>

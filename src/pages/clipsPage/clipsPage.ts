@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Platform } from 'ionic-angular';
+import { NavController, LoadingController, Platform, ActionSheetController } from 'ionic-angular';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
 import { UploadPage } from '../../pages/upload/upload';
@@ -55,6 +55,7 @@ export class clipsPage {
                 public connectToDride: DeviceConnectionService,
                 private firebaseNative: Firebase,
                 private toast: Toast,
+                public actionSheetCtrl: ActionSheetController
               ) {
                    this.host = g.host;
                    this.livePage = LivePage;
@@ -98,7 +99,7 @@ export class clipsPage {
         .then(data => {
           this.videosAll = data
           this.videos = [];
-          for (var i = 0; i < 2 && this.videosAll.length; i++) {
+          for (var i = 0; i < 3 && this.videosAll.length; i++) {
             this.videos.push( this.videosAll.pop() );
           }
 
@@ -195,15 +196,46 @@ export class clipsPage {
 
   }
 
+  presentActionSheet(videoId) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Video On Device',
+      buttons: [
+        // {
+        //   text: 'Show on map',
+        //   handler: () => {
+        //     alert('show map')
+        //   }
+        // },
+        {
+          text: 'Upload to Dride-Cloud',
+          handler: () => {
+            this.shareVideo(videoId)
+          }
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.deleteVideo(videoId)
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
 
  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
 
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
       this.videos.push( this.videosAll.pop() );
     }
-
-    console.log('Async operation has ended');
     infiniteScroll.complete();
 
   }

@@ -134,5 +134,28 @@ page-clipsPage {
 		top: -12px;
 	}
 
-
+    .videoHead{
+            height: 50px;
+            margin-bottom: -50px;
+            background: -webkit-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: -moz-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: -o-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            position: relative;
+            top: 0;
+            z-index: 1000;
+            float: right;
+            width: 100%;
+            color: #fff;
+            p{
+                color: #fff;
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+            ion-icon{
+                padding: 5px 12px;
+                font-size: 32px;
+            }
+    }
+	
 }

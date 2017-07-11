@@ -1,5 +1,5 @@
 import { Component, PipeTransform, Pipe } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Http } from "@angular/http";
 
 import firebase from 'firebase';
@@ -32,10 +32,10 @@ export class CloudPage {
   public firebaseUser: any;
   public databaseURL: string = 'https://dride-2384f.firebaseio.com';
   public api: VgAPI;
-  public replyBox:any = [];
+  public replyBox: any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, public af: AngularFireDatabase,
     private dCloud: CloudPaginationService, private _auth: AuthService, private afAuth: AngularFireAuth, private http: Http,
-    private dialogs: Dialogs, private socialSharing: SocialSharing, private firebaseNative: Firebase) {
+    private dialogs: Dialogs, private socialSharing: SocialSharing, private firebaseNative: Firebase, public actionSheetCtrl: ActionSheetController) {
 
     //load Firebase user object
     this._auth.isLogedIn().then(result => {
@@ -68,8 +68,8 @@ export class CloudPage {
     console.log('ionViewDidLoad CloudPage');
   }
 
-  shareLink(videoId){
-    let url = "https://dride.io/profile/" +this.firebaseUser.uid + "/" + videoId;
+  shareLink(videoId) {
+    let url = "https://dride.io/profile/" + this.firebaseUser.uid + "/" + videoId;
     // Share via share sheet
     var options = {
       subject: 'Video from Dride-Cloud',
@@ -179,14 +179,47 @@ export class CloudPage {
     })
   };
 
-
+  presentActionSheet(videoId, index) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Video In The Cloud',
+      buttons: [
+        // {
+        //   text: 'Show on map',
+        //   handler: () => {
+        //     alert('show map')
+        //   }
+        // },
+        {
+          text: 'Share',
+          handler: () => {
+            this.shareLink(videoId)
+          }
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.removeClip(videoId, index)
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
 
 }
 
 
-@Pipe({name: 'keys'})
+@Pipe({ name: 'keys' })
 export class KeysPipe implements PipeTransform {
-  transform(value, args:string[]) : any {
+  transform(value, args: string[]): any {
     let keys = [];
     for (let key in value) {
       keys.push(value[key]);

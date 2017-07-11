@@ -49,7 +49,7 @@
       <ion-label color="primary" stacked>License Plate</ion-label>
       <ion-input autofocus="false" tabindex="-1" type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines class="mtb1">
       <ion-label color="primary" stacked>What happened?</ion-label>
       <ion-textarea autofocus="false" tabindex="-1" type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
     </ion-item>
@@ -57,7 +57,7 @@
 
 
   </div>
-  <div padding *ngIf="!downloadStatus">
+  <div class="sp1" padding *ngIf="!downloadStatus">
       <button ion-button full color="dark" (click)="cropAndUpload()">
         Upload
       </button>

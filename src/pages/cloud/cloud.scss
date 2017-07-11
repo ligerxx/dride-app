@@ -141,11 +141,11 @@ page-cloud {
         margin-top: 14px;
     }
     .icon-trash-can{
-        font-size: 29px;
+        font-size: 22px;
         position: relative;
-        top: -8px;
+        top: -5px;
         @media only screen and (max-width: 330px) {
-            font-size: 24px;
+            font-size: 22px;
         }
     }
 
@@ -270,15 +270,45 @@ page-cloud {
     }
 
     .shareIcon{
-        font-size: 32px;
-        position: relative;
-        top: -12px;
-        color: #3e3e3e;
-        @media only screen and (max-width: 330px) {
-            font-size: 28px;
+        span, label{
+            font-size: 26px;
+            position: relative;
+            top: -8px;
+            color: #3e3e3e;
+            @media only screen and (max-width: 330px) {
+                font-size: 28px;
+            }
+        }
+        label{
+            top: -12px;
+            font-size: 17px;
+            margin-left: -6px;
+            font-weight: 600;
         }
     }
-
+    .videoHead{
+            height: 50px;
+            margin-bottom: -50px;
+            background: -webkit-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: -moz-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: -o-linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            background: linear-gradient(rgba(62, 62, 62, 1), rgba(0, 0, 0, 0));
+            position: relative;
+            top: 0;
+            z-index: 1000;
+            float: right;
+            width: 100%;
+            color: #fff;
+            p{
+                color: #fff;
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+            ion-icon{
+                padding: 5px 12px;
+                font-size: 32px;
+            }
+    }
     .listItem.ng-enter {
         opacity: 0;
         transition: all .5s ease;
