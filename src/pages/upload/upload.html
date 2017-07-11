@@ -47,11 +47,11 @@
 
     <ion-item no-lines>
       <ion-label color="primary" stacked>License Plate</ion-label>
-      <ion-input type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
+      <ion-input autofocus="false" tabindex="-1" type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
     </ion-item>
     <ion-item no-lines>
       <ion-label color="primary" stacked>What happened?</ion-label>
-      <ion-textarea type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
+      <ion-textarea autofocus="false" tabindex="-1" type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
     </ion-item>
     <!-- ADD MAP -->
 
@@ -63,7 +63,11 @@
       </button>
   </div>
     <br><br><br><br><br><br> <br><br><br><br><br><br> <br><br><br><br><br><br>
-  <div class="loaderStatus" *ngIf="downloadStatus" >
+
+
+</ion-content>
+
+<ion-footer class="loaderStatus" *ngIf="downloadStatus" >
 
     <span class="lbl">{{downloadStatus}}..</span>
             <p class="col-xs-2 progressPracent">{{progress}}%</p>
@@ -75,7 +79,4 @@
             </div>
 
 
-  </div>
-
-
-</ion-content>
+  </ion-footer>

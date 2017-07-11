@@ -241,7 +241,7 @@ export class UploadPage {
 
     // Create a root reference
     var uid = this._auth.getUid();
-    this.showLoading('Uploading video to Dride-Cloud. ['+videoId+']');
+    this.showLoading('Uploading video to Dride-Cloud.');
     var metadata = {
       contentType: this.getFileMetaDataByBucketName(bucket),
     };
@@ -268,6 +268,8 @@ export class UploadPage {
 
           //save to DB
           var putObj = {dateUploaded: new Date().getTime(), [bucket]: {'src': url}, plates: this.licensePlates, description: this.description}
+          putObj = JSON.parse(JSON.stringify(putObj))
+
           this.userClipDbObject = this.af.object('/clips/' + uid + '/' + videoId);
           this.userClipDbObject.set(putObj).then(_ => console.log('item added! ' + bucket));
 

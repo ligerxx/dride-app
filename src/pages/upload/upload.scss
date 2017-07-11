@@ -63,12 +63,11 @@ page-upload {
         margin-bottom: 20px;
     }
     .loaderStatus{
-        position: fixed;
-        bottom: 0;
         height: 68px;
         background-color: #fff;
         width: 100%;
         border-top: 1px solid #adadad;
+        -webkit-transform: translate3d(0,0,0);
         .lbl{
             position: relative;
             top: -18px;
