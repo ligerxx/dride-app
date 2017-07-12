@@ -62,6 +62,11 @@ export class CloudPage {
     );
   }
 
+  doInfinite(infiniteScroll) {
+
+    this.dCloud.doInfinite(infiniteScroll).then(() => infiniteScroll.complete());
+
+  }
 
 
   ionViewDidLoad() {

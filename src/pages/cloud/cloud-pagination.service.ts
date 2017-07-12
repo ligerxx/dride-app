@@ -12,7 +12,7 @@ export class CloudPaginationService {
 	public uid: string;
 	fbLits: FirebaseListObservable<any>;
 	items: any = [];
-
+	itemsPool: any = [];
 	constructor(private http: Http, public db: AngularFireDatabase) {
 		this.busy = false;
 
@@ -21,10 +21,10 @@ export class CloudPaginationService {
 	}
 	loadUid(uid) {
 		this.uid = uid;
-		this.nextPage();
+		this.getClips();
 	}
 
-	nextPage = function () {
+	getClips = function () {
 
 		if (this.busy || this.end) return;
 		this.busy = true;
@@ -34,9 +34,9 @@ export class CloudPaginationService {
 				limitToLast: 10,
 				orderByChild: "dateUploaded"
 			}
-		})
-		let cloudFeed = this.fbLits.subscribe(snapshots => {
-			this.items = [];
+		}).take(1)
+		this.fbLits.subscribe(snapshots => {
+			this.itemsPool = [];
 			snapshots.forEach(snapshot => {
 
 				let data = snapshot.val();
@@ -51,11 +51,17 @@ export class CloudPaginationService {
 				itemsFromFB.views = itemsFromFB.views ? itemsFromFB.views : '0'
 
 
-				this.items.unshift(itemsFromFB);
-				this.after = itemsFromFB.hpInsertTime;
-
+				this.itemsPool.push(itemsFromFB);
 
 			})
+			
+			//load 3 clips 
+			for (var i = 0; i < 3 && this.itemsPool; i++) {
+				let currentVideo = this.itemsPool.pop();
+				this.items.push( currentVideo )
+
+			}
+
 
 		},
 			error => {
@@ -65,6 +71,18 @@ export class CloudPaginationService {
 			});
 
 	};
+
+	doInfinite(infiniteScroll) {
+		return new Promise( (resolve, reject) => {
+			for (var i = 0; i < 5 && this.itemsPool.length; i++) {
+				let currentVideo = this.itemsPool.pop();
+				
+				this.items.push( currentVideo )
+
+			}
+			resolve()
+		})
+	}
 
 	reverseObject(object) {
 		var newObject = {};
