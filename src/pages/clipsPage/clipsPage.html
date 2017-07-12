@@ -22,14 +22,15 @@
     <ion-card *ngFor="let video of videos; let i = index; ">
         <div class="videoObject">
             <div class="videoHead">
-                <p class="dateLabel" float-left>{{video | date:'medium'}}</p>	 
-                <ion-icon (click)="presentActionSheet(videoId)" ios="md-more" md="md-more" float-right></ion-icon>
+                <p class="dateLabel" float-left>{{video | date:'medium'}}</p>
+                <ion-icon (click)="presentActionSheet(video)" ios="md-more" md="md-more" float-right></ion-icon>
             </div>
             <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
                 <!--<vg-overlay-play></vg-overlay-play> -->
                 <vg-buffering></vg-buffering>
 
-                <video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{video}}.jpg" class="videoPlayer">
+                <video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{video}}.jpg"
+                    class="videoPlayer">
                     <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4">
                 </video>
                 <vg-controls>
@@ -47,11 +48,13 @@
 
 
         </div>
-        <ion-card-content>
-            <button ion-button clear icon-left class="pull-left actionButtons" (click)="shareVideo(video)">
-                <ion-icon name="cloud"></ion-icon>Upload To Cloud</button>
-            <button ion-button clear icon-left class="pull-right actionButtons" (click)="deleteVideo(video)">
-                <ion-icon name="trash"></ion-icon>Delete</button>
+        <ion-card-content class="row">
+            <div class="col" >
+            <button ion-button clear icon-left text-center class="actionButtons button-block" (click)="shareVideo(video)">
+                <ion-icon name="cloud"></ion-icon>
+                Upload To Cloud
+            </button>
+            </div>
         </ion-card-content>
     </ion-card>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

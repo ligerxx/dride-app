@@ -236,6 +236,9 @@ export class clipsPage {
     actionSheet.present();
   }
 
+  /*
+  *  This will prevent blank images to load
+  */
   testImage(url) {
       return new Promise(function (resolve, reject) {
           var timeout = 2000;
