@@ -57,16 +57,6 @@ export class CloudPaginationService {
 
 			})
 
-			this.busy = false;
-
-			if (this.after == this.before) {
-				this.end = true;
-				return;
-			}
-
-			this.before = this.after;
-			cloudFeed.unsubscribe();
-
 		},
 			error => {
 				this.end = true
