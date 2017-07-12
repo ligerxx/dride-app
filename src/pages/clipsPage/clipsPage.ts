@@ -100,7 +100,12 @@ export class clipsPage {
           this.videosAll = data
           this.videos = [];
           for (var i = 0; i < 3 && this.videosAll.length; i++) {
-            this.videos.push( this.videosAll.pop() );
+            let currentVideo = this.videosAll.pop();
+
+            if (this.testImage(this.host + '/modules/video/thumb/'+ currentVideo +'.jpg'))
+              this.videos.push( currentVideo );
+            else
+              console.log('img not found')
           }
 
         }); 
@@ -231,10 +236,37 @@ export class clipsPage {
     actionSheet.present();
   }
 
+  testImage(url) {
+      return new Promise(function (resolve, reject) {
+          var timeout = 2000;
+          var timer, img = new Image();
+          img.onerror = img.onabort = function () {
+              clearTimeout(timer);
+              reject("error");
+          };
+          img.onload = function () {
+              clearTimeout(timer);
+              resolve("success");
+          };
+          timer = setTimeout(function () {
+              // reset .src to invalid URL so it stops previous
+              // loading, but doesn't trigger new load
+              img.src = "//!!!!/test.jpg";
+              reject("timeout");
+          }, timeout);
+          img.src = url;
+      });
+  }
+
  doInfinite(infiniteScroll) {
 
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
-      this.videos.push( this.videosAll.pop() );
+        let currentVideo = this.videosAll.pop();
+
+        this.testImage(this.host + '/modules/video/thumb/'+ currentVideo +'.jpg')
+        .then(r => this.videos.push( currentVideo ))
+        .catch(err => console.log('img not found'))
+
     }
     infiniteScroll.complete();
 
