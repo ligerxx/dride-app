@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, Content, ViewController } from 'ionic-angular';
 import { Globals } from '../../providers/globals';
 import { AuthService } from '../../providers/auth-service';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
@@ -17,13 +17,7 @@ import {  trigger,  state,  style,  animate,  transition} from '@angular/animati
 import { VideoEditor } from '@ionic-native/video-editor';
 
 
-/**
- * Generated class for the UploadPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+
 @Component({
   selector: 'page-upload',
   templateUrl: 'upload.html',
@@ -49,7 +43,9 @@ export class UploadPage {
   public progress: number = 0;
   public downloadStatus: string = '';
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public viewCtrl: ViewController,
+    public navCtrl: NavController,
     public navParams: NavParams,
     public g: Globals,
     private _auth: AuthService,
@@ -66,20 +62,9 @@ export class UploadPage {
   ) {
     this.host = g.host;
     this.videoId = navParams.get('videoId');
-    
   }
 
-  ionViewDidEnter() {
-    this.getTotalTime();
-  }
 
-  getTotalTime() {
-    this.api.getDefaultMedia().subscriptions.timeUpdate.subscribe(() => {
-
-      this.totalTime = this.api.getDefaultMedia() ? this.api.getDefaultMedia().time.total / 1000 : 0;
-
-    });
-  }
   trim() {
     this.trimTo();
     this.trimFrom();
@@ -109,6 +94,12 @@ export class UploadPage {
         this.api.getDefaultMedia().currentTime = 0;
       }
     );
+  }
+
+  closeWindow() {
+
+    this.viewCtrl.dismiss({ completed: false });
+
   }
 
 
@@ -280,6 +271,7 @@ export class UploadPage {
             // upload done
             this.dialogs.alert('Great! Your video is now on Dride-Cloud.', 'WhoHoo 🙌').then(r => {
                 this.navCtrl.push(CloudPage)
+                this.closeWindow();
             })
 
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Platform, ActionSheetController } from 'ionic-angular';
+import { NavController, LoadingController, Platform, ActionSheetController, ModalController } from 'ionic-angular';
 import { VideoService } from '../../providers/video-service';
 import { DeviceConnectionService } from '../../providers/device-connection-service';
-import { UploadPage } from '../../pages/upload/upload';
+import { UploadPage } from '../../components/upload/upload';
 import { LivePage } from '../../pages/live/live';
 
 
@@ -55,7 +55,8 @@ export class clipsPage {
                 public connectToDride: DeviceConnectionService,
                 private firebaseNative: Firebase,
                 private toast: Toast,
-                public actionSheetCtrl: ActionSheetController
+                public actionSheetCtrl: ActionSheetController,
+               public modalCtrl: ModalController
               ) {
                    this.host = g.host;
                    this.livePage = LivePage;
@@ -157,18 +158,18 @@ export class clipsPage {
   }
    
 
-  shareVideo(vidoeId) {
+  shareVideo(videoId) {
 
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
-        this.navCtrl.push(UploadPage,  {
-          videoId: vidoeId
-        })
 
-        // this.navCtrl.push(UploadPage,  {
-        //   videoId: vidoeId
-        // })
+        //open login pop up
+        let uploadModal = this.modalCtrl.create(UploadPage, {'videoId': videoId});
+        uploadModal.onDidDismiss(data => {
+        });
+        uploadModal.present();
+
 
     }, function(reason) {
       console.log('close modal without execution.');

@@ -1,5 +1,42 @@
 page-upload {
 
+	.popUpHeader{
+		background-color: #333;
+		height: 52px;
+		text-align: center;
+	}	
+	.roundBottom{
+	    height: 154px;
+	    background-color: #333;
+	    margin-top: -113px;
+	    border-radius: 250%;
+	    width: 171%;
+	    margin-left: -34%;
+	}
+	.loginBox{
+		background-color: #fff;
+		border-top: 1px solid #c8c7cc;
+		border-bottom: 1px solid #c8c7cc;
+	}
+	.icon-cloud-full{
+	    font-size: 28px;
+	    position: relative;
+	    top: 21px;
+	    color: #F06060;
+	    margin-left: 8%;
+	}
+	.platform-ios .icon-dride-cloud{
+	    margin-left: 20%;
+	}
+	.closePopup{
+	    background-color: #333;
+	    color: #fff;
+	    font-size: 25px;
+	    position: relative;
+	    right: 5px;
+	    top: 0px;
+	    float: right;
+	}
     h1{
         font-size: 18px;
         padding: 12px 0;

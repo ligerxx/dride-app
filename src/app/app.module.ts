@@ -14,7 +14,6 @@ import { Globals } from '../providers/globals';
 
 import { clipsPage } from '../pages/clipsPage/clipsPage';
 import { SettingsPage } from '../pages/settings/settings';
-import { UploadPage } from '../pages/upload/upload';
 import { CloudPage, KeysPipe } from '../pages/cloud/cloud';
 import { CloudPaginationService } from '../pages/cloud/cloud-pagination.service';
 import { LivePage } from '../pages/live/live';
@@ -51,7 +50,7 @@ import {VgBufferingModule} from 'videogular2/buffering';
 //components
 import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
-
+import { UploadPage } from '../components/upload/upload';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDi0egNqUM-dZDjIiipjW-aSRYuXlFc3Ds',
