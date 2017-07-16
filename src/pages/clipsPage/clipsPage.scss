@@ -157,5 +157,10 @@ page-clipsPage {
                 font-size: 32px;
             }
     }
-	
+	.mainCard{
+		border: 1px solid rgba(0, 0, 0, 0.09);
+		-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+		border-radius: 4px;
+	}
 }
