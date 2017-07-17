@@ -37,14 +37,14 @@
     </ion-card>
   </div>
   <div class="box" *ngIf="downloadStatus">
-
+    <input type="hidden" autofocus="true" />
     <ion-item no-lines [id]="platesElm">
       <ion-label color="primary" stacked>License Plate</ion-label>
-      <ion-input autofocus="false" tabindex="-1" type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
+      <ion-input tabindex="-1" type="text" placeholder="AX5S74Y" [(ngModel)]="licensePlates"></ion-input>
     </ion-item>
     <ion-item no-lines class="mtb1">
       <ion-label color="primary" stacked>What happened?</ion-label>
-      <ion-textarea autofocus="false" tabindex="-1" type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
+      <ion-textarea tabindex="-1" type="text" placeholder="" [(ngModel)]="description"></ion-textarea>
     </ion-item>
     <!-- ADD MAP -->
 
