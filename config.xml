@@ -72,6 +72,7 @@
             </array>
         </config-file>
     </platform>
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="target-device" value="handset" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

@@ -79,6 +79,7 @@ export const firebaseConfig = {
     MomentModule,
     IonicModule.forRoot(MyApp, {
       mode: 'ios',
+      scrollAssist: false,
       autoFocusAssist: false
     }),
     AngularFireModule.initializeApp(firebaseConfig),
