@@ -21,7 +21,6 @@ import { VgAPI } from 'videogular2/core';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-cloud',
   templateUrl: 'cloud.html',

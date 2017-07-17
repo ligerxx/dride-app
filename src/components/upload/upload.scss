@@ -23,19 +23,18 @@ page-upload {
 	    position: relative;
 	    top: 21px;
 	    color: #fff;
-	    margin-left: 8%;
+	    display: block;
 	}
 	.platform-ios .icon-dride-cloud{
 	    margin-left: 20%;
 	}
 	.closePopup{
-	    background-color: #333;
-	    color: #fff;
-	    font-size: 25px;
-	    position: relative;
-	    right: 5px;
-	    top: 0px;
-	    float: right;
+        background-color: #333;
+        color: #fff;
+        font-size: 25px;
+        float: right;
+        margin-top: -37px;
+        padding: 11px;
 	}
     h1{
         font-size: 18px;

@@ -19,25 +19,24 @@ login {
 		border-top: 1px solid #c8c7cc;
 		border-bottom: 1px solid #c8c7cc;
 	}
-	.icon-dride-cloud{
+	.icon-cloud-full{
 	    font-size: 28px;
 	    position: relative;
 	    top: 21px;
-	    color: #F06060;
-	    margin-left: 8%;
+	    color: #fff;
+	    display: block;
 	}
 	.platform-ios .icon-dride-cloud{
 	    margin-left: 20%;
 	}
 
 	.closePopup{
-	    background-color: #333;
-	    color: #fff;
-	    font-size: 25px;
-	    position: relative;
-	    right: 5px;
-	    top: -7px;
-	    float: right;
+        background-color: #333;
+        color: #fff;
+        font-size: 25px;
+        float: right;
+        margin-top: -37px;
+        padding: 11px;
 	}
 	.sideIcon{
 		float: left;

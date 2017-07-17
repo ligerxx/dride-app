@@ -79,8 +79,6 @@ export class LoginComponent {
             'webClientId': '802741428178-b4c1j22k6507i33qhmmqgjem3s5e1ofg.apps.googleusercontent.com',
           })
             .then(res => {
-              console.log('res')
-              console.log(res)
               const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
               firebase.auth().signInWithCredential(googleCredential).then(() => this.onSignInSuccess())
               .catch((error) => {
