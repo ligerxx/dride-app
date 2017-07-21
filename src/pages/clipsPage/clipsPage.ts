@@ -56,7 +56,8 @@ export class clipsPage {
                 private firebaseNative: Firebase,
                 private toast: Toast,
                 public actionSheetCtrl: ActionSheetController,
-               public modalCtrl: ModalController
+                public modalCtrl: ModalController,
+                private firebase: Firebase
               ) {
                    this.host = g.host;
                    this.livePage = LivePage;
@@ -130,7 +131,7 @@ export class clipsPage {
     this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
     this.playing[vidoeId] = true;   
     this.vid.play();  
-
+    this.firebase.logEvent('play', vidoeId);
 
     setInterval(() => {
       this.currentTime = this.vid.currentTime;
@@ -143,6 +144,7 @@ export class clipsPage {
     this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
     this.playing[vidoeId] = false;
     this.vid.pause();
+    this.firebase.logEvent('pause', vidoeId);
 
   }
 
@@ -159,14 +161,14 @@ export class clipsPage {
    
 
   shareVideo(videoId) {
-
+    this.firebase.logEvent('share', 'click');
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
-
 
         //open login pop up
         let uploadModal = this.modalCtrl.create(UploadPage, {'videoId': videoId});
         uploadModal.onDidDismiss(data => {
+              this.firebase.logEvent('share', 'close window');
         });
         uploadModal.present();
 
@@ -193,7 +195,8 @@ export class clipsPage {
               console.log(toast);
             }
           );
-
+          
+          this.firebase.logEvent('deleteVideo', this.videos);
         }
 
 
@@ -274,6 +277,7 @@ export class clipsPage {
         .catch(err => console.log('img not found'))
 
     }
+
     infiniteScroll.complete();
 
   }

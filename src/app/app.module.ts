@@ -69,6 +69,7 @@ export const firebaseConfig = {
     UploadPage,
     CloudPage,
     CalibrationPage,
+    ManualCalibration,
     LoginComponent,
     ConnectDrideComponent,
     KeysPipe
@@ -100,6 +101,7 @@ export const firebaseConfig = {
     CloudPage,
     SettingsPage,
     CalibrationPage,
+    ManualCalibration,
     LoginComponent,
     ConnectDrideComponent
   ],

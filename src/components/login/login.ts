@@ -7,7 +7,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
-
+import { Firebase } from '@ionic-native/firebase';
 /*
   Generated class for the Login component.
 
@@ -29,7 +29,7 @@ export class LoginComponent {
 
 
   constructor(public viewCtrl: ViewController, public afAuth: AngularFireAuth, private platform: Platform, private fb: Facebook,
-    public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus) {
+    public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus, private firebase: Firebase) {
 
     this.authState = afAuth.authState;
     setTimeout(() => {
@@ -108,7 +108,7 @@ export class LoginComponent {
 
 
   private onSignInSuccess(): void {
-
+    this.firebase.logEvent('signInSuccess', '');
     this.viewCtrl.dismiss({ completed: true });
   }
 
