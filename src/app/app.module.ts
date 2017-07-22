@@ -31,6 +31,7 @@ import { Dialogs } from '@ionic-native/dialogs';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Firebase } from '@ionic-native/firebase';
 import { Toast } from '@ionic-native/toast';
+import { Insomnia } from '@ionic-native/insomnia';
 import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -118,6 +119,7 @@ export const firebaseConfig = {
               GooglePlus,
               Firebase,
               Toast,
+              Insomnia,
               Transfer,
               File,
               VideoEditor,

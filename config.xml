@@ -11,7 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="*" /> 
+    <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -129,4 +129,5 @@
     </plugin>
     <plugin name="cordova-plugin-video-editor" spec="~1.0.9" />
     <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
+    <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
 </widget>

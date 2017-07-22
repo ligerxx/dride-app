@@ -9,6 +9,8 @@ import { File } from '@ionic-native/file';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
+import { Insomnia } from '@ionic-native/insomnia';
+
 import { VgAPI } from 'videogular2/core';
 import { VideoService } from '../../providers/video-service';
 import { CloudPage } from '../../pages/cloud/cloud';
@@ -59,10 +61,15 @@ export class UploadPage {
     public loadingCtrl: LoadingController,
     public videoService: VideoService,
     private videoEditor: VideoEditor,
-    private dialogs: Dialogs
+    private dialogs: Dialogs,
+    private insomnia: Insomnia
   ) {
     this.host = g.host;
     this.videoId = navParams.get('videoId');
+
+    //prevent falling asleep
+    this.insomnia.keepAwake()
+
   }
 
 
@@ -99,7 +106,10 @@ export class UploadPage {
 
   closeWindow(state = false) {
 
+    this.insomnia.allowSleepAgain()
+
     this.viewCtrl.dismiss({ completed: state });
+    
 
   }
 
