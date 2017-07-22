@@ -82,7 +82,7 @@ export class CloudPage {
     }
     this.socialSharing.shareWithOptions(options).then(() => {
       // Success!
-      this.firebaseNative.logEvent("video uploaded", { content_type: "share_video", item_id: "home" });
+      this.firebaseNative.logEvent("video shared", { content_type: "share_video", item_id: "cloud" });
 
     }).catch(() => {
       // Error!

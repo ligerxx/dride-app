@@ -29,7 +29,7 @@ export class LoginComponent {
 
 
   constructor(public viewCtrl: ViewController, public afAuth: AngularFireAuth, private platform: Platform, private fb: Facebook,
-    public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus, private firebase: Firebase) {
+    public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus, private firebaseNative: Firebase) {
 
     this.authState = afAuth.authState;
     setTimeout(() => {
@@ -108,7 +108,7 @@ export class LoginComponent {
 
 
   private onSignInSuccess(): void {
-    this.firebase.logEvent('signInSuccess', '');
+    this.firebaseNative.logEvent('signIn', {'status': 'success'});
     this.viewCtrl.dismiss({ completed: true });
   }
 

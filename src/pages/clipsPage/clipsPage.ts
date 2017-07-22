@@ -56,8 +56,7 @@ export class clipsPage {
                 private firebaseNative: Firebase,
                 private toast: Toast,
                 public actionSheetCtrl: ActionSheetController,
-                public modalCtrl: ModalController,
-                private firebase: Firebase
+                public modalCtrl: ModalController
               ) {
                    this.host = g.host;
                    this.livePage = LivePage;
@@ -126,12 +125,12 @@ export class clipsPage {
 
   } 
 
-  play(vidoeId) {
+  play(videoId) {
 
-    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
-    this.playing[vidoeId] = true;   
+    this.vid = <HTMLVideoElement> document.getElementById('v' + videoId); 
+    this.playing[videoId] = true;   
     this.vid.play();  
-    this.firebase.logEvent('play', vidoeId);
+    this.firebaseNative.logEvent('play', {"vid": videoId});
 
     setInterval(() => {
       this.currentTime = this.vid.currentTime;
@@ -139,12 +138,12 @@ export class clipsPage {
 
 
   }
-  pause(vidoeId) {
+  pause(videoId) {
 
-    this.vid = <HTMLVideoElement> document.getElementById('v' + vidoeId); 
-    this.playing[vidoeId] = false;
+    this.vid = <HTMLVideoElement> document.getElementById('v' + videoId); 
+    this.playing[videoId] = false;
     this.vid.pause();
-    this.firebase.logEvent('pause', vidoeId);
+    this.firebaseNative.logEvent('pause', {"vid": videoId});
 
   }
 
@@ -161,14 +160,15 @@ export class clipsPage {
    
 
   shareVideo(videoId) {
-    this.firebase.logEvent('share', 'click');
+
+    this.firebaseNative.logEvent('share', {"action":'click'});
     //make sure the user Is logged in, a login pop up will jump if not.
     this._auth.isLogedIn().then(result => {
 
         //open login pop up
         let uploadModal = this.modalCtrl.create(UploadPage, {'videoId': videoId});
         uploadModal.onDidDismiss(data => {
-              this.firebase.logEvent('share', 'close window');
+              this.firebaseNative.logEvent('share', {"action": 'close window'});
         });
         uploadModal.present();
 
@@ -196,7 +196,7 @@ export class clipsPage {
             }
           );
           
-          this.firebase.logEvent('deleteVideo', this.videos);
+          this.firebaseNative.logEvent('deleteVideo', {'vid': this.videos});
         }
 
 
