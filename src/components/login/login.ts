@@ -108,6 +108,8 @@ export class LoginComponent {
 
 
   private onSignInSuccess(): void {
+    //set user id to firebase analytics
+    this.firebaseNative.setUserId(this.afAuth.auth.currentUser.uid)
     this.firebaseNative.logEvent('signIn', {'status': 'success'});
     this.viewCtrl.dismiss({ completed: true });
   }
