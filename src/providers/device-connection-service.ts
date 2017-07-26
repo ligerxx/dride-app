@@ -143,10 +143,7 @@ export class DeviceConnectionService {
      return array.buffer;
   }
 
-
   isConnected(withPopUp: boolean) {
-
-
 
       return new Promise<boolean>((resolve, reject) => {
 

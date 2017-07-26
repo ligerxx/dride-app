@@ -52,6 +52,7 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
 import { UploadPage } from '../components/upload/upload';
+import { ErrorLoggerProvider } from '../providers/error-logger/error-logger';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDi0egNqUM-dZDjIiipjW-aSRYuXlFc3Ds',
@@ -106,7 +107,7 @@ export const firebaseConfig = {
     LoginComponent,
     ConnectDrideComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, 
+  providers: [{provide: ErrorHandler, useClass: ErrorLoggerProvider}, 
               AuthService,
               LoginComponent,
               DeviceConnectionService,
@@ -127,7 +128,8 @@ export const firebaseConfig = {
               InAppBrowser,
               BLE,
               LocalNotifications,
-              CloudPaginationService
+              CloudPaginationService,
+    ErrorLoggerProvider
              ]
 })
 export class AppModule {}
