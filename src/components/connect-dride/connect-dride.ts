@@ -26,7 +26,6 @@ export class ConnectDrideComponent {
 
   }
 
-
   buyDride(){
 
     const browser = this.iab.create('https://dride.io/store', '_system');

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="19" id="io.dride" version="0.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="20" id="io.dride" version="0.2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>dride</name>
     <description>An app for dride</description>
     <author email="hello@dride.io" href="http://dride.io">The dride guys</author>
@@ -130,4 +130,5 @@
     <plugin name="cordova-plugin-video-editor" spec="~1.0.9" />
     <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
+    <plugin name="cordova-plugin-firebase" spec="~0.1.20" />
 </widget>
