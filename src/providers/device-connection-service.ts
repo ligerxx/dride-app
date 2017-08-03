@@ -42,6 +42,7 @@ export class DeviceConnectionService {
     this.characteristicUUID = '5678'
 
     console.log("Scanning Started");
+ 
     this.platform.ready().then(() => {
 
 

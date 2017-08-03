@@ -45,6 +45,9 @@ export class ErrorLoggerProvider extends IonicErrorHandler{
     handleError(error) {
         super.handleError(error);
 
+		//show string error for debug
+		console.error(error.originalError ? error.originalError.toString() : error.toString())
+
         try {
           Raven.captureException(error.originalError || error);
         }
