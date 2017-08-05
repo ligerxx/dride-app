@@ -16,7 +16,7 @@
     <div class="mx-auto">
       <h2 class="bVideosT">My videos in the Cloud</h2>
     </div>
-    <div *ngIf="hpClips.items">
+    <div *ngIf="hpClips && hpClips.items">
       <ion-card class="whiteBg p-0 animBox mx-auto cClips" *ngFor="let currentVideo of hpClips.items;  index as key">
         <div class="box mainVid">
           <div class="videogular-container" *ngIf="currentVideo">
@@ -51,7 +51,7 @@
           <div class="actionBar innerPad">
             <div class="views pull-left">
               <label>{{currentVideo.views | number:0}} Views </label> &nbsp;&nbsp;&nbsp;
-              <label *ngIf="currentVideo.cmntsCount" (click)="commentFoucs('replyBox'+key)">{{currentVideo.cmntsCount | number:0}} Comments</label>
+              <label *ngIf="currentVideo && currentVideo.cmntsCount" (click)="commentFoucs('replyBox'+key)">{{currentVideo.cmntsCount | number:0}} Comments</label>
             </div>
             <ul class="pull-right actions">
               <li class="shareIcon" (click)="shareLink(currentVideo.videoId)">

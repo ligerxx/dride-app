@@ -269,6 +269,9 @@ export class clipsPage {
 
  doInfinite(infiniteScroll) {
 
+	if (!this.videosAll)
+		infiniteScroll.complete();
+		
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
         let currentVideo = this.videosAll.pop();
 
