@@ -73,12 +73,19 @@ export class clipsPage {
                          this.loadClipsKnowingDeviceIsConnected();
                          this.watchForDevice.unsubscribe();
                         }
-                    })
+                    }, 
+					err => {
+						console.error(err)
+					})
                   });
 
 
 
    }
+   
+	ngOnDestroy(){
+		this.watchForDevice.unsubscribe();
+	}
 
 
     onPlayerReady(api:VgAPI, videoId: string) {
