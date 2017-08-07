@@ -80,15 +80,32 @@ export class clipsPage {
 
    }
 
-    onPlayerReady(api:VgAPI) {
-        this.api = api;
 
-        this.api.getDefaultMedia().subscriptions.ended.subscribe(
+    onPlayerReady(api:VgAPI, videoId: string) {
+
+        api.getDefaultMedia().subscriptions.ended.subscribe(
             () => {
                 // Set the video to the beginning
-                this.api.getDefaultMedia().currentTime = 0;
+                api.getDefaultMedia().currentTime = 0;
             }
         );
+
+        api.getDefaultMedia().subscriptions.pause.subscribe(
+            () => {
+              console.log("pause")
+              this.firebaseNative.logEvent('pause', {"vid": '?'});
+            }
+        );
+        api.getDefaultMedia().subscriptions.playing.subscribe(
+            () => {
+              console.log("play")
+			  this.playing[videoId] = true;  
+              this.firebaseNative.logEvent('playing', {"vid": '?'});
+            }
+        );
+
+
+
     }
 
 
@@ -125,27 +142,6 @@ export class clipsPage {
 
   } 
 
-  play(videoId) {
-
-    this.vid = <HTMLVideoElement> document.getElementById('v' + videoId); 
-    this.playing[videoId] = true;   
-    this.vid.play();  
-    this.firebaseNative.logEvent('play', {"vid": videoId});
-
-    setInterval(() => {
-      this.currentTime = this.vid.currentTime;
-    }, 500);
-
-
-  }
-  pause(videoId) {
-
-    this.vid = <HTMLVideoElement> document.getElementById('v' + videoId); 
-    this.playing[videoId] = false;
-    this.vid.pause();
-    this.firebaseNative.logEvent('pause', {"vid": videoId});
-
-  }
 
 
   toDate(timeStamp) {

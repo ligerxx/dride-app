@@ -25,7 +25,7 @@
                 <p class="dateLabel" float-left>{{video | date:'medium'}}</p>
                 <ion-icon (click)="presentActionSheet(video)" ios="md-more" md="md-more" float-right></ion-icon>
             </div>
-            <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
+            <vg-player (onPlayerReady)="onPlayerReady($event, video.key)" class="player">
                 <!--<vg-overlay-play></vg-overlay-play> -->
                 <vg-buffering></vg-buffering>
 
@@ -41,7 +41,7 @@
                         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
                     </vg-scrub-bar>
 
-                    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                    <vg-time-display *ngIf="playing[video.key]" vgProperty="left" vgFormat="mm:ss"></vg-time-display>
 
                 </vg-controls>
             </vg-player>
