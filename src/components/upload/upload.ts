@@ -96,13 +96,12 @@ export class UploadPage {
   onPlayerReady(api: VgAPI) {
     this.api = api;
 
-    this.api.getDefaultMedia().subscriptions.ended.subscribe(
-      () => {
-        // Set the video to the beginning
-        this.api.getDefaultMedia().currentTime = 0;
+    this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(() => {
+		this.totalTime = parseInt((this.api.getDefaultMedia().time.total / 1000) + '');
       }
     );
   }
+
 
   closeWindow(state = false) {
 
