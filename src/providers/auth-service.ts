@@ -46,7 +46,7 @@ export class AuthService {
              let profileModal = this.modalCtrl.create(LoginComponent);
              profileModal.onDidDismiss(data => {
 
-               data.completed ? resolve(true) : reject(true);
+               data.completed ? resolve(true) : reject();
 
              });
              profileModal.present();

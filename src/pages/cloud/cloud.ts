@@ -39,12 +39,13 @@ export class CloudPage {
     //load Firebase user object
     this._auth.isLogedIn().then(result => {
 
-
       this.hpClips = this.dCloud
       this.firebaseUser = this._auth.getUser();
       this.hpClips.loadUid(this.firebaseUser.uid);
 
-    });
+    }).catch(err =>{
+		this.navCtrl.pop();
+	})
 
 
 
