@@ -95,7 +95,6 @@
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
-    <engine name="ios" spec="~4.3.1" />
     <plugin name="cordova-custom-config" spec="~3.2.0" />
     <plugin name="cordova-plugin-ble-central" spec="~1.1.4">
         <variable name="BLUETOOTH_USAGE_DESCRIPTION" value="Control you Dride" />
@@ -131,4 +130,6 @@
     <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
     <plugin name="cordova-plugin-firebase" spec="~0.1.20" />
+    <engine name="android" spec="~6.1.2" />
+    <engine name="ios" spec="~4.3.1" />
 </widget>

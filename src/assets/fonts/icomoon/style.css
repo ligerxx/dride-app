@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?49funm');
-  src:  url('fonts/icomoon.eot?49funm#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?49funm') format('truetype'),
-    url('fonts/icomoon.woff?49funm') format('woff'),
-    url('fonts/icomoon.svg?49funm#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ax9zro');
+  src:  url('fonts/icomoon.eot?ax9zro#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ax9zro') format('truetype'),
+    url('fonts/icomoon.woff?ax9zro') format('woff'),
+    url('fonts/icomoon.svg?ax9zro#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -29,6 +29,21 @@
 }
 .icon-medal:before {
   content: "\e91f";
+}
+.icon-envelope:before {
+  content: "\e92c";
+}
+.icon-zero:before {
+  content: "\e92b";
+}
+.icon-forum:before {
+  content: "\e928";
+}
+.icon-fleet:before {
+  content: "\e929";
+}
+.icon-dride:before {
+  content: "\e92a";
 }
 .icon-share-outline:before {
   content: "\e926";
@@ -140,6 +155,9 @@
 }
 .icon-bigD:before {
   content: "\e900";
+}
+.icon-menu:before {
+  content: "\e927";
 }
 .icon-chevron-thin-right:before {
   content: "\e91d";

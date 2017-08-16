@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IonicErrorHandler } from 'ionic-angular';  
+import { IonicErrorHandler, Platform } from 'ionic-angular';  
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Firebase } from '@ionic-native/firebase';
@@ -37,7 +37,7 @@ Raven
 @Injectable()
 export class ErrorLoggerProvider extends IonicErrorHandler{
 
-    constructor(private firebase: Firebase) { 
+    constructor(private firebase: Firebase, private platform: Platform) { 
       super()
     }
 
@@ -48,19 +48,21 @@ export class ErrorLoggerProvider extends IonicErrorHandler{
 		//show string error for debug
 		console.error(error.originalError ? error.originalError.toString() : error.toString())
 
-        try {
-          Raven.captureException(error.originalError || error);
-        }
-        catch(e) {
-          console.error(e);
-        }
+		if (this.platform.is('cordova')){
+			try {
+			Raven.captureException(error.originalError || error);
+			}
+			catch(e) {
+			console.error(e);
+			}
 
-        try {
-          this.firebase.logError(error.originalError || error);
-        }
-        catch(e) {
-          console.error(e);
-        }
+			try {
+			this.firebase.logError(error.originalError || error);
+			}
+			catch(e) {
+			console.error(e);
+			}
+		}
     }
 
 }
