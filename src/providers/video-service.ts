@@ -32,7 +32,8 @@ export class VideoService {
 	  // don't have the data yet
 	  return new Promise(resolve => {
 
-		this.http.get( this.host + '/api/getClips')
+		this.http.get( 'http://simplest.co.il/clips.json' )
+		//this.http.get( this.host + '/api/getClips')
 	      .map(res => res.json())
 	      .subscribe(data => {
 			this.data = data.data;

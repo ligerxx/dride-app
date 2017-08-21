@@ -151,10 +151,7 @@ z
                //open login pop up
                if (withPopUp){
                  this.connectModal = this.modalCtrl.create(ConnectDrideComponent);
-
-                 this.statusBar.backgroundColorByHexString('#333333'); // set status bar to black
                  this.connectModal.present();
-                 
                }
                resolve(false);
 
@@ -175,6 +172,10 @@ z
 
     // don't have the data yet
     return new Promise(resolve => {
+
+
+	//remove
+	resolve(true);
 
       //if we didn't receive a response than we're not connected!
       setTimeout(() => {

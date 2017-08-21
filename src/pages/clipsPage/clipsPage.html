@@ -33,7 +33,7 @@
 						<vg-buffering></vg-buffering>
 
 						<video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline
-							poster="../../assets/images/demo.jpg"
+							poster="{{host}}/modules/video/thumb/{{video}}.jpg"
 							class="videoPlayer">
 							<source src="{{host}}/modules/video/clip/{{video.vId}}.mp4" type="video/mp4">
 						</video>
