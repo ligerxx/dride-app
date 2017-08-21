@@ -37,6 +37,9 @@ import { File } from '@ionic-native/file';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BLE } from '@ionic-native/ble';
+import { LaunchReview } from '@ionic-native/launch-review';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MomentModule } from 'angular2-moment';
 import { ElasticModule } from 'angular2-elastic';
@@ -53,6 +56,8 @@ import { LoginComponent } from '../components/login/login';
 import { ConnectDrideComponent } from '../components/connect-dride/connect-dride';
 import { UploadPage } from '../components/upload/upload';
 import { ErrorLoggerProvider } from '../providers/error-logger/error-logger';
+import { InFeedPromtComponent } from '../components/in-feed-promt/in-feed-promt';
+
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDi0egNqUM-dZDjIiipjW-aSRYuXlFc3Ds',
@@ -69,12 +74,14 @@ export const firebaseConfig = {
     clipsPage,
     SettingsPage,
     UploadPage,
-    CloudPage,
+	CloudPage,
+	LivePage,
     CalibrationPage,
     ManualCalibration,
     LoginComponent,
     ConnectDrideComponent,
-    KeysPipe
+    KeysPipe,
+    InFeedPromtComponent
   ],
   imports: [
     BrowserModule,
@@ -126,10 +133,12 @@ export const firebaseConfig = {
               VideoEditor,
               SocialSharing,
               InAppBrowser,
-              BLE,
+			  BLE,
+			  LaunchReview,
               LocalNotifications,
-              CloudPaginationService,
-    ErrorLoggerProvider
+			  CloudPaginationService,
+			  NativeStorage,
+    		  ErrorLoggerProvider
              ]
 })
 export class AppModule {}

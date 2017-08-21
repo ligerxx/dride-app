@@ -31,7 +31,6 @@ export class CloudPaginationService {
 		this.fbLits = this.db.list('/clips/' + this.uid, {
 			preserveSnapshot: true,
 			query: {
-				limitToLast: 10,
 				orderByChild: "dateUploaded"
 			}
 		}).take(1)
@@ -55,12 +54,13 @@ export class CloudPaginationService {
 
 			})
 			
-			//load 3 clips 
-			for (var i = 0; i < 3 && this.itemsPool; i++) {
+			for (var i = 0; i < this.itemsPool.length && this.itemsPool; i++) {
+				
 				let currentVideo = this.itemsPool.pop();
 				this.items.push( currentVideo )
 
 			}
+
 
 
 		},

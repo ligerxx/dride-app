@@ -41,17 +41,18 @@ export class DeviceConnectionService {
     this.serviceUUID = '1234';
     this.characteristicUUID = '5678'
 
-    console.log("Scanning Started");
- 
-    this.platform.ready().then(() => {
 
 
-        setTimeout(this.scanBLE(), 3000);
+  }
 
+  ngOnInit() {
 
-     });
-
-
+	console.log("Scanning Started");
+	
+	this.ble.isEnabled().then(res =>{
+		console.log(res)
+		setTimeout(this.scanBLE(), 3000);
+	})
 
   }
 
@@ -122,13 +123,7 @@ export class DeviceConnectionService {
                         console.log('reconnecting..');
                         this.scanBLE();
                       });
-
-
-
               }
-
-
-
           },
             err => {
               console.log('Error scanning for Bluetooth devices')
@@ -143,7 +138,7 @@ export class DeviceConnectionService {
       }
      return array.buffer;
   }
-
+z
   isConnected(withPopUp: boolean) {
 
       return new Promise<boolean>((resolve, reject) => {

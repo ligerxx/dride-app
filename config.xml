@@ -72,6 +72,7 @@
             </array>
         </config-file>
     </platform>
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="target-device" value="handset" />
     <preference name="webviewbounce" value="false" />
@@ -85,6 +86,7 @@
     <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="SplashScreen" value="screen" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
@@ -129,7 +131,11 @@
     <plugin name="cordova-plugin-video-editor" spec="~1.0.9" />
     <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
     <plugin name="cordova-plugin-insomnia" spec="~4.3.0" />
-    <plugin name="cordova-plugin-firebase" spec="~0.1.20" />
     <engine name="android" spec="~6.1.2" />
     <engine name="ios" spec="~4.3.1" />
+    <plugin name="com.pylonproducts.wifiwizard" spec="~0.2.11" />
+    <allow-navigation href="http://10.100.102.7:8100" />
+    <plugin name="cordova-launch-review" spec="~2.0.0" />
+    <plugin name="cordova-plugin-firebase" spec="~0.1.20" />
+    <plugin name="cordova-plugin-nativestorage" spec="~2.2.2" />
 </widget>

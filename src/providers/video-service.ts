@@ -32,12 +32,18 @@ export class VideoService {
 	  // don't have the data yet
 	  return new Promise(resolve => {
 
-	    this.http.get( this.host + '/api/getClips')
+		this.http.get( this.host + '/api/getClips')
 	      .map(res => res.json())
 	      .subscribe(data => {
+			this.data = data.data;
+			//objectify videos for dride generated object of video id's
+			for(let i=0; i< this.data.length; i++){
+				console.log(this.data[i])
+				this.data[i] = {'vId': this.data[i], 'type': 0 }
+			}
 
-	        this.data = data.data;
-	        
+
+
 	        resolve(this.data);
 	      });
 	  });

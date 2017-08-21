@@ -14,11 +14,12 @@
   <div class="container">
 
     <div class="mx-auto">
-      <h2 class="bVideosT">My videos in the Cloud</h2>
+		<h2 class="bVideosT" *ngIf="hpClips.items.length">My videos in the Cloud</h2>
+		<h2 class="bVideosT" *ngIf="!hpClips.items.length"><br><br><br>You dont have any videos yet..</h2>
     </div>
     <div *ngIf="hpClips && hpClips.items">
       <ion-card class="whiteBg p-0 animBox mx-auto cClips" *ngFor="let currentVideo of hpClips.items;  index as key">
-        <div class="box mainVid">
+        <div *ngIf="currentVideo" class="box mainVid">
           <div class="videogular-container" *ngIf="currentVideo">
           <div class="videoHead">
             <p class="dateLabel" float-left>{{currentVideo.dateUploaded | date:'medium'}}</p>	 

@@ -44,7 +44,7 @@ export class clipsPage {
   public preload:string = 'auto';
   public api:VgAPI;
   livePage: any;
-
+  public addedInFeedByType = [false, false, false, false]
 
     constructor(public navCtrl: NavController,
                 public videoService: VideoService, 
@@ -118,8 +118,6 @@ export class clipsPage {
 
 
    loadClipsKnowingDeviceIsConnected(){
-
-
         this.videoService.load()
         .then(data => {
           this.videosAll = data
@@ -272,10 +270,20 @@ export class clipsPage {
 
  doInfinite(infiniteScroll) {
 
-	if (!this.videosAll)
+	if (!this.videosAll){
 		infiniteScroll.complete();
+		return;
+	}
 		
     for (var i = 0; i < 6 && this.videosAll.length; i++) {
+
+		//insert inFeedPromt slides
+		if (this.videosAll.length > 4 && !this.addedInFeedByType[2]){
+			this.videos.push( {type: 2} );
+			this.addedInFeedByType[2] = true;
+		}
+
+
         let currentVideo = this.videosAll.pop();
 
         this.testImage(this.host + '/modules/video/thumb/'+ currentVideo +'.jpg')

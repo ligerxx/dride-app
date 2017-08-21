@@ -19,43 +19,48 @@
         </div>
         <span class="icon-bigD"></span>
     </div>
-    <ion-card *ngFor="let video of videos; let i = index; " class="mainCard">
-        <div class="videoObject">
-            <div class="videoHead">
-                <p class="dateLabel" float-left>{{video | date:'medium'}}</p>
-                <ion-icon (click)="presentActionSheet(video)" ios="md-more" md="md-more" float-right></ion-icon>
-            </div>
-            <vg-player (onPlayerReady)="onPlayerReady($event, video.key)" class="player">
-                <!--<vg-overlay-play></vg-overlay-play> -->
-                <vg-buffering></vg-buffering>
+    <div *ngFor="let video of videos; let i = index; ">
+		
+		<in-feed-promt *ngIf="video.type == 2"></in-feed-promt>
+		<ion-card *ngIf="!video.type" class="mainCard">
+				<div class="videoObject">
+					<div class="videoHead">
+						<p class="dateLabel" float-left>{{video.vId | date:'medium'}}</p>
+						<ion-icon (click)="presentActionSheet(video.vId)" ios="md-more" md="md-more" float-right></ion-icon>
+					</div>
+					<vg-player (onPlayerReady)="onPlayerReady($event, video.vId)" class="player">
+						<!--<vg-overlay-play></vg-overlay-play> -->
+						<vg-buffering></vg-buffering>
 
-                <video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline poster="{{host}}/modules/video/thumb/{{video}}.jpg"
-                    class="videoPlayer">
-                    <source src="{{host}}/modules/video/clip/{{video}}.mp4" type="video/mp4">
-                </video>
-                <vg-controls>
-                    <vg-play-pause></vg-play-pause>
+						<video [vgMedia]="media" #media [id]="'v' + i" preload="none" webkit-playsinline playsinline
+							poster="../../assets/images/demo.jpg"
+							class="videoPlayer">
+							<source src="{{host}}/modules/video/clip/{{video.vId}}.mp4" type="video/mp4">
+						</video>
+						<vg-controls>
+							<vg-play-pause></vg-play-pause>
 
-                    <vg-scrub-bar>
-                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-                    </vg-scrub-bar>
+							<vg-scrub-bar>
+								<vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+								<vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+							</vg-scrub-bar>
 
-                    <vg-time-display *ngIf="playing[video.key]" vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+							<vg-time-display *ngIf="playing[video.vId]" vgProperty="left" vgFormat="mm:ss"></vg-time-display>
 
-                </vg-controls>
-            </vg-player>
+						</vg-controls>
+					</vg-player>
 
 
-        </div>
-        <ion-card-content class="row">
-            <div class="col" >
-            <button ion-button clear icon-left text-center class="actionButtons button-block" (click)="shareVideo(video)">
-                Upload To Cloud
-            </button>
-            </div>
-        </ion-card-content>
-    </ion-card>
+				</div>
+				<ion-card-content class="row">
+					<div class="col" >
+					<button ion-button clear icon-left text-center class="actionButtons button-block" (click)="shareVideo(video.vId)">
+						Upload To Cloud
+					</button>
+					</div>
+				</ion-card-content>
+		</ion-card>
+	</div>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content loadingSpinner="dots"></ion-infinite-scroll-content>
     </ion-infinite-scroll>

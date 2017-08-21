@@ -1,0 +1,78 @@
+in-feed-promt {
+
+	.bridge{
+		background-image: url(../../assets/images/bridge.png);
+		height: 34px;
+		margin-top: 99px;
+		background-size: contain;
+	}
+	.sign{
+		margin: auto auto;
+		text-align: center;
+		width: 87%;
+		background-color: #b8e3e7;
+		height: 260px;
+		border-radius: 13px;
+		margin-top: -92px;
+		margin-bottom: -31px;
+		position: relative;
+		border: 3px solid #fff;
+	}
+	.sign:before {
+		background: none;
+		border: 3px solid #fff;
+		content: "";
+		display: block;
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		right: 4px;
+		bottom: 4px;
+		pointer-events: none;
+		border-radius: 7px;
+	  }
+	  .icon-roadNum{
+		font-size: 43px;
+		position: relative;
+		top: 21px;
+		color: #72c6ce;
+	  }
+	  .icon-arrow1{
+		color: #fff;
+		font-size: 60px;
+		position: relative;
+		top: 21px;
+	  }
+	  .m{
+		color: #fff;
+		font-size: 31px;
+		text-align: left;
+		padding-left: 29px;
+		padding-top: 26px;
+	  }
+	  .actions{
+		background-color: #72c6ce;
+		height: 64px;
+		width: 89% !important;
+		padding-top: 12px;
+		border-bottom-left-radius: 7px;
+		border-bottom-right-radius: 7px;
+		z-index: 10000;
+		margin-left: -8px;
+		border: 3px solid #fff;
+		color: #fff;
+		font-size: 18px;
+		margin: auto auto;
+		text-align: center;
+		margin-bottom: 31px;
+	}
+	  .s:after{
+		border-right: 3px solid #fff;
+		content: "";
+		position: absolute;
+		right: 0;
+		top: -13px;
+		height: 60px;
+		display: block;
+	  }
+}

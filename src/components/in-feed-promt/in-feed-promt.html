@@ -1,0 +1,44 @@
+<!-- Generated template for the InFeedPromtComponent component -->
+<div *ngIf="visible" [@introAnim]>
+
+  <div class="bridge"></div>
+  <div class="sign">
+
+    <span class="icon-roadNum"></span>
+    <ion-grid>
+      <ion-row *ngIf="screen == 'pre'" [@introAnim]>
+        <ion-col>
+          <div class="m">Enjoying Dride?</div>
+        </ion-col>
+        <ion-col>
+          <span class="icon-arrow1"></span>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="screen == 'rating'" [@introAnim]>
+        <ion-col>
+          <div class="m">How about a rating on the App Store, then?</div>
+        </ion-col>
+
+      </ion-row>
+      <ion-row *ngIf="screen == 'feedback'" [@introAnim]>
+        <ion-col>
+          <div class="m">Would you mind giving us some feedback?</div>
+        </ion-col>
+
+      </ion-row>
+	</ion-grid>
+  </div>
+  <ion-grid>
+	<ion-row class="actions">
+	  <ion-col *ngIf="screen == 'pre'" class="s" (click)="askToLeaveFeedback()">Not Really</ion-col>
+	  <ion-col *ngIf="screen == 'rating'" class="s" (click)="hide()">No, thanks</ion-col>
+	  <ion-col *ngIf="screen == 'feedback'" class="s" (click)="hide()">No, thanks</ion-col>
+
+	  <ion-col *ngIf="screen == 'pre'" (click)="askToLeaveRating()">Yes!</ion-col>
+	  <ion-col *ngIf="screen == 'rating'" (click)="leaveRating()">Ok, sure</ion-col>
+	  <ion-col *ngIf="screen == 'feedback'" (click)="leaveFeedback()">Ok, sure</ion-col>
+
+	</ion-row>
+  </ion-grid>
+
+</div>

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ax9zro');
-  src:  url('fonts/icomoon.eot?ax9zro#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ax9zro') format('truetype'),
-    url('fonts/icomoon.woff?ax9zro') format('woff'),
-    url('fonts/icomoon.svg?ax9zro#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?a7yt56');
+  src:  url('fonts/icomoon.eot?a7yt56#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?a7yt56') format('truetype'),
+    url('fonts/icomoon.woff?a7yt56') format('woff'),
+    url('fonts/icomoon.svg?a7yt56#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -29,6 +29,12 @@
 }
 .icon-medal:before {
   content: "\e91f";
+}
+.icon-arrow1:before {
+  content: "\e92d";
+}
+.icon-roadNum:before {
+  content: "\e92e";
 }
 .icon-envelope:before {
   content: "\e92c";

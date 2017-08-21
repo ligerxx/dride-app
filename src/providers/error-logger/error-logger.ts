@@ -48,16 +48,17 @@ export class ErrorLoggerProvider extends IonicErrorHandler{
 		//show string error for debug
 		console.error(error.originalError ? error.originalError.toString() : error.toString())
 
+		console.log(this.platform)
 		if (this.platform.is('cordova')){
 			try {
-			Raven.captureException(error.originalError || error);
+				Raven.captureException(error.originalError || error);
 			}
 			catch(e) {
 			console.error(e);
 			}
 
 			try {
-			this.firebase.logError(error.originalError || error);
+				this.firebase.logEvent('error', error.originalError || error);
 			}
 			catch(e) {
 			console.error(e);
