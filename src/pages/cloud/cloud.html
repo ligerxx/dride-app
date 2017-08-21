@@ -13,7 +13,7 @@
 
   <div class="container">
 
-    <div class="mx-auto">
+    <div class="mx-auto" *ngIf="hpClips && hpClips.items">
 		<h2 class="bVideosT" *ngIf="hpClips.items.length">My videos in the Cloud</h2>
 		<h2 class="bVideosT" *ngIf="!hpClips.items.length"><br><br><br>You dont have any videos yet..</h2>
     </div>
