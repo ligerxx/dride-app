@@ -173,10 +173,6 @@ z
     // don't have the data yet
     return new Promise(resolve => {
 
-
-	//remove
-	resolve(true);
-
       //if we didn't receive a response than we're not connected!
       setTimeout(() => {
 
