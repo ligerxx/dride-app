@@ -36,7 +36,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class InFeedPromtComponent {
 
-	visible = true;
+	visible = false;
 	screen: string = "pre";
 	constructor(private launchReview: LaunchReview, 
 				private platform: Platform, 

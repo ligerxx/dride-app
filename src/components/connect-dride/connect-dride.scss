@@ -22,7 +22,8 @@ connect-dride {
 	    float: right;
 	}
 	.underline{
-		text-decoration: underline;
+		border-bottom: 1px dashed #999;
+		display: inline;
 	}
 	.product{
 	    width: auto;
