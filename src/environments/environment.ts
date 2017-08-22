@@ -1,4 +1,6 @@
 export const environment = {
+	ip: "192.168.42.1",
+	host: "http://192.168.42.1",
 	production: false,
 	firebase: {
 		apiKey: 'AIzaSyCNxGoKpeyo2HwNjkKQj9G2QWIqLtK_-oc',

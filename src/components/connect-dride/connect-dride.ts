@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ModalController, Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+
+import { ConnectStateProvider } from '../../providers/connect-state/connect-state';
 
 declare var WifiWizard: any;
 
@@ -19,7 +22,11 @@ export class ConnectDrideComponent {
 
   public isLoaded: boolean = false;
 
-  constructor(public modalCtrl: ModalController, private iab: InAppBrowser, public platfrom: Platform) {
+  constructor(public modalCtrl: ModalController, 
+	private iab: InAppBrowser, 
+	public platfrom: Platform, 
+	public connState: ConnectStateProvider,
+	private openNativeSettings: OpenNativeSettings) {
 
 	this.connectToWifi();
 
@@ -55,6 +62,14 @@ export class ConnectDrideComponent {
 	}
   }
 
+  goToWifiSettings() {
+	  this.openNativeSettings.open('wifi')
+  }
+
+  getConnectionLink() {
+	return this.connState.getLinkEstablished();
+  }
+
   /* android only
   *	 Android Only
   *  We will use this to upload to Dride cloud if we dont have internet connection	
@@ -69,7 +84,7 @@ export class ConnectDrideComponent {
 
   buyDride(){
 
-    const browser = this.iab.create('https://dride.io/store', '_system');
+    const browser = this.iab.create('https://dride.io/store?ref=app', '_system');
 
   }
 

@@ -62,13 +62,12 @@ export class clipsPage {
                    this.livePage = LivePage;
 
                   //loop until we got a connection
-                  let timer = Observable.timer(0,2000);
-                  let withPopUp = true;
+                  let timer = Observable.timer(0,3000);
+
 
                   this.watchForDevice = timer.subscribe(t=> {
-                    connectToDride.isConnected(withPopUp).then( data => {
+                    connectToDride.isConnected().then( data => {
 
-                       withPopUp = false
                        if (data){
                          this.loadClipsKnowingDeviceIsConnected();
                          this.watchForDevice.unsubscribe();
@@ -129,7 +128,9 @@ export class clipsPage {
               this.videos.push( currentVideo );
             else
               console.log('img not found')
-          }
+		  }
+		  this.firebaseNative.logEvent('videos_loaded', {"count": this.videos.length});
+		  
 
         }); 
 

@@ -40,6 +40,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BLE } from '@ionic-native/ble';
 import { LaunchReview } from '@ionic-native/launch-review';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MomentModule } from 'angular2-moment';
@@ -58,6 +59,7 @@ import { ConnectDrideComponent } from '../components/connect-dride/connect-dride
 import { UploadPage } from '../components/upload/upload';
 import { ErrorLoggerProvider } from '../providers/error-logger/error-logger';
 import { InFeedPromtComponent } from '../components/in-feed-promt/in-feed-promt';
+import { ConnectStateProvider } from '../providers/connect-state/connect-state';
 
 
 @NgModule({
@@ -130,7 +132,9 @@ import { InFeedPromtComponent } from '../components/in-feed-promt/in-feed-promt'
               LocalNotifications,
 			  CloudPaginationService,
 			  NativeStorage,
-    		  ErrorLoggerProvider
+			  ErrorLoggerProvider,
+			  ConnectStateProvider,
+			  OpenNativeSettings
              ]
 })
 export class AppModule {}

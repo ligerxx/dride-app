@@ -15,10 +15,15 @@
 
 	<span [ngClass]="{'animatedCar': isLoaded}" class="icon-toyCar-1"></span>
 
-	<ul class="steps">
+	<ul *ngIf="getConnectionLink()" class="steps text-center">
+		<ion-spinner name="crescent"></ion-spinner>
+		<p>Loading..</p>
+	</ul>
+
+	<ul *ngIf="!getConnectionLink()" class="steps">
 	    <li>
 	    	<label>1</label> 
-	    	<span>Go to <b>Settings > Wi-Fi</b> on your iPhone</span>
+	    	<span>Go to <b class="underline" (click)="goToWifiSettings()">Settings > Wi-Fi</b> on your iPhone</span>
 	    </li>
 	    <li>
 	    	<label>2</label>
@@ -29,6 +34,7 @@
 	    	<span> Once connected, return to the <b>dride App</b></span>
 	    </li>
 	</ul>
+
 
 	<!-- static buy dride box -->
 	<div class="buyDride" (click)="buyDride()">

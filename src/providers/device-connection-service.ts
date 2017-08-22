@@ -5,10 +5,12 @@ import { ConnectDrideComponent } from '../components/connect-dride/connect-dride
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Globals } from '../providers/globals';
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { BLE } from '@ionic-native/ble';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { environment } from '../environments/environment';
+import { ConnectStateProvider } from '../providers/connect-state/connect-state';
+
 
 
 declare var bluetoothle: any;
@@ -22,222 +24,251 @@ declare var WifiWizard: any;
 @Injectable()
 export class DeviceConnectionService {
 
-  public connectModal: any;
-  public isOnlineB: boolean;
-  public serviceUUID: string;
-  public characteristicUUID: string;
+	public connectModal: any;
+	public isOnlineB: boolean;
+	public serviceUUID: string;
+	public characteristicUUID: string;
+	public online = false;
+
+	constructor(public modalCtrl: ModalController,
+		public g: Globals,
+		public http: Http,
+		public af: AngularFireDatabase,
+		private statusBar: StatusBar,
+		public platform: Platform,
+		private ble: BLE,
+		private localNotifications: LocalNotifications,
+		public connState: ConnectStateProvider
+	) {
+
+		this.isOnlineB = false;
+		this.serviceUUID = '1234';
+		this.characteristicUUID = '5678'
 
 
-  constructor(public modalCtrl: ModalController,
-              public g: Globals, 
-              public http: Http,
-              public af: AngularFireDatabase, 
-              private statusBar: StatusBar, 
-              public platform: Platform, 
-              private ble: BLE, 
-			  private localNotifications: LocalNotifications
-              ) {
+	}
 
-    this.isOnlineB = false;
-    this.serviceUUID = '1234';
-    this.characteristicUUID = '5678'
+	ngOnInit() {
 
+		console.log("Scanning Started");
 
-  }
+		this.ble.isEnabled().then(res => {
+			console.log(res)
+			setTimeout(this.scanBLE(), 3000);
+		})
 
-  ngOnInit() {
+	}
 
-	console.log("Scanning Started");
-	
-	this.ble.isEnabled().then(res =>{
-		console.log(res)
-		setTimeout(this.scanBLE(), 3000);
-	})
+	scanBLE() {
+		console.log('startBLE')
 
-  }
-
-  scanBLE(){
-          console.log('startBLE')
-
-          this.ble.isEnabled().then(res =>{
-              console.log('status')
-              console.log(res)
-          }, err =>{
-            console.log('err!')
-            console.log(err)
-            this.ble.enable();
-          })
-          
-
-          this.ble.startScan([this.serviceUUID]).subscribe(device => {
-       
-                // if we're in the background, add a local notification
-                var localNotification = {
-                    title: 'Dride is paired',
-                    text: 'Make sure to connect to the dride WIFI network'
-                };
-
-                // stop scanning and connect automatically
-                if (device.name == 'dride' || device.name == 'raspberrypi'){
-                  
-                  this.localNotifications.schedule(localNotification);
-
-                      console.log("try to connect")
-                      this.ble.connect(device.id).subscribe(con => {
-
-                        console.log("con")
-                        console.log(con)
-
-                        //send timestamp to device
-                        var timestamp = parseInt( (new Date).getTime()/1000  + '') + '';
-                        //7787 is the serviceUUID for time update
-                        //9997 is the characteristicUUID time update
-                        this.ble.write(device.id, '7787', '9997', this.stringToBytes(timestamp)).then(res => {
-                          console.log('res')
-                          console.log(res)
-                        },err => {
-                          console.log('err')
-                          console.log(err)
-                        })
-
-                        this.ble.startNotification(device.id, this.serviceUUID, this.characteristicUUID).subscribe(buffer => {
-
-                            console.log("onData");
-                            var data = new Uint32Array(buffer);
-                            console.log(data[0]);
-
-                            var localNotification = {
-                                title: 'Uploading video..',
-                                text: 'Click here to share this video with your friends'
-                            };
-
-                            this.localNotifications.schedule(localNotification);
-
-                        })
+		this.ble.isEnabled().then(res => {
+			console.log('status')
+			console.log(res)
+		}, err => {
+			console.log('err!')
+			console.log(err)
+			this.ble.enable();
+		})
 
 
-                      }, err => {
+		this.ble.startScan([this.serviceUUID]).subscribe(device => {
 
-                        console.log('Error connecting to device', err);
+			// if we're in the background, add a local notification
+			var localNotification = {
+				title: 'Dride is paired',
+				text: 'Make sure to connect to the dride WIFI network'
+			};
 
-                        console.log('reconnecting..');
-                        this.scanBLE();
-                      });
-              }
-          },
-            err => {
-              console.log('Error scanning for Bluetooth devices')
-            });
+			// stop scanning and connect automatically
+			if (device.name == 'dride' || device.name == 'raspberrypi') {
 
-  }
+				this.localNotifications.schedule(localNotification);
 
-  stringToBytes(string: any ) {
-     var array = new Uint8Array(string.length);
-     for (var i = 0, l = string.length; i < l; i++) {
-         array[i] = string.charCodeAt(i);
-      }
-     return array.buffer;
-  }
-z
-  isConnected(withPopUp: boolean) {
+				console.log("try to connect")
+				this.ble.connect(device.id).subscribe(con => {
 
-      return new Promise<boolean>((resolve, reject) => {
+					console.log("con")
+					console.log(con)
 
-        this.isOnline().then(resp => {
-            
+					//send timestamp to device
+					var timestamp = parseInt((new Date).getTime() / 1000 + '') + '';
+					//7787 is the serviceUUID for time update
+					//9997 is the characteristicUUID time update
+					this.ble.write(device.id, '7787', '9997', this.stringToBytes(timestamp)).then(res => {
+						console.log('res')
+						console.log(res)
+					}, err => {
+						console.log('err')
+						console.log(err)
+					})
 
-           if (!resp){
+					this.ble.startNotification(device.id, this.serviceUUID, this.characteristicUUID).subscribe(buffer => {
 
-               //open login pop up
-               if (withPopUp){
-                 this.connectModal = this.modalCtrl.create(ConnectDrideComponent);
-                 this.connectModal.present();
-               }
-               resolve(false);
+						console.log("onData");
+						var data = new Uint32Array(buffer);
+						console.log(data[0]);
 
-           }
-           else{
-             resolve(true);
-             if (this.connectModal)
-               this.connectModal.dismiss();
-           }
-        });
+						var localNotification = {
+							title: 'Uploading video..',
+							text: 'Click here to share this video with your friends'
+						};
 
-        
-    });
-  }
+						this.localNotifications.schedule(localNotification);
 
-  isOnline(){
-	return new Promise(resolve => {
-		if (this.platform.is('cordova'))
-				//return false if not on our WIFI
-				WifiWizard.getCurrentSSID(
-					currentSSID => {
-						environment.ssids.forEach(ssid => {
-							if (currentSSID.indexOf(ssid) !== -1){
-								resolve(this.isOnlineInner());
-							}
-						})
-						resolve(false)
-					}, 
-					e => {
-						console.log(e)
+					})
+
+
+				}, err => {
+
+					console.log('Error connecting to device', err);
+
+					console.log('reconnecting..');
+					this.scanBLE();
+				});
+			}
+		},
+			err => {
+				console.log('Error scanning for Bluetooth devices')
+			});
+
+	}
+
+	stringToBytes(string: any) {
+		var array = new Uint8Array(string.length);
+		for (var i = 0, l = string.length; i < l; i++) {
+			array[i] = string.charCodeAt(i);
+		}
+		return array.buffer;
+	}
+	z
+	isConnected() {
+
+		return new Promise<boolean>((resolve, reject) => {
+
+			this.isOnline().then(resp => {
+
+				if (!resp) {
+					if (this.connState.getShowPopupOnConnection()) {
+						this.connectModal = this.modalCtrl.create(ConnectDrideComponent);
+						this.connectModal.present()
+						this.connState.showPopupOnConnection(false)
+
 					}
-				)
-			else
-				resolve(this.isOnlineInner());
+					resolve(false);
+
+				} else {
+					resolve(true);
+					if (this.connectModal)
+						this.connectModal.dismiss();
+				}
+			}, err => {
+				console.log('other process is connecting.. Terminating.')
+			});
+
+
 		});
 	}
 
-  isOnlineInner(){
+	isOnline() {
+		return new Promise((resolve, reject) => {
 
-    // don't have the data yet
-    return new Promise(resolve => {
-	 
-	  //if we didn't receive a response than we're not connected!
-      setTimeout(() => {
+			// if other process already stared to connect
+			if (this.connState.getLinkEstablished()) {
+				reject();
+				return;
+			}
 
-        resolve(false);
-        console.log('kill connection');
-        con.unsubscribe();
-        
-      }, 5000);
-          
-      let con = this.http.get( this.g.host +'/api/isOnline')
-        .map(res => res.json())
-        .subscribe(
-          data => {
+			if (this.platform.is('cordova'))
+				//return false if not on our WIFI
+				WifiWizard.getCurrentSSID(
+					currentSSID => {
+						let prom = [];
+						for (let i = 0; i < environment.ssids.length; i++) {
+							if (currentSSID.indexOf(environment.ssids[i]) !== -1) {
+								this.isOnlineInner().then(
+									r => resolve(r),
+									e => resolve(e)
+								)
+								return;
+							}
+						}
 
-              if (data.status){
-                this.makeSureDeviceIsRegistered()
-                resolve(true);
-                return;
-              }
-              
-            }
-            );
+						setTimeout(() => {
+							console.log('Our wifi is not found :(')
+							resolve(false);
+						}, 2000)
 
-    });
-  
-  }
+					},
+					e => {
+						console.error(e)
+						resolve(false)
+					}
+				)
+			else {
+				console.log('Browser detection')
+				this.isOnlineInner().then(
+					r => resolve(r),
+					e => resolve(e)
+				)
+			}
+		});
+	}
+
+	isOnlineInner() {
+
+		// don't have the data yet
+		return new Promise(resolve => {
+
+			//if we didn't receive a response than we're not connected!
+			setTimeout(() => {
+				if (!this.online) {
+					this.connState.setLinkEstablished(false);
+					resolve(false);
+				}
+			}, 12000);
 
 
-  makeSureDeviceIsRegistered(){
+			let con = this.http.get(this.g.host + '/api/isOnline')
+				.map(res => res.json())
+				.timeout(1000)
+				.subscribe(
+					data => {
 
-      let con = this.http.get( this.g.host +'/api/getSerialNumber')
-        .map(res => res.json())
-        .timeout(2000)
-        .subscribe(
-          data => {
-                const devices = this.af.object('devicesAll/' + data.serial);
-                devices.set({'lastSeen': (new Date).getTime()});               
-            }
-            );
+						if (data.status) {
+							this.makeSureDeviceIsRegistered()
+							resolve(true);
+							return;
+						}
 
-    return true;
+					},
+					err => this.connState.setLinkEstablished(false)
+				);
+
+		});
+
+	}
+
+	getLinkEstablished(){
+		return this.connState.getLinkEstablished()
+	}
+
+	makeSureDeviceIsRegistered() {
+
+		let con = this.http.get(this.g.host + '/api/getSerialNumber')
+			.map(res => res.json())
+			.timeout(2000)
+			.subscribe(
+			data => {
+				const devices = this.af.object('devicesAll/' + data.serial);
+				devices.set({ 'lastSeen': (new Date).getTime() });
+			}
+			);
+
+		return true;
 
 
-  }
+	}
 
 
 
