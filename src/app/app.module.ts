@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { environment } from '../environments/environment';
 import { NgModule, ErrorHandler} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -59,15 +60,6 @@ import { ErrorLoggerProvider } from '../providers/error-logger/error-logger';
 import { InFeedPromtComponent } from '../components/in-feed-promt/in-feed-promt';
 
 
-export const firebaseConfig = {
-  apiKey: 'AIzaSyDi0egNqUM-dZDjIiipjW-aSRYuXlFc3Ds',
-  authDomain: 'dride-2384f.firebaseapp.com',
-  databaseURL: 'https://dride-2384f.firebaseio.com',
-  storageBucket: 'dride-2384f.appspot.com',
-  messagingSenderId: "802741428178"
-};
-
-
 @NgModule({
   declarations: [
     MyApp,
@@ -92,7 +84,7 @@ export const firebaseConfig = {
       scrollAssist: false,
       autoFocusAssist: false
     }),
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, 
     AngularFireAuthModule,
     VgCoreModule,

@@ -36,7 +36,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class InFeedPromtComponent {
 
-	visible = false;
+	visible = true;
 	screen: string = "pre";
 	constructor(private launchReview: LaunchReview, 
 				private platform: Platform, 
@@ -51,7 +51,8 @@ export class InFeedPromtComponent {
 							if (data.dte && (new Date().getTime() - data.dte) > 3*24*60*60*1000 )
 								this.visible = data.visible
 							else
-								this.nativeStorage.setItem('inFeedPromt', {visible: true, dte: new Date().getTime})
+								this.nativeStorage.setItem('inFeedPromt', {visible: true, dte: new Date().getTime()})
+
 							},
 						error => console.error(error)
 						);
@@ -72,20 +73,20 @@ export class InFeedPromtComponent {
 		var appId = this.platform.is('ios') ? "1260340386" : 'io.dride.yi';
 		this.launchReview.launch(appId).then(r => {
 			this.firebaseNative.logEvent("leave review", {});
-			this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime})
+			this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime()})
 		})
 
 	}
 	leaveFeedback() {
 
-		const browser = this.iab.create('https://dride.io/forum', '_system');
+		const browser = this.iab.create('https://dride.io/forum?action=post', '_system');
 		this.firebaseNative.logEvent("leave feedback", {});
 		this.hide()
-		this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime})
+		this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime()})
 		
 	}
 	hide() {
 		this.visible = false
-		this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime})
+		this.nativeStorage.setItem('inFeedPromt', {visible: false, dte: new Date().getTime()})
 	}
 }

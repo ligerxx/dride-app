@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,114 +12,136 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
-
 @font-face {
   font-family: "Comfortaa";
   src: url('../assets/fonts/Comfortaa-Light.ttf');
 }
 
-.pull-right{
-    float: right;
-}
-.pull-left{
-    float: left;
-}
-.toolbar-background{
-    border: 0;
-    background: rgba(248, 248, 248, 0);
-    background-image: url(../assets/images/header.svg);
-    background-size: 101%;
-    background-position-x: center;
-    background-repeat: no-repeat;
-}
-.toolbar-title{
-	color: #fff;
-    font-size: 28px;
-    font-weight: 300;
+@font-face {
+  font-family: "Raleway";
+  src: url('../assets/fonts/Raleway-Light.ttf');
 }
 
- .toolbar{
- 	overflow: visible;
-    height: 76px !important;
- }
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.toolbar-background {
+  border: 0;
+  background: rgba(248, 248, 248, 0);
+  background-image: url(../assets/images/header.svg);
+  background-size: 101%;
+  background-position-x: center;
+  background-repeat: no-repeat;
+}
+
+.toolbar-title {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.toolbar {
+  overflow: visible;
+  height: 76px !important;
+}
 
 // scroll-content{
 // 	margin-top: 43px !important;
 //     border-top: 0px !important;
 // }
 .bar-button-default {
-    color: #333;
+  color: #333;
 }
 
-ion-menu .toolbar-background{
-	background-image: none;
-	background: #9e4f4f;
-}
-.toggleMenu{
-	background-color: transparent;
-    font-size: 25px;
-    color: #fff;
-}
-.has-refresher > .scroll-content{
-    border-top: 0;
-}
-.scroll-content{
-    margin-top: 61px !important;
-}
-.padContent{
-    margin-top: 24px;
-}
-ion-content{
-    background-color: #f3f3f3 !important;
-}
-.whiteBg{
-    background-color: #fff !important;
-}
-.blackBg{
-    background-color: #333;
-}
-.text-center{
-    text-align: center;
-}
-h1, h2, h3, h4{
-    color: #808080;
-}
-.spacer{
-    margin-bottom: 28px;
-}
-.settingsNodes{
-    color: #333;
-}
-.ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child, .ios ion-nav > .ion-page > ion-header > .toolbar.statusbar-padding:first-child ion-title{
-    padding-top: 0!important;
+ion-menu .toolbar-background {
+  background-image: none;
+  background: #9e4f4f;
 }
 
-.bar-button-menutoggle-ios{
-    margin: 0 -8px;
-    margin-top: -28px;
-}
-.title{
-    height: 65px !important;
+.toggleMenu {
+  background-color: transparent;
+  font-size: 25px;
+  color: #fff;
 }
 
-
-.navCust{
-    height: 58px !important;
-
-    .toolbar-background {
-        background: #333;
-    }
+.has-refresher>.scroll-content {
+  border-top: 0;
 }
 
-.back-button{
-    color: #fff;
-    margin-top: -21px;
+.scroll-content {
+  margin-top: 61px !important;
+}
+
+.padContent {
+  margin-top: 24px;
+}
+
+ion-content {
+  background-color: #f3f3f3 !important;
+}
+
+.whiteBg {
+  background-color: #fff !important;
+}
+
+.blackBg {
+  background-color: #333;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #808080;
+}
+
+.spacer {
+  margin-bottom: 28px;
+}
+
+.settingsNodes {
+  color: #333;
+}
+
+.ios ion-nav>.ion-page>ion-header>.toolbar.statusbar-padding:first-child,
+.ios ion-nav>.ion-page>ion-header>.toolbar.statusbar-padding:first-child ion-title {
+  padding-top: 0!important;
+}
+
+.bar-button-menutoggle-ios {
+  margin: 0 -8px;
+  margin-top: -28px;
+}
+
+.title {
+  height: 65px !important;
+}
+
+.navCust {
+  height: 58px !important;
+  .toolbar-background {
+    background: #333;
+  }
+}
+
+.back-button {
+  color: #fff;
+  margin-top: -21px;
 }
 
 .action-sheet-ios .action-sheet-button {
-    color: #333;
+  color: #333;
 }
+
 .action-sheet-ios .action-sheet-destructive {
-    color: #f53d3d !important;
+  color: #f53d3d !important;
 }

@@ -8,10 +8,11 @@ import { Globals } from '../providers/globals';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import { BLE } from '@ionic-native/ble';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { environment } from '../environments/environment';
 
 
 declare var bluetoothle: any;
-
+declare var WifiWizard: any;
 /*
   Generated class for the DeviceConnectionService provider.
 
@@ -34,13 +35,12 @@ export class DeviceConnectionService {
               private statusBar: StatusBar, 
               public platform: Platform, 
               private ble: BLE, 
-              private localNotifications: LocalNotifications
+			  private localNotifications: LocalNotifications
               ) {
 
     this.isOnlineB = false;
     this.serviceUUID = '1234';
     this.characteristicUUID = '5678'
-
 
 
   }
@@ -167,13 +167,34 @@ z
     });
   }
 
-
   isOnline(){
+	return new Promise(resolve => {
+		if (this.platform.is('cordova'))
+				//return false if not on our WIFI
+				WifiWizard.getCurrentSSID(
+					currentSSID => {
+						environment.ssids.forEach(ssid => {
+							if (currentSSID.indexOf(ssid) !== -1){
+								resolve(this.isOnlineInner());
+							}
+						})
+						resolve(false)
+					}, 
+					e => {
+						console.log(e)
+					}
+				)
+			else
+				resolve(this.isOnlineInner());
+		});
+	}
+
+  isOnlineInner(){
 
     // don't have the data yet
     return new Promise(resolve => {
-
-      //if we didn't receive a response than we're not connected!
+	 
+	  //if we didn't receive a response than we're not connected!
       setTimeout(() => {
 
         resolve(false);
