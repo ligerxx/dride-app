@@ -201,11 +201,10 @@ z
         console.log('kill connection');
         con.unsubscribe();
         
-      }, 2000);
+      }, 5000);
           
       let con = this.http.get( this.g.host +'/api/isOnline')
         .map(res => res.json())
-        .timeout(2000)
         .subscribe(
           data => {
 
