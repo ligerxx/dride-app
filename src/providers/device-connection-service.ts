@@ -143,7 +143,7 @@ export class DeviceConnectionService {
 	}
 	z
 	isConnected() {
-
+		console.error('isConnected????')
 		return new Promise<boolean>((resolve, reject) => {
 
 			this.isOnline().then(resp => {

@@ -8,6 +8,10 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { Firebase } from '@ionic-native/firebase';
+
+import { AndroidConnectorProvider } from '../../providers/android-connector/android-connector';
+
+
 /*
   Generated class for the Login component.
 
@@ -33,7 +37,8 @@ export class LoginComponent {
 
 
 	constructor(public viewCtrl: ViewController, public afAuth: AngularFireAuth, private platform: Platform, private fb: Facebook,
-		public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus, private firebaseNative: Firebase) {
+		public statusBar: StatusBar, private alertCtrl: AlertController, private googlePlus: GooglePlus, private firebaseNative: Firebase,
+	 	public androidConnectorProvider: AndroidConnectorProvider) {
 
 
 		this.authState = afAuth.authState;
@@ -78,6 +83,7 @@ export class LoginComponent {
 
 	signInWithGoogle(): void {
 
+		
 		this.googlePlus.login({
 			'webClientId': '802741428178-b4c1j22k6507i33qhmmqgjem3s5e1ofg.apps.googleusercontent.com',
 		})

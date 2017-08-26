@@ -4,6 +4,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 import { ConnectStateProvider } from '../../providers/connect-state/connect-state';
+import { environment } from '../../environments/environment';
+import { AndroidConnectorProvider } from '../../providers/android-connector/android-connector';
 
 declare var WifiWizard: any;
 
@@ -26,61 +28,51 @@ export class ConnectDrideComponent {
 	private iab: InAppBrowser, 
 	public platfrom: Platform, 
 	public connState: ConnectStateProvider,
-	private openNativeSettings: OpenNativeSettings) {
+	private openNativeSettings: OpenNativeSettings,
+    private androidConnect: AndroidConnectorProvider) {
 
+  }
+
+  ionViewWillEnter() {
 	this.connectToWifi();
-
   }
 
   connectToWifi() {
 		
-	if (this.platfrom.is('ios')){
-		setTimeout(() => {
-			this.isLoaded =true;
-		}, 1000);
-	}
+	// for the small animation of the car
+	setTimeout(() => {
+		this.isLoaded =true;
+	}, 1000);
+
 
 	if (this.platfrom.is('android')){
 
 		//make sure WIFI is on if not open it
+		WifiWizard.setWifiEnabled(true, 
+			() => {
+				const r = this.androidConnect.android_connectSequence()
+				console.error('r')
+				console.error(r)
+			},
+			(err) => console.error(err)
+		)
 
-		WifiWizard.startScan()
-		setTimeout(() => {
-			WifiWizard.getScanResults({}, networks => {
-				// TODO: add expected SSID to config
-				// loop the reaults and look for the SSID 'dride'
-				console.error(networks)
 
-					//connect to the WIFI network
-					//TODO: ...
-
-			}, err => {
-				console.error(err)
-			})
-		}, 2000);
 
 	}
   }
 
+
   goToWifiSettings() {
 	  this.openNativeSettings.open('wifi')
   }
-
-  getConnectionLink() {
-	return this.connState.getLinkEstablished();
-  }
-
-  /* android only
-  *	 Android Only
-  *  We will use this to upload to Dride cloud if we dont have internet connection	
+  /*
+  *	Android is able to connect to device on it own so we will start connection sequence automatically on Android only
   */
-  connectTo3G(){
-
-	//TODO: ...
-	// Only if we dont have internet disconnect from WIFI
-
-
+  getConnectionLink() {
+	return this.connState.getLinkEstablished() || this.platfrom.is('android');
   }
+
 
   buyDride(){
 

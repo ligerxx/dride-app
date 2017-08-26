@@ -60,6 +60,7 @@ import { UploadPage } from '../components/upload/upload';
 import { ErrorLoggerProvider } from '../providers/error-logger/error-logger';
 import { InFeedPromtComponent } from '../components/in-feed-promt/in-feed-promt';
 import { ConnectStateProvider } from '../providers/connect-state/connect-state';
+import { AndroidConnectorProvider } from '../providers/android-connector/android-connector';
 
 
 @NgModule({
@@ -134,7 +135,8 @@ import { ConnectStateProvider } from '../providers/connect-state/connect-state';
 			  NativeStorage,
 			  ErrorLoggerProvider,
 			  ConnectStateProvider,
-			  OpenNativeSettings
+			  OpenNativeSettings,
+    		  AndroidConnectorProvider
              ]
 })
 export class AppModule {}

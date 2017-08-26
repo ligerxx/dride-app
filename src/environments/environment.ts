@@ -12,7 +12,8 @@ export const environment = {
 	},
 	googleMapsApi: 'AIzaSyD_9g0R-z2-NpCQpiQrFrJ7_NzWK6rRyRM',
 	functionsURL: 'https://us-central1-dride-2384f.cloudfunctions.net',
-	ssids: ['dride']
+	ssids: ['dride'],
+	wifiPassword: 'ilovedride'
 };
 
 
