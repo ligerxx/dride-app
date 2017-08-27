@@ -25,8 +25,8 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Main', component: clipsPage },
-      { title: 'Settings', component: SettingsPage },
-      { title: 'My Videos', component: CloudPage }
+	  { title: 'My Videos', component: CloudPage },
+      { title: 'Settings', component: SettingsPage }
     ];
 
   }

@@ -192,7 +192,7 @@ export class clipsPage {
 				if (index > -1) {
 					this.videos.splice(index, 1);
 
-					this.toast.show("Video was deleted", '5000', 'bottom').subscribe(
+					this.toast.show("Video was Deleted", '5000', 'bottom').subscribe(
 						toast => {
 							console.log(toast);
 						}
@@ -209,7 +209,7 @@ export class clipsPage {
 
 	presentActionSheet(videoId) {
 		let actionSheet = this.actionSheetCtrl.create({
-			title: 'Video On Device',
+			title: 'Video on Device',
 			buttons: [
 				// {
 				//   text: 'Show on map',
@@ -231,7 +231,7 @@ export class clipsPage {
 					}
 				},
 				{
-					text: 'Cancel',
+					text: 'Close',
 					role: 'cancel',
 					handler: () => {
 						console.log('Cancel clicked');

@@ -78,8 +78,8 @@ export class SettingsPage {
 
   promtUpdateDride(){
       let alert = this.alertCtrl.create({
-      title: 'Confirm update',
-      message: 'This will update your Dride, Continue?',
+      title: 'Updates Available',
+      message: 'Do you want to install these updates to your Dride now?',
       buttons: [
         {
           text: 'Cancel',
@@ -121,9 +121,9 @@ export class SettingsPage {
                             loading.dismiss();
 
                               let alert = this.alertCtrl.create({
-                                title: 'Success',
-                                subTitle: 'The firmware was updated, Your device will now reboot..',
-                                buttons: ['Dismiss']
+                                title: 'Software Update Success',
+                                subTitle: 'Your drive has been updated and is now restarting.',
+                                buttons: ['Close']
                               });
                               alert.present();
                             
@@ -132,9 +132,9 @@ export class SettingsPage {
                        loading.dismiss();
                         this.firebase.logEvent("firmware", {content_type: "fail", item_id: "upload", info: error})
                         let alert = this.alertCtrl.create({
-                          title: 'Something is wrong',
-                          subTitle: 'The firmware was not updated, Let us know dride.io/forum',
-                          buttons: ['OK']
+                          title: 'Software Update Failed',
+                          subTitle: 'An error occurred while updating the firmware. Please let us know what happened at dride.io/forum',
+                          buttons: ['Close']
                         });
                         alert.present();
                               
@@ -146,8 +146,8 @@ export class SettingsPage {
             loading.dismiss();
             this.firebase.logEvent("firmware", {content_type: "fail", item_id: "download", info: error})
             let alert = this.alertCtrl.create({
-              title: 'Something is wrong',
-              subTitle: 'The firmware was not updated, Let us know dride.io/forum',
+              title: 'Software Update Failed',
+              subTitle: 'An error occurred while downloading the firmware. Please let us know what happened at dride.io/forum',
               buttons: ['OK']
             });
             alert.present();
@@ -185,9 +185,9 @@ export class SettingsPage {
   getInfo(){
 
     let alert = this.alertCtrl.create({
-      title: 'Device Info',
-      subTitle: 'Device version: ' + this.configObj.os.version,
-      buttons: ['Dismiss']
+      title: 'Dride Info',
+      subTitle: 'Version: ' + this.configObj.os.version,
+      buttons: ['Close']
     });
     alert.present();
 

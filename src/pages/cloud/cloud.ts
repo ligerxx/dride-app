@@ -188,7 +188,7 @@ export class CloudPage {
 
   presentActionSheet(videoId, index) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Video In The Cloud',
+      title: 'Video in the Cloud',
       buttons: [
         // {
         //   text: 'Show on map',

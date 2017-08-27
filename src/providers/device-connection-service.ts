@@ -76,8 +76,8 @@ export class DeviceConnectionService {
 
 			// if we're in the background, add a local notification
 			var localNotification = {
-				title: 'Dride is paired',
-				text: 'Make sure to connect to the dride WIFI network'
+				title: 'Dride Discovered',
+				text: 'Connect to the dride Wi-Fi network to see your videos'
 			};
 
 			// stop scanning and connect automatically

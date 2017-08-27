@@ -110,7 +110,7 @@
     "plugins": {
       "cordova-custom-config": {},
       "cordova-plugin-ble-central": {
-        "BLUETOOTH_USAGE_DESCRIPTION": "Control you Dride"
+        "BLUETOOTH_USAGE_DESCRIPTION": "Control your Dride"
       },
       "cordova-plugin-console": {},
       "cordova-plugin-device": {},
